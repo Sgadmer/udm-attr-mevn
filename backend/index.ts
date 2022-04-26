@@ -1,18 +1,13 @@
-import express, { Router } from 'express';
+import express, { Router } from 'express'
+import cors from 'cors'
+import User from './routes/user'
 
-const app = express();
-app.use(express.json());
+const app = express()
 
-// Move to server/express-app/routes/test.ts, anywhere really, but avoid server/api and server/middleware
-const testRouter = new Router();
-testRouter.get('/', (req, res) => res.status(200).json({ route: '/api/test' }));
-testRouter.get('/test', (req, res) => res.status(200).json({ route: '/api/test/test' }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
-// You **must** add `/api` prefix (same as nuxt.config).
-// Maybe you can use global prefix with express, never used it
-app.use('/api/test', testRouter);
+app.use('/api', User)
 
-// Catch-all
-app.use((req, res) => res.status(200).json({ route: '/*' }));
-
-export default app;
+export default app

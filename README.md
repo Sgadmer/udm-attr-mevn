@@ -40,10 +40,26 @@ yarn dev
 
 ```bash
 # Фронт и бэк собираются одной командой в один проект
+# ИСПОЛЬЗОВАТЬ ЭТО
 yarn build
 ```
 
-Запустить собранный прод билд:
+```bash
+# The generate command pre-renders every route of your application 
+# and stores the result in plain HTML files that you can deploy 
+# on any static hosting services. 
+# The command triggers the nuxi build command with the prerender 
+# argument set to true
+
+# __НЕ__ИСПОЛЬЗОВАТЬ ЭТО
+yarn generate
+```
+
+## Production preview
+
+Сервер запуститься на http://localhost:4000 (если не указан другой порт)
+Здесь можно посмотреть все ли в порядке с билдом
+При отправке на сервер хост и порт будут автоматом заменены на те что в env сервера
 
 ```bash
 yarn preview
