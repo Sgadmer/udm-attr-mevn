@@ -2,14 +2,22 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "start http://localhost:3000 && nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
-  },
-  "devDependencies": {
-    "nuxt": "3.0.0-rc.1"
+    "preview": "start http://localhost:4000 && nuxt preview"
   },
   "dependencies": {
-    "express": "^4.17.3"
+    "@nuxt/webpack-builder": "^3.0.0-rc.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.1",
+    "nuxt": "3.0.0-rc.1"
+  },
+  "devDependencies": {
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "vue-demi": "^0.12.5"
   }
 }

@@ -40,7 +40,19 @@ yarn dev
 
 ```bash
 # Фронт и бэк собираются одной командой в один проект
+# ИСПОЛЬЗОВАТЬ ЭТО
 yarn build
+```
+
+```bash
+# The generate command pre-renders every route of your application 
+# and stores the result in plain HTML files that you can deploy 
+# on any static hosting services. 
+# The command triggers the nuxi build command with the prerender 
+# argument set to true
+
+# __НЕ__ИСПОЛЬЗОВАТЬ ЭТО
+yarn generate
 ```
 
 Запустить собранный прод билд:
