@@ -1,42 +1,52 @@
-# Nuxt 3 Minimal Starter
+# UDM-ATR-MEVN
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+## Доки по Nuxt3
 
-## Setup
+1) [Основа](https://v3.nuxtjs.org/guide/concepts/introduction)
+2) [API](https://v3.nuxtjs.org/api/composables/use-async-data)
+3) [Config](https://v3.nuxtjs.org/api/configuration/nuxt.config)
 
-Make sure to install the dependencies:
+## Подготовка
+
+Используемые версии Node и Yarn:
 
 ```bash
-# yarn
-yarn install
+# Node (nvm)
+16.14.2
 
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
+# Yarn
+1.22.5
 ```
 
-## Development Server
+## Установка
 
-Start the development server on http://localhost:3000
+Установите зависимости через yarn:
 
 ```bash
-npm run dev
+yarn install
+```
+
+## Dev Сервер
+
+Сервер запуститься на http://localhost:3000 (если не указан другой порт)
+
+```bash
+yarn dev
 ```
 
 ## Production
 
-Build the application for production:
+Сборка приложения для прода :
 
 ```bash
-npm run build
+# Фронт и бэк собираются одной командой в один проект
+yarn build
 ```
 
-Locally preview production build:
+Запустить собранный прод билд:
 
 ```bash
-npm run preview
+yarn preview
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+По умолчанию проект собирается для node серверов [Доки под сборку проекта под разные серверы](https://v3.nuxtjs.org/guide/deploy/presets)
