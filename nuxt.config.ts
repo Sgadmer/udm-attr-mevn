@@ -1,7 +1,12 @@
 import { defineNuxtConfig } from 'nuxt'
+import url from 'url'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  alias: {
+    '@assets': '@/assets',
+    '@styles': url.fileURLToPath(new URL('./frontend/assets/styles', import.meta.url)),
+  },
   app: {
     head: {
       meta: [
@@ -21,14 +26,31 @@ export default defineNuxtConfig({
       style: [
         // <style type="text/css">:root { color: red }</style>
         // { children: ':root { color: red }', type: 'text/css' }
-      ]
+      ],
+      title: 'UDM-ATTRACTION',
+      htmlAttrs: {
+        lang: 'ru',
+      },
     }
   },
   build: {
-    analyze: true
+    analyze: true,
+    transpile: ['@vueform/slider', 'swiper'],
+  },
+  runtimeConfig: {
+    // The private keys which are only available within server-side
+    apiSecret: 'Im_Avaliable_Only_On_Server_Side', //Доступно только на сервере
+    // Keys within public, will be also exposed to the client-side
+    public: {
+      apiBase: 'Im_Avaliable_Only_On_Server_And_Client' //Доступно на сервере и на фронте
+    }
   },
   srcDir: 'frontend/',
-  css: ['@/assets/styles/main.scss'],   // Эти стили будут применены к каждой странице
+  css: [
+    'modern-normalize/modern-normalize.css', // Файл из node_modules
+    'swiper/css/bundle',
+    '@/assets/styles/main.scss', // Файл из проекта
+  ],   // Эти стили будут применены к каждой странице
   serverMiddleware: [
     { path: '/api', handler: './backend/index.ts' }, // `/api/**` does NOT handle /api
     { path: '/api/**', handler: './backend/index.ts' },
