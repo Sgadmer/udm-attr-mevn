@@ -4,7 +4,7 @@ import url from 'url'
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   alias: {
-    '@assets': '@/assets',
+    '@assets': url.fileURLToPath(new URL('./frontend/assets', import.meta.url)),
     '@styles': url.fileURLToPath(new URL('./frontend/assets/styles', import.meta.url)),
     '@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
     '@types': url.fileURLToPath(new URL('./frontend/types', import.meta.url)),
@@ -36,7 +36,6 @@ export default defineNuxtConfig({
     }
   },
   build: {
-    analyze: true,
     transpile: ['@vueform/slider', 'swiper'],
   },
   builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite',
