@@ -1,0 +1,10 @@
+@import '@styles/common.scss';
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+
+  &__Login {
+    margin-right: 35px;
+  }
+}

@@ -6,6 +6,8 @@ export default defineNuxtConfig({
   alias: {
     '@assets': '@/assets',
     '@styles': url.fileURLToPath(new URL('./frontend/assets/styles', import.meta.url)),
+    '@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
+    '@types': url.fileURLToPath(new URL('./frontend/types', import.meta.url)),
   },
   app: {
     head: {
@@ -37,24 +39,31 @@ export default defineNuxtConfig({
     analyze: true,
     transpile: ['@vueform/slider', 'swiper'],
   },
-  runtimeConfig: {
-    // The private keys which are only available within server-side
-    apiSecret: 'Im_Avaliable_Only_On_Server_Side', //Доступно только на сервере
-    // Keys within public, will be also exposed to the client-side
-    public: {
-      apiBase: 'Im_Avaliable_Only_On_Server_And_Client' //Доступно на сервере и на фронте
-    }
-  },
-  srcDir: 'frontend/',
+  builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite',
   css: [
     'modern-normalize/modern-normalize.css', // Файл из node_modules
     'swiper/css/bundle',
     '@/assets/styles/main.scss', // Файл из проекта
   ],   // Эти стили будут применены к каждой странице
+  components: {
+    dirs: [
+      '~/components/common',
+      '~/components/shared',
+      '~/components/ui'
+    ]
+  },
+  runtimeConfig: {
+    // The private keys which are only available within server-side
+    apiSecret: 'Im_Avaliable_Only_On_Server', //Доступно только на сервере
+    // Keys within public, will be also exposed to the client-side
+    public: {
+      apiBase: 'Im_Avaliable_On_Server_And_Client' //Доступно на сервере и на фронте
+    }
+  },
+  srcDir: 'frontend/',
   serverMiddleware: [
     { path: '/api', handler: './backend/index.ts' }, // `/api/**` does NOT handle /api
     { path: '/api/**', handler: './backend/index.ts' },
   ],
   telemetry: false,
-  builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite',
 })

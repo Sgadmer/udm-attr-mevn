@@ -1,10 +1,15 @@
 # UDM-ATR-MEVN
 
-## Доки по Nuxt3
+## Полезные ссылки
 
-1) [Основа](https://v3.nuxtjs.org/guide/concepts/introduction)
-2) [API](https://v3.nuxtjs.org/api/composables/use-async-data)
-3) [Config](https://v3.nuxtjs.org/api/configuration/nuxt.config)
+1) [Nuxt3 Основы](https://v3.nuxtjs.org/guide/concepts/introduction)
+2) [Nuxt3 API](https://v3.nuxtjs.org/api/composables/use-async-data)
+3) [Nuxt3 Config](https://v3.nuxtjs.org/api/configuration/nuxt.config)
+4) [Vue3 TypeScript with Composition API](https://vuejs.org/guide/typescript/composition-api.html)
+5) [Mongoose Crush Course](https://www.youtube.com/watch?v=DZBGEVgL2eE&t=201s) (YouTube)
+6) [Mongoose Docs](https://mongoosejs.com/docs/guides.html)
+7) [Postman](https://www.postman.com/)
+8) [Compass](https://www.mongodb.com/try/download/compass) (Позволяет отслеживать изменеия в MongoDB)
 
 ## Подготовка
 

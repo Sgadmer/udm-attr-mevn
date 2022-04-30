@@ -1,47 +1,26 @@
 //Сюда внести шрифты
-$path: "/fonts"; //Шрифты лежат в public/fonts
+$proximaNovaFamily: "Proxima Nova";
+$proximaNovaPath: "../fonts/ProximaNova/";
+$proximaNovaFonts: (
+    ('ProximaNova-Black', 900, normal),
+    ('ProximaNova-Semibold', 600, normal),
+    ('ProximaNova-Bold', bold, normal),
+    ('ProximaNova-Regular', normal, normal),
+    ('ProximaNova-RegularIt', normal, italic),
+);
 
-font-face {
-  font-family: "Proxima Nova";
-  src: url("@assets/fonts/ProximaNova/ProximaNova-Black.woff2") format("woff2"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Black.woff") format("woff"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Black.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
+@mixin fontFace($family, $path, $name, $weight, $style) {
+  @font-face {
+    font-family: $family;
+    src: url($path + $name + ".woff2") format("woff2"),
+    url($path + $name + ".woff") format("woff"),
+    url($path + $name + ".ttf") format("truetype");
+    font-weight: $weight;
+    font-style: $style;
+  }
 }
 
-font-face {
-  font-family: "Proxima Nova";
-  src: url("@assets/fonts/ProximaNova/ProximaNova-Semibold.woff2") format("woff2"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Semibold.woff") format("woff"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Semibold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
 
-font-face {
-  font-family: "Proxima Nova";
-  src: url("@assets/fonts/ProximaNova/ProximaNova-Bold.woff2") format("woff2"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Bold.woff") format("woff"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-font-face {
-  font-family: "Proxima Nova";
-  src: url("@assets/fonts/ProximaNova/ProximaNova-Regular.woff2") format("woff2"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Regular.woff") format("woff"),
-  url("@assets/fonts/ProximaNova/ProximaNova-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-font-face {
-  font-family: "Proxima Nova";
-  src: url("@assets/fonts/ProximaNova/ProximaNova-RegularIt.woff2") format("woff2"),
-  url("@assets/fonts/ProximaNova/ProximaNova-RegularIt.woff") format("woff"),
-  url("@assets/fonts/ProximaNova/ProximaNova-RegularIt.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
+@each $name, $weight, $style in $proximaNovaFonts {
+  @include fontFace($proximaNovaFamily, $proximaNovaPath, $name, $weight, $style)
 }

@@ -1,0 +1,14 @@
+@import '@styles/common.scss';
+
+.logo {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: bold;
+  text-shadow: 0px 4px 4px cl('black', 0.3);
+  display: flex;
+  align-items: center;
+
+  &__udm {
+    color: cl('main');
+  }
+}
