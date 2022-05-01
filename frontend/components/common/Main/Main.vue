@@ -1,5 +1,6 @@
 <template>
   <div :class="$s.Main">
+    <MainSliderForm/>
   </div>
 </template>
 
@@ -17,14 +18,16 @@ import $s from './Main.module.scss'
 /**
  * PROPS
  */
-interface IProps {}
+interface IProps {
+}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {}
+interface IEmits {
+}
 
 const $e = defineEmits<IEmits>()
 

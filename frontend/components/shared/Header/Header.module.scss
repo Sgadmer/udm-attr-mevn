@@ -3,8 +3,9 @@
 .Header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: spacer('lg-min');
 
   &__Login {
-    margin-right: 35px;
+    margin-right: spacer('md-max');
   }
 }

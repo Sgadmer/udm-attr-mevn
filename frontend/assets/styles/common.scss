@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Variables
 $colors: (
   'main': #326CFB,
@@ -31,16 +33,43 @@ $lg: 1024px;
 $xl: 1280px;
 $xxl: 1440px;
 
+$spacers: (
+  'sm-min': 4px,
+  'sm-med': 8px,
+  'sm-max': 12px,
+  'md-min': 16px,
+  'md-med': 24px,
+  'md-max': 32px,
+  'lg-min': 48px,
+  'lg-max': 64px,
+);
+
 // Functions
 @function hex-to-rgb($hex) {
-  @return red($hex), green($hex), blue($hex);
+  @return red (
+    $hex
+  ),
+  green (
+      $hex
+    ),
+  blue (
+      $hex
+    );
 }
 
 @function cl($name, $opacity: false) {
   @if $opacity {
-    @return rgba(var(--color-#{unquote($name)}--rgb), $opacity);
+    @return rgba(map.get($colors, $name), $opacity);
   } @else {
     @return var(--color-#{unquote($name)});
+  }
+}
+
+@function spacer($name) {
+  @if $spacers {
+    @return map.get($spacers, $name);
+  } @else {
+    @return 0
   }
 }
 
