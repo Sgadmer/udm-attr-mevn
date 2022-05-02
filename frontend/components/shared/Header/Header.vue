@@ -3,7 +3,7 @@
     <Logo/>
     <div>
       <Button
-        type="Transparent"
+        kind="Transparent"
         corners="Sm"
         :class="$s.Header__Login"
         @click="handleLogin"
@@ -11,7 +11,7 @@
         Вход
       </Button>
       <Button
-        type="Main"
+        kind="Main"
         corners="Sm"
       >
         Регистрация
@@ -60,9 +60,13 @@ const $e = defineEmits<IEmits>()
  */
 
 /**
+ * HOOKS
+ */
+
+/**
  * METHODS
  */
-const handleLogin = (): void =>{
+const handleLogin = (): void => {
   console.log('login')
 }
 </script>

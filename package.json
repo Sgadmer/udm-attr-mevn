@@ -18,6 +18,7 @@
     "swiper": "^8.1.4"
   },
   "devDependencies": {
+    "@types/node": "^17.0.31",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "vue-demi": "^0.12.5"

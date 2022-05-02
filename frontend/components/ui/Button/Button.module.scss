@@ -10,14 +10,15 @@
   font-style: normal;
   transition: all 0.2s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
     transform: translateY(-1px);
     box-shadow: 0px 4px 4px cl('black', 0.3);
   }
 
 
-  &_Type {
+  &_Kind {
     &Main {
       background-color: cl('main');
       color: cl('white');

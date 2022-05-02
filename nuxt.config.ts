@@ -51,6 +51,9 @@ export default defineNuxtConfig({
       '~/components/ui'
     ]
   },
+  experimental: {
+    reactivityTransform: true,
+  },
   runtimeConfig: {
     // The private keys which are only available within server-side
     apiSecret: 'Im_Avaliable_Only_On_Server', //Доступно только на сервере

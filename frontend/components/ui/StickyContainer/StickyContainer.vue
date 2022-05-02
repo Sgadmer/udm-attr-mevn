@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <MainPromoSlider/>
-    <FilterForm/>
+  <div :class="$s.StickyContainer">
+    <slot/>
   </div>
 </template>
 
@@ -10,7 +9,7 @@
 /**
  * IMPORTS
  */
-import $s from './Main.module.scss'
+import $s from './StickyContainer.module.scss'
 
 /**
  * TYPES

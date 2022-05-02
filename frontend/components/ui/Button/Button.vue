@@ -22,12 +22,18 @@ import $s from './Button.module.scss'
  * PROPS
  */
 interface IProps {
-  type?: 'Main' | 'Secondary' | 'Transparent'
+  /**
+   * Стилевой тип кнопки
+   */
+  kind?: 'Main' | 'Secondary' | 'Transparent'
+  /**
+   * Скругление углов
+   */
   corners?: 'None' | 'Sm' | 'Md' | 'Lg'
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
-  type: 'Main',
+  kind: 'Main',
   corners: 'None'
 })
 
@@ -54,10 +60,14 @@ const $e = defineEmits<IEmits>()
 const buttonClasses = computed<Record<string, boolean>>(() => {
   return {
     [$s.Button]: true,
-    [$s[`Button_Type${ $p.type }`]]: true,
+    [$s[`Button_Kind${ $p.kind }`]]: true,
     [$s[`Button_Corners${ $p.corners }`]]: true,
   }
 })
+
+/**
+ * HOOKS
+ */
 
 /**
  * METHODS
