@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     '@assets': url.fileURLToPath(new URL('./frontend/assets', import.meta.url)),
     '@styles': url.fileURLToPath(new URL('./frontend/assets/styles', import.meta.url)),
     '@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
-    '@types': url.fileURLToPath(new URL('./frontend/types', import.meta.url)),
+    '@models': url.fileURLToPath(new URL('./frontend/models', import.meta.url)),
   },
   app: {
     head: {
@@ -38,6 +38,10 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@vueform/slider', 'swiper'],
   },
+  buildModules: [
+    '@pinia/nuxt',
+    '@vuelidate/core',
+  ],
   builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite',
   css: [
     'modern-normalize/modern-normalize.css', // Файл из node_modules

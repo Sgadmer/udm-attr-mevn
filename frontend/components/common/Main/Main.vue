@@ -1,7 +1,7 @@
 <template>
   <div>
     <MainPromoSlider/>
-    <FilterForm/>
+    <FiltersForm/>
   </div>
 </template>
 

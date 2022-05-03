@@ -1,0 +1,9 @@
+@import '@styles/common.scss';
+
+.FiltersForm {
+  &__Form,
+  &__FormControls{
+    display: flex;
+    width: 100%;
+  }
+}

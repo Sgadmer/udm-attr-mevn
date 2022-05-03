@@ -2,6 +2,7 @@
   <button
     :class="buttonClasses"
     @click="handleClick"
+    :type="$p.type"
   >
     <slot/>
   </button>
@@ -30,11 +31,17 @@ interface IProps {
    * Скругление углов
    */
   corners?: 'None' | 'Sm' | 'Md' | 'Lg'
+  /**
+   * Тип кнопки
+   */
+  type?: 'button' | 'submit' | 'reset'
 }
+
 
 const $p = withDefaults(defineProps<IProps>(), {
   kind: 'Main',
-  corners: 'None'
+  corners: 'None',
+  type: 'button'
 })
 
 /**

@@ -1,7 +1,9 @@
+import lodash from "lodash";
+
 export default defineNuxtPlugin(() => {
   return {
     provide: {
-      hello: () => 'world'
+      _: lodash
     }
-  }
-})
+  };
+});
