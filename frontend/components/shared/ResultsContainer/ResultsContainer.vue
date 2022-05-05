@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <MainPromoSlider/>
-    <FiltersForm/>
-    <MainAllTours/>
-  </div>
+  <ScrollContainer>
+    <slot/>
+  </ScrollContainer>
 </template>
 
 <script setup lang='ts'>
@@ -11,7 +9,7 @@
 /**
  * IMPORTS
  */
-import $s from './Main.module.scss'
+import $s from './ResultsContainer.module.scss'
 
 /**
  * TYPES

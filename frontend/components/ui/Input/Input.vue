@@ -1,12 +1,16 @@
 <template>
-  <div :class="$s.Input__Wrapper">
+  <div
+    :class="$s.Input__Wrapper"
+    data-component="Input"
+  >
 
     <input
-      :class="$s.Input__Input"
-      :value="inputValue"
+      :class="compInputClasses"
+      :value="compInputValue"
       @input="handleInput($event.target.value, $event.inputType)"
       placeholder=" "
       type="text"
+      :disabled="$p.isDisabled"
     />
 
     <span :class="$s.Input__Placeholder">
@@ -22,7 +26,7 @@
  * IMPORTS
  */
 import $s from './Input.module.scss'
-const { $_ } = useNuxtApp()
+import _ from 'lodash'
 import { REG_EXP } from '@constants/regExps'
 
 /**
@@ -36,7 +40,11 @@ interface IProps {
   /**
    * Контролирующая модель инпута (для задания значений из вне через v-model)
    */
-  inputModel?: string | string[] | number
+  inputModel?: string | string[] | number | Date
+  /**
+   * Если нужно только отображать контент, передаваемый извне
+   */
+  inputValue?: string,
   /**
    * Текст для кастомного плейсхолдера
    */
@@ -60,15 +68,28 @@ interface IProps {
    * Все __не__ цифры будут вырезаться автоматически
    */
   isNumber?: boolean,
+  /**
+   * Заблокировать инпут
+   * Инпут изменяется визаульно
+   */
+  isDisabled?: boolean,
+  /**
+   * Максимальная длина строки,
+   * остальное обрежется
+   */
+  maxLength?: boolean | number,
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
   inputModel: '',
+  inputValue: '',
   label: '',
   modelSplit: null,
   modelJoin: null,
   charsToDelete: null,
-  isNumber: false
+  isNumber: false,
+  isDisabled: false,
+  maxLength: false
 })
 
 /**
@@ -83,6 +104,7 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+let updateTrigger = $ref<string>('')
 
 /**
  * WATCHERS
@@ -91,12 +113,21 @@ const $e = defineEmits<IEmits>()
 /**
  * COMPUTED
  */
-const inputValue = computed((): string => {
-  if ($p.modelJoin) return $p.inputModel.join($p.modelJoin)
+const compInputValue = computed((): string => {
+  updateTrigger // Костыль, чтобы обновить текст в инпуте
+
+  if ($p.inputValue) return $p.inputValue
+  else if ($p.modelJoin) return $p.inputModel.join($p.modelJoin)
   else if ($p.isNumber) return +$p.inputModel
   else return $p.inputModel
 })
 
+const compInputClasses = computed((): Record<string, boolean> => {
+  return {
+    [`${ $s.Input__Input }`]: true,
+    [`${ $s.Input__Input_Disabled }`]: $p.isDisabled,
+  }
+})
 /**
  * HOOKS
  */
@@ -105,12 +136,18 @@ const inputValue = computed((): string => {
  * METHODS
  */
 const handleInput = (value: string, eventType: string): void => {
-  let newValue: Pick<IProps, 'inputModel'>
+  if ($p.inputValue || $p.isDisabled) return
 
-  if ($p.charsToDelete) value = value.replace($p.charsToDelete, '')
+  let newValue: Pick<IProps, 'inputModel'> = value
+
+  if (
+    _.isNumber($p.maxLength) && newValue.length > $p.maxLength
+  ) newValue = newValue.slice(0, $p.maxLength)
+
+  if ($p.charsToDelete) newValue = newValue.replace($p.charsToDelete, '')
 
   if ($p.modelSplit) {
-    let newValueArr = value.trim().split($p.modelSplit)
+    let newValueArr = newValue.trim().split($p.modelSplit)
 
     if (
       eventType.toLowerCase().includes('delete')
@@ -121,22 +158,18 @@ const handleInput = (value: string, eventType: string): void => {
 
     if (newValueArr.length) {
       const lastItem = newValueArr[newValueArr.length - 1]
-      newValueArr = $_.compact(newValueArr)
+      newValueArr = _.compact(newValueArr)
 
       if (!lastItem) newValueArr.push('')
     }
     newValue = newValueArr
 
   } else if ($p.isNumber) {
-    newValue = +value.replace(REG_EXP.ecxeptDigits, '')
-  } else {
-    newValue = new String(value)
+    newValue = +newValue.replace(REG_EXP.ecxeptDigits, '')
   }
 
-  $e('update:inputModel', null) //Костыль для обновления модели
-  nextTick(()=>{
-    $e('update:inputModel', newValue)
-  })
+  updateTrigger = new String(newValue)
+  $e('update:inputModel', newValue)
 
 }
 

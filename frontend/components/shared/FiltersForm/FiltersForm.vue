@@ -1,6 +1,8 @@
 <template>
   <StickyContainer>
-    <form :class="$s.FiltersForm__Form">
+    <FormContainer
+      orientation="Row"
+    >
 
       <div :class="$s.FiltersForm__FormControls">
         <Input
@@ -15,32 +17,44 @@
           :modelSplit="REG_EXP.commaSeparator"
           :charsToDelete="REG_EXP.exceptBaseList"
         />
-        <Input
-          v-model:inputModel="formModel.priceMin"
-          label="Цена от"
-          :isNumber="true"
-        />
-        <Input
-          v-model:inputModel="formModel.priceMax"
-          label="Цена до"
-          :isNumber="true"
-        />
-        <Input
-          v-model:inputModel="formModel.dateStart"
-          label="Дата начала"
-        />
-        <Input
-          v-model:inputModel="formModel.dateEnd"
-          label="Дата окончания"
-        />
+
+        <div :class="$s.FiltersForm__ControlsForm">
+          <Input
+            v-model:inputModel="formModel.priceMin"
+            label="Цена от"
+            :isNumber="true"
+            :maxLength="6"
+          />
+          <Input
+            v-model:inputModel="formModel.priceMax"
+            label="Цена до"
+            :isNumber="true"
+            :maxLength="6"
+          />
+        </div>
+
+        <div :class="$s.FiltersForm__ControlsForm">
+          <Datepicker
+            v-model:datepickerModel="formModel.dateStart"
+            inputLabel="Дата от"
+            :maxDate="formModel.dateEnd"
+          />
+          <Datepicker
+            v-model:datepickerModel="formModel.dateEnd"
+            inputLabel="Дата до"
+            :minDate="formModel.dateStart"
+          />
+        </div>
+
       </div>
       <Button
         kind="Main"
         corners="Md"
+        @click="handleFormSubmit"
       >
         Искать
       </Button>
-    </form>
+    </FormContainer>
   </StickyContainer>
 </template>
 
@@ -80,7 +94,7 @@ const $e = defineEmits<IEmits>()
  */
 const formModel = $ref<IFiltersForm>({
   place: '',
-  keywords: ['Test', 'Test2', 'Test3'],
+  keywords: [],
   priceMin: 0,
   priceMax: 100000,
   dateStart: null,
@@ -88,16 +102,12 @@ const formModel = $ref<IFiltersForm>({
 })
 
 const validationRules = {
-  place: {required},
-  keywords: {required},
   priceMin: {
-    between: between(0, 100)
+    between: between(0, 100000)
   },
   priceMax: {
-    between: between(0, 100)
+    between: between(0, 100000)
   },
-  dateStart: {},
-  dateEnd: {},
 }
 const $v = useVuelidate(validationRules, formModel)
 
@@ -118,12 +128,24 @@ watch(formModel, handleModelChange, { deep: true })
  * METHODS
  */
 
-async function handleModelChange() {
+async function handleModelChange(): void {
+  if (formModel.priceMax > 100000) formModel.priceMax = 100000
 
-  const isFormCorrect = await $v.value.$validate()
-  console.log(isFormCorrect, $v.value, formModel)
-  if (!isFormCorrect) return
+  if (formModel.priceMin > formModel.priceMax) {
+    formModel.priceMin = formModel.priceMax
+  }
 
+  if (formModel.priceMax < formModel.priceMin) {
+    formModel.priceMax = formModel.priceMin
+  }
 }
+
+const handleFormSubmit = async (): void => {
+  const isFormCorrect = await $v.value.$validate()
+  if (isFormCorrect) {
+    console.log('submit allowed!')
+  }
+}
+
 
 </script>

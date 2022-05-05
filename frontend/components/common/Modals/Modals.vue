@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <MainPromoSlider/>
-    <FiltersForm/>
-    <MainAllTours/>
-  </div>
+
 </template>
 
 <script setup lang='ts'>
@@ -11,7 +7,7 @@
 /**
  * IMPORTS
  */
-import $s from './Main.module.scss'
+import $s from './Modals.module.scss'
 
 /**
  * TYPES
@@ -20,16 +16,14 @@ import $s from './Main.module.scss'
 /**
  * PROPS
  */
-interface IProps {
-}
+interface IProps {}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {
-}
+interface IEmits {}
 
 const $e = defineEmits<IEmits>()
 

@@ -12,6 +12,9 @@
     "@types/node",
     "@types/swiper",
     "@types/vuelidate",
-    "@types/typescript"
+    "@types/typescript",
+    "@vuepic",
+    "@types/date-fns",
+    "@vue3-perfect-scrollbar"
   ]
 }

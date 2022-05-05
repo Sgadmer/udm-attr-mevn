@@ -1,0 +1,33 @@
+@import '@styles/common.scss';
+
+.FormContainer {
+  display: flex;
+  width: 100%;
+
+  &_Row {
+    justify-content: space-between;
+    align-items: center;
+
+    [data-component] {
+      margin-right: 35px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &_Column {
+    justify-content: center;
+    align-items: flex-start;
+
+    [data-component] {
+      margin-bottom: 35px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+}

@@ -42,11 +42,13 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vuelidate/core',
   ],
-  builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite',
+  builder: process.env.NODE_ENV === 'production' ? 'vite' : 'vite',
   css: [
-    'modern-normalize/modern-normalize.css', // Файл из node_modules
+    'modern-normalize/modern-normalize.css', // Файлы из node_modules
     'swiper/css/bundle',
-    '@/assets/styles/main.scss', // Файл из проекта
+    '@vuepic/vue-datepicker/dist/main.css',
+    'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css',
+    '@/assets/styles/main.scss', // Файлы из проекта
   ],   // Эти стили будут применены к каждой странице
   components: {
     dirs: [

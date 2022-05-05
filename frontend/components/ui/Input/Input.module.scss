@@ -21,6 +21,16 @@
     caret-color: cl('main');
     cursor: pointer;
     transition: all .3s ease;
+    overflow: hidden;
+
+    &_Disabled {
+
+      opacity: 0.5;
+
+      &:hover{
+        cursor: not-allowed;
+      }
+    }
 
     &:focus + .Input__Placeholder,
     &:not(:placeholder-shown) + .Input__Placeholder {
@@ -54,5 +64,6 @@
     line-height: 24px;
     transition: all .3s ease;
     pointer-events: none;
+    white-space: nowrap;
   }
 }

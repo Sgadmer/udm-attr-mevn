@@ -1,0 +1,43 @@
+@import '@styles/common.scss';
+
+.ScrollContainer {
+  width: 100%;
+  height: 70vh;
+  padding-right: 5px;
+  position: relative;
+  overflow: hidden;
+
+  background-color: cl('white');
+  border-radius: 72px;
+  box-shadow: 0 4px 25px cl('black', 0.15);
+
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+  }
+
+  &:before {
+    top: 0;
+    background: linear-gradient(180deg, cl('white') 60%, cl('white', 0) 100%);
+  }
+
+  &:after {
+    bottom: 0;
+    background: linear-gradient(0deg, cl('white') 60%, cl('white', 0) 100%);
+  }
+
+  &__ScrollbarContainer {
+    width: 100%;
+    height: 100%;
+    padding:40px 35px 40px 40px;
+    border-radius: 73px;
+  }
+
+}

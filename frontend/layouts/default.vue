@@ -1,11 +1,13 @@
 <template>
-  <main>
+  <main :class="$s.Layouts__MainDefault">
     <Header/>
     <slot/>
+    <Footer/>
   </main>
 </template>
 
 <script setup lang='ts'>
+import $s from './layouts.module.scss'
 
 /**
  * IMPORTS

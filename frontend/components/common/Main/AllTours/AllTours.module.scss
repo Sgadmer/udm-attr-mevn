@@ -1,0 +1,20 @@
+@import '@styles/common.scss';
+
+.AllTours {
+  width: 100%;
+  margin-top: 95px;
+
+  &__TitleWrap {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__Promo{
+    color: cl('secondary-light');
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 15px;
+  }
+
+}
