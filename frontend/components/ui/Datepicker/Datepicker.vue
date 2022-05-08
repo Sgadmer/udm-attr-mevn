@@ -1,25 +1,27 @@
 <template>
-  <Datepicker
-    v-model="localModel"
-    @update:modelValue="handleDate"
-    :format="pickerProps.format"
-    :locale="pickerProps.locale"
-    :monthNameFormat="pickerProps.monthNameFormat"
-    :clearable="pickerProps.clearable"
-    :autoApply="pickerProps.autoApply"
-    :minDate="compMinDate"
-    :maxDate="compMaxDate"
-    :enableTimePicker="pickerProps.enableTimePicker"
-    :class="$s.Datepicker"
-    data-component="Datepicker"
-  >
-    <template #dp-input="{ value, onInput, onEnter, onTab, onClear }">
-      <Input
-        :inputValue="value"
-        :label="$p.inputLabel"
-      />
-    </template>
-  </Datepicker>
+  <ClientOnly>
+    <Datepicker
+      v-model="localModel"
+      @update:modelValue="handleDate"
+      :format="pickerProps.format"
+      :locale="pickerProps.locale"
+      :monthNameFormat="pickerProps.monthNameFormat"
+      :clearable="pickerProps.clearable"
+      :autoApply="pickerProps.autoApply"
+      :minDate="compMinDate"
+      :maxDate="compMaxDate"
+      :enableTimePicker="pickerProps.enableTimePicker"
+      :class="$s.Datepicker"
+      data-component="Datepicker"
+    >
+      <template #dp-input="{ value, onInput, onEnter, onTab, onClear }">
+        <Input
+          :inputValue="value"
+          :label="$p.inputLabel"
+        />
+      </template>
+    </Datepicker>
+  </ClientOnly>
 </template>
 
 <script setup lang='ts'>
@@ -43,12 +45,14 @@ interface IProps {
   inputLabel?: string,
   minDate?: Date | string,
   maxDate?: Date | string,
+  datepickerModel?: Date,
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
   inputLabel: '',
   minDate: null,
-  maxDate: null
+  maxDate: null,
+  datepickerModel: null,
 })
 
 /**
@@ -63,8 +67,8 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
-const localModel = ref<Date>()
-const pickerProps = ref<Record<string, any>>({
+const localModel = $ref<Date>()
+const pickerProps = $ref<Record<string, any>>({
   format: 'dd.MM.yyyy',
   monthNameFormat: 'long',
   locale: 'ru',
@@ -80,13 +84,13 @@ const pickerProps = ref<Record<string, any>>({
 /**
  * COMPUTED
  */
-const compMinDate = computed((): Dtate => {
-  if(!$p.minDate) return new Date()
+const compMinDate = computed((): Date | string => {
+  if (!$p.minDate) return new Date()
   else return $p.minDate
 })
 
-const compMaxDate = computed((): Dtate => {
-  if(!$p.maxDate) return dfns.add(new Date(), { months: 3 })
+const compMaxDate = computed((): Date | string => {
+  if (!$p.maxDate) return dfns.add(new Date(), { months: 3 })
   else return $p.maxDate
 })
 

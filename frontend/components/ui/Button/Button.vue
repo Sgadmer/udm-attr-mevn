@@ -30,7 +30,7 @@ interface IProps {
   /**
    * Скругление углов
    */
-  corners?: 'None' | 'Sm' | 'Md' | 'Lg'
+  corners?: 'None' | 'Sm' | 'Md' | 'Circle'
   /**
    * Тип кнопки
    */

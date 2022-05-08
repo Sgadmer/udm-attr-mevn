@@ -1,6 +1,18 @@
 <template>
-
+  <transition name="fadeFaster">
+    <component :is="$modalsStore.getCurrentModalName"/>
+  </transition>
 </template>
+
+<script lang='ts'>
+import TourModal from './ModalsModules/TourModal/TourModal'
+
+export default {
+  components: {
+    TourModal
+  }
+}
+</script>
 
 <script setup lang='ts'>
 
@@ -8,6 +20,7 @@
  * IMPORTS
  */
 import $s from './Modals.module.scss'
+import { useModalsStore } from '~@store/modals'
 
 /**
  * TYPES
@@ -16,20 +29,23 @@ import $s from './Modals.module.scss'
 /**
  * PROPS
  */
-interface IProps {}
+interface IProps {
+}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {}
+interface IEmits {
+}
 
 const $e = defineEmits<IEmits>()
 
 /**
  * DATA
  */
+const $modalsStore = useModalsStore()
 
 /**
  * WATCHERS

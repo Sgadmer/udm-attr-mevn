@@ -66,8 +66,8 @@
 import useVuelidate from '@vuelidate/core'
 import { required, between } from '@vuelidate/validators'
 import $s from './FiltersForm.module.scss'
-import { IFiltersForm } from '@models/filtersForm/formModels'
-import { REG_EXP } from '@constants/regExps'
+import { IFiltersForm } from '~@models/filtersForm/formModels'
+import { REG_EXP } from '~@constants/regExps'
 
 /**
  * TYPES

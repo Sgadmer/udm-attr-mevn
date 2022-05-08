@@ -6,8 +6,9 @@ export default defineNuxtConfig({
   alias: {
     '@assets': url.fileURLToPath(new URL('./frontend/assets', import.meta.url)),
     '@styles': url.fileURLToPath(new URL('./frontend/assets/styles', import.meta.url)),
-    '@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
-    '@models': url.fileURLToPath(new URL('./frontend/models', import.meta.url)),
+    '~@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
+    '~@models': url.fileURLToPath(new URL('./frontend/models', import.meta.url)),
+    '~@store': url.fileURLToPath(new URL('./frontend/store', import.meta.url)),
   },
   app: {
     head: {
@@ -42,7 +43,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vuelidate/core',
   ],
-  builder: process.env.NODE_ENV === 'production' ? 'vite' : 'vite',
+  builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite', //'vite' : 'vite'  'webpack' : 'webpack'
   css: [
     'modern-normalize/modern-normalize.css', // Файлы из node_modules
     'swiper/css/bundle',

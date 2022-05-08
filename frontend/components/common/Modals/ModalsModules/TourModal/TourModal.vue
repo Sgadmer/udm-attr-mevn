@@ -1,18 +1,15 @@
 <template>
-  <main :class="$s.Layouts__MainDefault">
-    <Header/>
-    <slot/>
-    <Footer/>
-    <Modals/>
-  </main>
+  <ModalBase>
+    <TourSlider/>
+  </ModalBase>
 </template>
 
 <script setup lang='ts'>
-import $s from './layouts.module.scss'
 
 /**
  * IMPORTS
  */
+import $s from '../../Modals.module.scss'
 
 /**
  * TYPES
@@ -21,14 +18,16 @@ import $s from './layouts.module.scss'
 /**
  * PROPS
  */
-interface IProps {}
+interface IProps {
+}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {}
+interface IEmits {
+}
 
 const $e = defineEmits<IEmits>()
 

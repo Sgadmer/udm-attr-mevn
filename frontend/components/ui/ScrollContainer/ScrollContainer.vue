@@ -25,9 +25,12 @@ import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
  * PROPS
  */
 interface IProps {
+  unstyled?: boolean;
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  unstyled: false,
+})
 
 /**
  * EMITS

@@ -40,6 +40,7 @@
       <Button
         kind="Secondary"
         corners="Md"
+        @click="handleTourModalOpen"
       >
         Подробнее
       </Button>
@@ -61,6 +62,8 @@
  * IMPORTS
  */
 import $s from './TourCard.module.scss'
+import { useModalsStore } from '~@store/modals'
+import { EModalsNames } from '~@constants/modals'
 
 /**
  * TYPES
@@ -85,6 +88,7 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $modalsStore = useModalsStore()
 
 /**
  * WATCHERS
@@ -101,5 +105,8 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
+const handleTourModalOpen = (): void => {
+  $modalsStore.setCurrentModalName(EModalsNames.TourModal)
+}
 
 </script>

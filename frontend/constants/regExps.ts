@@ -1,4 +1,4 @@
-import { IRegExpObj } from '@models/objects'
+import { IRegExpObj } from '~@models/objects'
 
 export const REG_EXP: IRegExpObj = {
   commaSeparator: /\s*\,\s*/gm,

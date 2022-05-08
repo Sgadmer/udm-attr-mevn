@@ -27,7 +27,7 @@
  */
 import $s from './Input.module.scss'
 import _ from 'lodash'
-import { REG_EXP } from '@constants/regExps'
+import { REG_EXP } from '~@constants/regExps'
 
 /**
  * TYPES
