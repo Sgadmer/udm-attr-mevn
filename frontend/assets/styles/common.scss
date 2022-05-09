@@ -1,0 +1,137 @@
+@use "sass:map";
+
+// Variables
+$colors: (
+  'main': #326CFB,
+  'main-dark': #142B63,
+  'main-light': #3F66C8,
+  'main-lightier': #82A4F9,
+  'main-lightest': #B4C9FF,
+  'surface': #E5EDFF,
+  'transparent': transparent,
+  'white': #FFFFFF,
+  'black': #000000,
+  'dark': #313131,
+  'secondary': #768899,
+  'secondary-light': #AEAEAE,
+  'danger': #F82424,
+  'danger-light': #FDB6B6,
+  'danger-lightest': #FFF5F5,
+  'warning': #FFE30F,
+  'succes': #6DCC76,
+  'succes-light': #CEEED1,
+  'succes-lightest': #F9FDFA,
+);
+
+$fallback-font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial,
+sans-serif;
+$primary-font-family: 'Proxima Nova', $fallback-font-family;
+
+$xsm: 321px;
+$sm: 576px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xxl: 1440px;
+
+$spacers: (
+  'sm-min': 4px,
+  'sm-med': 8px,
+  'sm-max': 12px,
+  'md-min': 16px,
+  'md-med': 24px,
+  'md-max': 32px,
+  'lg-min': 48px,
+  'lg-max': 64px,
+);
+
+// Functions
+@function hex-to-rgb($hex) {
+  @return red (
+    $hex
+  ),
+  green (
+      $hex
+    ),
+  blue (
+      $hex
+    );
+}
+
+@function cl($name, $opacity: false) {
+  @if $opacity {
+    @return rgba(map.get($colors, $name), $opacity);
+  } @else {
+    @return var(--color-#{unquote($name)});
+  }
+}
+
+@function spacer($name) {
+  @if $spacers {
+    @return map.get($spacers, $name);
+  } @else {
+    @return 0
+  }
+}
+
+// Mixins
+@mixin button-colors($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+}
+
+@mixin break-xsm() {
+  @media (max-width: $xsm - 1) {
+    @content;
+  }
+}
+
+@mixin break-sm() {
+  @media (max-width: $sm - 1) {
+    @content;
+  }
+}
+
+@mixin break-md() {
+  @media (max-width: $md - 1) {
+    @content;
+  }
+}
+
+@mixin break-lg() {
+  @media (max-width: $lg - 1) {
+    @content;
+  }
+}
+
+@mixin break-xl() {
+  @media (max-width: $xl - 1) {
+    @content;
+  }
+}
+
+@mixin break-xxl() {
+  @media (max-width: $xxl - 1) {
+    @content;
+  }
+}
+
+@mixin break-lg-up() {
+  @media (min-width: $lg) {
+    @content;
+  }
+}
+
+@mixin text($font-size, $line-height, $color: '', $font-weight: '',) {
+  font-size: $font-size;
+  line-height: $line-height;
+
+  @if $color != '' {
+    color: cl($color);
+  }
+
+  @if $font-weight != '' {
+    font-weight: $font-weight;
+  }
+}

@@ -1,0 +1,112 @@
+<template>
+  <FormContainer
+    orientation="Column"
+    :class="$s.SignupModal__FormContainer"
+  >
+
+    <div :class="$s.SignupModal__FormFields">
+      <Input
+        v-model:inputModel="formModel.email"
+        label="Email *"
+      />
+      <Input
+        v-model:inputModel="formModel.password"
+        type="password"
+        label="Пароль *"
+      />
+      <Input
+        v-model:inputModel="formModel.passwordRepeat"
+        type="password"
+        label="Повтор пароля *"
+      />
+      <Input
+        v-model:inputModel="formModel.orgName"
+        label="ФИО или название организации *"
+      />
+      <Input
+        v-model:inputModel="formModel.INN"
+        label="ИНН *"
+      />
+      <Input
+        v-model:inputModel="formModel.supervisor"
+        label="Руководитель"
+      />
+      <Input
+        v-model:inputModel="formModel.phone"
+        label="Контактный телефон *"
+      />
+      <Input
+        v-model:inputModel="formModel.address"
+        label="Адрес *"
+      />
+    </div>
+
+    <Button
+      kind="Main"
+      corners="Md"
+    >
+      Зарегистрироваться
+    </Button>
+
+
+  </FormContainer>
+</template>
+
+<script setup lang='ts'>
+
+/**
+ * IMPORTS
+ */
+import $s from './SignupModal.module.scss'
+
+/**
+ * TYPES
+ */
+
+/**
+ * PROPS
+ */
+interface IProps {
+}
+
+// const $p = withDefaults(defineProps<IProps>(), {})
+
+/**
+ * EMITS
+ */
+interface IEmits {
+}
+
+const $e = defineEmits<IEmits>()
+
+/**
+ * DATA
+ */
+const formModel = $ref({
+  email: '',
+  password: '',
+  passwordRepeat: '',
+  orgName: '',
+  INN: '',
+  supervisor: '',
+  phone: '',
+  address: '',
+})
+
+/**
+ * WATCHERS
+ */
+
+/**
+ * COMPUTED
+ */
+
+/**
+ * HOOKS
+ */
+
+/**
+ * METHODS
+ */
+
+</script>

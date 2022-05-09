@@ -1,3 +1,120 @@
+@import 'fonts';
+@import 'common';
+@import 'global';
+@import '@styles/transitions'; // Тестовый самописный alias
+
+
+:root {
+  @if $colors {
+    @each $key, $value in $colors {
+      --color-#{$key}: #{$value};
+      --color-#{$key}--rgb: #{hex-to-rgb($value)};
+    }
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html,
+body,
+#__nuxt {
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  background-color: lightslategray;
+  margin: 0 auto;
+  padding: 40px 60px;
+  font-family: $primary-font-family, $fallback-font-family;
+  background-color: cl('white');
+  max-width: 1440px;
+}
+
+#__nuxt {
+
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1, .h1 {
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  font-size: 140px;
+  line-height: 140px;
+
+  @include break-lg {
+    font-size: 52px;
+    line-height: 56px;
+    letter-spacing: unset;
+  }
+}
+
+h2, .h2 {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+
+  &_large {
+    font-size: 80px;
+    line-height: 88px;
+  }
+
+  @include break-lg {
+    font-size: 24px;
+    line-height: 32px;
+
+    &_large {
+      font-size: 40px;
+      line-height: 46px;
+    }
+  }
+}
+
+h3, .h3 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+
+  &_large {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  @include break-lg {
+    font-size: 20px;
+    line-height: 24px;
+
+    &_large {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+}
+
+h4, .h4 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
 }

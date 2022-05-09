@@ -1,0 +1,55 @@
+@import '@styles/common.scss';
+
+.TourModal {
+  &__Row {
+    display: flex;
+  }
+
+  &__Column {
+    width: 50%
+  }
+
+  &__Left {
+    margin-right: 90px
+  }
+
+  &__BookingBtn {
+    width: 100%;
+    margin-top: 65px;
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  &__InfoTitle {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    color: cl('main');
+    margin-bottom: 15px;
+  }
+
+  &__Info {
+    margin-bottom: 40px;
+  }
+
+  &__InfoItem {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: cl('secondary-light');
+    margin-bottom: 11px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__Description {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 33px;
+    color: cl('black');
+  }
+}

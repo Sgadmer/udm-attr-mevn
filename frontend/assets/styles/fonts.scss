@@ -1,0 +1,26 @@
+//Сюда внести шрифты
+$proximaNovaFamily: "Proxima Nova";
+$proximaNovaPath: "@assets/fonts/ProximaNova/";
+$proximaNovaFonts: (
+    ('ProximaNova-Black', 900, normal),
+    ('ProximaNova-Semibold', 600, normal),
+    ('ProximaNova-Bold', bold, normal),
+    ('ProximaNova-Regular', normal, normal),
+    ('ProximaNova-RegularIt', normal, italic),
+);
+
+@mixin fontFace($family, $path, $name, $weight, $style) {
+  @font-face {
+    font-family: $family;
+    src: url($path + $name + ".woff2") format("woff2"),
+    url($path + $name + ".woff") format("woff"),
+    url($path + $name + ".ttf") format("truetype");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+
+@each $name, $weight, $style in $proximaNovaFonts {
+  @include fontFace($proximaNovaFamily, $proximaNovaPath, $name, $weight, $style)
+}

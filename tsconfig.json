@@ -1,4 +1,20 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "types": [
+    "@pinia/nuxt",
+    "@types/cors",
+    "@types/dotenv",
+    "@types/express",
+    "@types/lodash",
+    "@types/mongodb",
+    "@types/mongoose",
+    "@types/node",
+    "@types/swiper",
+    "@types/vuelidate",
+    "@types/typescript",
+    "@vuepic",
+    "@types/date-fns",
+    "@vue3-perfect-scrollbar"
+  ]
 }

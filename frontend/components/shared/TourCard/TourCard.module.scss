@@ -1,0 +1,98 @@
+@import '@styles/common.scss';
+
+.TourCard {
+  width: 100%;
+  height: 175px;
+  padding: 20px;
+  border-radius: 25px;
+  background-color: cl('white');
+  box-shadow: 0 4px 25px cl('black', 0.15);
+
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &__Image {
+    height: 100%;
+    min-width: 200px;
+    max-width: 200px;
+    object-fit: cover;
+    margin-right: 50px;
+
+    filter: drop-shadow(0px 0px 15px cl('black', 0.2));
+    border-radius: 25px;
+  }
+
+  &__Promo {
+    margin-right: 40px;
+    width: auto;
+    min-width: 280px;
+  }
+
+  &__Title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 27px;
+    margin-bottom: 2px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+  }
+
+  &__Description {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    color: cl('secondary-light');
+
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__Info {
+    height: 100%;
+    width: auto;
+    min-width: 16%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 40px;
+  }
+
+  &__InfoItem {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: cl('secondary-light');
+
+    &_Cut {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  &__InfoSmall {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    color: cl('secondary-light');
+  }
+
+  &__Controls {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

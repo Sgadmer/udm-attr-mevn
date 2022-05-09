@@ -1,0 +1,31 @@
+@import '@styles/common.scss';
+
+.Footer {
+  margin-top: auto;
+  padding-top: 120px;
+  padding-bottom: 25px;
+
+  &__Logo {
+    margin-bottom: 20px;
+  }
+
+  &__TextSecondary {
+    color: cl('secondary-light');
+  }
+
+  &__Promo {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    margin-bottom: 40px;
+  }
+
+  &__Info {
+    width: 100%;
+    text-align: center;
+    color: cl('secondary-light');
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}

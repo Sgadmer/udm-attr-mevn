@@ -1,0 +1,59 @@
+@import '@styles/common.scss';
+
+.Button {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-style: normal;
+  transition: all 0.2s;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0px 4px 4px cl('black', 0.3);
+  }
+
+
+  &_Kind {
+    &Main {
+      background-color: cl('main');
+      color: cl('white');
+    }
+
+    &Secondary {
+      background-color: cl('surface');
+      color: cl('main');
+    }
+
+    &Transparent {
+      background-color: cl('transparent');
+      color: cl('main');
+    }
+  }
+
+  &_Corners {
+    &None {
+      border-radius: 0;
+    }
+
+    &Sm {
+      border-radius: 5px;
+    }
+
+    &Md {
+      border-radius: 30px;
+    }
+
+    &Circle {
+      border-radius: 100%;
+      padding: 8px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+}
