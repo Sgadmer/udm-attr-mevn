@@ -1,15 +1,13 @@
 <template>
-  <section :class="$s.AllTours">
-    <div :class="$s.AllTours__TitleWrap">
-      <h2>Туры</h2>
-      <p :class="$s.AllTours__Promo">
-        Почувствуй Удмуртию!
-      </p>
-    </div>
-    <ResultsContainer>
-      <LazyTourCard v-for="i in 20"/>
-    </ResultsContainer>
-  </section>
+  <label
+    :class="$s.Checkbox"
+    data-component="Checkbox"
+  >
+    <input type="checkbox" :class="$s.Checkbox__Input">
+    <span :class="$s.Checkbox__Text">
+      <slot/>
+    </span>
+  </label>
 </template>
 
 <script setup lang='ts'>
@@ -17,7 +15,7 @@
 /**
  * IMPORTS
  */
-import $s from './AllTours.module.scss'
+import $s from './Checkbox.module.scss'
 
 /**
  * TYPES
@@ -60,3 +58,7 @@ const $e = defineEmits<IEmits>()
  */
 
 </script>
+
+<style>
+
+</style>

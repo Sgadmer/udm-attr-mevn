@@ -1,0 +1,25 @@
+@import '@styles/common.scss';
+
+.LoginModal {
+  &__FormContainer {
+    align-items: center;
+  }
+
+  &__FormFields {
+    margin-bottom: 70px;
+  }
+
+  &__PasswordInput {
+    margin-bottom: 20px !important;
+  }
+
+  &__Controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__ControlsSeparator {
+    margin: 32px 0;
+  }
+}

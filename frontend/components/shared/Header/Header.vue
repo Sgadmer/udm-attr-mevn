@@ -2,17 +2,20 @@
   <header :class="$s.Header">
     <Logo/>
     <div>
+      <NuxtLink to="/tourist">Tourist</NuxtLink>
+
       <Button
         kind="Transparent"
         corners="Sm"
         :class="$s.Header__Login"
-        @click="handleLogin"
+        @click="handleModalOpen(EModalsNames.LoginModal)"
       >
         Вход
       </Button>
       <Button
         kind="Main"
         corners="Sm"
+        @click="handleModalOpen(EModalsNames.SignupModal)"
       >
         Регистрация
       </Button>
@@ -26,6 +29,8 @@
  * IMPORTS
  */
 import $s from './Header.module.scss'
+import { EModalsNames } from '~/constants/modals'
+import { useModalsStore } from '~@store/modals'
 
 /**
  * TYPES
@@ -50,6 +55,7 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $modalsStore = useModalsStore()
 
 /**
  * WATCHERS
@@ -66,7 +72,8 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
-const handleLogin = (): void => {
-  console.log('login')
+
+const handleModalOpen = (modalName: EModalsNames): void => {
+  $modalsStore.setCurrentModalName(modalName)
 }
 </script>

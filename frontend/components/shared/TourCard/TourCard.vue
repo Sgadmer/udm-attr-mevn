@@ -40,7 +40,7 @@
       <Button
         kind="Secondary"
         corners="Md"
-        @click="handleTourModalOpen"
+        @click="handleModalOpen(EModalsNames.TourModal)"
       >
         Подробнее
       </Button>
@@ -48,6 +48,7 @@
       <Button
         kind="Main"
         corners="Md"
+        @click="handleModalOpen(EModalsNames.BookingConfirmModal)"
       >
         Забронировать
       </Button>
@@ -105,8 +106,8 @@ const $modalsStore = useModalsStore()
 /**
  * METHODS
  */
-const handleTourModalOpen = (): void => {
-  $modalsStore.setCurrentModalName(EModalsNames.TourModal)
+const handleModalOpen = (modalName: EModalsNames): void => {
+  $modalsStore.setCurrentModalName(modalName)
 }
 
 </script>

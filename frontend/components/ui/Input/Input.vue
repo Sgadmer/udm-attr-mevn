@@ -9,7 +9,7 @@
       :value="compInputValue"
       @input="handleInput($event.target.value, $event.inputType)"
       placeholder=" "
-      type="text"
+      :type="$p.type"
       :disabled="$p.isDisabled"
     />
 
@@ -78,6 +78,10 @@ interface IProps {
    * остальное обрежется
    */
   maxLength?: boolean | number,
+  /**
+   * Тип инпута
+   */
+  type?: 'text' | 'password'
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
@@ -89,14 +93,15 @@ const $p = withDefaults(defineProps<IProps>(), {
   charsToDelete: null,
   isNumber: false,
   isDisabled: false,
-  maxLength: false
+  maxLength: false,
+  type: 'text',
 })
 
 /**
  * EMITS
  */
 interface IEmits {
-  (e: 'update:inputModel'): void
+  (e: 'update:inputModel', newValue: Pick<IProps, 'inputModel'>): void
 }
 
 const $e = defineEmits<IEmits>()

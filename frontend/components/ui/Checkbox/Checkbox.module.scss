@@ -1,0 +1,29 @@
+@import '@styles/common.scss';
+
+.Checkbox {
+
+  display: flex;
+
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__Input {
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__Text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: cl('dark');
+  }
+}

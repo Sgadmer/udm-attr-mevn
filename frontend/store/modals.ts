@@ -10,7 +10,7 @@ export const useModalsStore = defineStore('modals', {
   
   state: (): IModalsStore => {
     return {
-      currentModalName: EModalsNames.TourModal,
+      currentModalName: null,
     }
   },
   getters: {

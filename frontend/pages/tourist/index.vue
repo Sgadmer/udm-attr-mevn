@@ -1,15 +1,5 @@
 <template>
-  <section :class="$s.AllTours">
-    <div :class="$s.AllTours__TitleWrap">
-      <h2>Туры</h2>
-      <p :class="$s.AllTours__Promo">
-        Почувствуй Удмуртию!
-      </p>
-    </div>
-    <ResultsContainer>
-      <LazyTourCard v-for="i in 20"/>
-    </ResultsContainer>
-  </section>
+  <Tourist/>
 </template>
 
 <script setup lang='ts'>
@@ -17,7 +7,6 @@
 /**
  * IMPORTS
  */
-import $s from './AllTours.module.scss'
 
 /**
  * TYPES

@@ -1,0 +1,13 @@
+@import '@styles/common.scss';
+
+.SignupModal {
+  &__FormContainer {
+    align-items: center;
+
+  }
+
+  &__FormFields {
+    width: 100%;
+    margin-bottom: 90px;
+  }
+}

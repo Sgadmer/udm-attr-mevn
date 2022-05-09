@@ -19,6 +19,7 @@
         {{ $p.title }}
       </h2>
 
+      <slot name="beforeContent"/>
       <ScrollContainer
         :unstyled="true"
         :class="$s.ModalBase__Content"

@@ -6,10 +6,16 @@
 
 <script lang='ts'>
 import TourModal from './ModalsModules/TourModal/TourModal'
+import BookingConfirmModal from './ModalsModules/BookingConfirmModal/BookingConfirmModal'
+import LoginModal from './ModalsModules/LoginModal/LoginModal'
+import SignupModal from './ModalsModules/SignupModal/SignupModal'
 
 export default {
   components: {
-    TourModal
+    TourModal,
+    BookingConfirmModal,
+    LoginModal,
+    SignupModal,
   }
 }
 </script>
