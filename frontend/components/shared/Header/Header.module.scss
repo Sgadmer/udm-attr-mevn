@@ -5,6 +5,15 @@
   justify-content: space-between;
   margin-bottom: spacer('lg-min');
 
+  &__Controls {
+    display: flex;
+    align-items: center;
+  }
+
+  &__User {
+    margin-right: 40px;
+  }
+
   &__Login {
     margin-right: spacer('md-max');
   }

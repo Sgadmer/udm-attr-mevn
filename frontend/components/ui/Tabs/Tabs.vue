@@ -5,7 +5,8 @@
       kind="Transparent"
       :class="{
         [$s.Tabs__Tab]: true,
-        [$s.Tabs__Tab_Selected]: tab.selected
+        [$s.Tabs__Tab_Selected]: tab.selected,
+        [$s.Tabs__Tab_Big]: $p.isBig
       }"
       @click="handleTabChange(i)"
     >
@@ -34,11 +35,13 @@ interface ITab {
  * PROPS
  */
 interface IProps {
-  tabs: any
+  tabs: any,
+  isBig?: boolean
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
   tabs: () => [] as ITab[],
+  isBig: false,
 })
 
 /**

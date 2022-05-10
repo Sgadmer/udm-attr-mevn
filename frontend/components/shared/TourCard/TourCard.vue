@@ -36,7 +36,10 @@
       </p>
     </div>
 
-    <div :class="$s.TourCard__Controls">
+    <div
+      v-if="$p.type === 'common'"
+      :class="$s.TourCard__Controls"
+    >
       <Button
         kind="Secondary"
         corners="Md"
@@ -51,6 +54,47 @@
         @click="handleModalOpen(EModalsNames.BookingConfirmModal)"
       >
         Забронировать
+      </Button>
+    </div>
+
+    <div
+      v-if="$p.type === 'tourist'"
+      :class="$s.TourCard__Controls"
+    >
+
+      <Button
+        kind="Main"
+        corners="Md"
+        @click="handleModalOpen(EModalsNames.TourModal)"
+      >
+        Подробнее
+      </Button>
+    </div>
+
+    <div
+      v-if="$p.type === 'agent' || $p.type === 'admin'"
+      :class="$s.TourCard__Controls"
+    >
+      <Tag
+        type="Success"
+        :class="$s.TourCard__Tag"
+      >Активный
+      </Tag>
+
+      <Button
+        kind="Secondary"
+        corners="Md"
+        @click="handleModalOpen(EModalsNames.TourModal)"
+      >
+        Подробнее
+      </Button>
+
+      <Button
+        kind="Main"
+        corners="Md"
+        @click="handleModalOpen(EModalsNames.TouristsListModal)"
+      >
+        Туристы
       </Button>
     </div>
 
@@ -69,14 +113,19 @@ import { EModalsNames } from '~@constants/modals'
 /**
  * TYPES
  */
+type TCardType = 'common' | 'tourist' | 'agent' | 'admin'
+
 
 /**
  * PROPS
  */
 interface IProps {
+  type?: TCardType
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  type: 'common'
+})
 
 /**
  * EMITS

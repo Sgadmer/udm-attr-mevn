@@ -6,9 +6,9 @@
         Почувствуй Удмуртию!
       </p>
     </div>
-    <ResultsContainer>
+    <ScrollContainer>
       <LazyTourCard v-for="i in 20"/>
-    </ResultsContainer>
+    </ScrollContainer>
   </section>
 </template>
 

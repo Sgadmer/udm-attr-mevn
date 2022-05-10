@@ -1,0 +1,23 @@
+@import '@styles/common.scss';
+
+.Tag {
+  padding: 2px 8px;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: cl('white');
+  width: fit-content;
+
+  &_Success {
+    background-color: cl('success');
+  }
+
+  &_Danger {
+    background-color: cl('danger');
+  }
+
+  &_Warning {
+    background-color: cl('warning');
+  }
+}

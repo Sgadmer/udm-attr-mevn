@@ -4,10 +4,18 @@
       <div :class="[$s.TourModal__Column, $s.TourModal__Left]">
         <TourSlider/>
 
+        <div
+          :class="$s.TourModal__Status"
+          v-if="$route.name !== 'index'"
+        >
+          <span>Статус:&nbsp;&nbsp;&nbsp;</span>
+          <Tag type="Success">{{$route.name}}</Tag>
+        </div>
+
         <Button
           kind="Secondary"
           corners="Md"
-          :class="$s.TourModal__BookingBtn"
+          :class="$s.TourModal__AcionBtn"
         >
           Забронировать
         </Button>

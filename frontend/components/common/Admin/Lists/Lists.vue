@@ -1,16 +1,28 @@
 <template>
-  <div>
-    <MainPromoSlider/>
-    <FiltersForm/>
-    <MainAllTours/>
-  </div>
+  <component is="ToursList"/>
 </template>
+
+<script lang='ts'>
+import TouristsList from './TouristsList'
+import AgentsList from './AgentsList'
+import ToursList from './ToursList'
+
+
+export default {
+  components: {
+    TouristsList,
+    AgentsList,
+    ToursList
+  }
+}
+</script>
 
 <script setup lang='ts'>
 
 /**
  * IMPORTS
  */
+import $s from '../../common.module.scss'
 
 /**
  * TYPES

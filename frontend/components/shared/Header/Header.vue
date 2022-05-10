@@ -1,9 +1,10 @@
 <template>
   <header :class="$s.Header">
     <Logo/>
-    <div>
-      <NuxtLink to="/tourist">Tourist</NuxtLink>
-
+    <div :class="$s.Header__Controls">
+      <p :class="$s.Header__User">
+        Хазиев Р.Н.
+      </p>
       <Button
         kind="Transparent"
         corners="Sm"

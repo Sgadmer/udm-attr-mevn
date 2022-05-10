@@ -1,27 +1,30 @@
 <template>
-  <ClientOnly>
-    <Datepicker
-      v-model="localModel"
-      @update:modelValue="handleDate"
-      :format="pickerProps.format"
-      :locale="pickerProps.locale"
-      :monthNameFormat="pickerProps.monthNameFormat"
-      :clearable="pickerProps.clearable"
-      :autoApply="pickerProps.autoApply"
-      :minDate="compMinDate"
-      :maxDate="compMaxDate"
-      :enableTimePicker="pickerProps.enableTimePicker"
-      :class="$s.Datepicker"
-      data-component="Datepicker"
-    >
-      <template #dp-input="{ value, onInput, onEnter, onTab, onClear }">
-        <Input
-          :inputValue="value"
-          :label="$p.inputLabel"
-        />
-      </template>
-    </Datepicker>
-  </ClientOnly>
+  <div data-component="Datepicker">
+    <ClientOnly>
+      <Datepicker
+        v-model="localModel"
+        @update:modelValue="handleDate"
+        :format="pickerProps.format"
+        :locale="pickerProps.locale"
+        :monthNameFormat="pickerProps.monthNameFormat"
+        :clearable="pickerProps.clearable"
+        :autoApply="pickerProps.autoApply"
+        :minDate="compMinDate"
+        :maxDate="compMaxDate"
+        :closeOnScroll="pickerProps.closeOnScroll"
+        :enableTimePicker="pickerProps.enableTimePicker"
+        :class="$s.Datepicker"
+
+      >
+        <template #dp-input="{ value, onInput, onEnter, onTab, onClear }">
+          <Input
+            :inputValue="value"
+            :label="$p.inputLabel"
+          />
+        </template>
+      </Datepicker>
+    </ClientOnly>
+  </div>
 </template>
 
 <script setup lang='ts'>
@@ -75,6 +78,7 @@ const pickerProps = $ref<Record<string, any>>({
   clearable: true,
   autoApply: true,
   enableTimePicker: false,
+  closeOnScroll: true,
 })
 
 /**

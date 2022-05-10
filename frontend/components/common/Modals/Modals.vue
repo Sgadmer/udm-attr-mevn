@@ -9,6 +9,10 @@ import TourModal from './ModalsModules/TourModal/TourModal'
 import BookingConfirmModal from './ModalsModules/BookingConfirmModal/BookingConfirmModal'
 import LoginModal from './ModalsModules/LoginModal/LoginModal'
 import SignupModal from './ModalsModules/SignupModal/SignupModal'
+import TouristCancelModal from './ModalsModules/TouristCancelModal/TouristCancelModal'
+import AgentCancelModal from './ModalsModules/AgentCancelModal/AgentCancelModal'
+import TouristsListModal from './ModalsModules/TouristsListModal/TouristsListModal'
+import CreateTourModal from './ModalsModules/CreateTourModal/CreateTourModal'
 
 export default {
   components: {
@@ -16,6 +20,10 @@ export default {
     BookingConfirmModal,
     LoginModal,
     SignupModal,
+    TouristCancelModal,
+    AgentCancelModal,
+    TouristsListModal,
+    CreateTourModal
   }
 }
 </script>

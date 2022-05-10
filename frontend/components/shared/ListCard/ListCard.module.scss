@@ -1,0 +1,41 @@
+@import '@styles/common.scss';
+
+.ListCard {
+  width: 100%;
+  background-color: cl('white');
+  box-shadow: 0 4px 45px rgba(0, 0, 0, 0.15);
+  border-radius: 25px;
+  padding: 25px 40px;
+
+  margin-bottom: 45px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__Row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__Term {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 6px;
+  }
+
+  &__Desc {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+  }
+
+  &__Controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+}

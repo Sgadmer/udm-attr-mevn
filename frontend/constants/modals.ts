@@ -3,4 +3,8 @@ export const enum EModalsNames {
   BookingConfirmModal = 'BookingConfirmModal',
   LoginModal = 'LoginModal',
   SignupModal = 'SignupModal',
+  TouristCancelModal = 'TouristCancelModal',
+  AgentCancelModal = 'AgentCancelModal',
+  TouristsListModal = 'TouristsListModal',
+  CreateTourModal = 'CreateTourModal',
 }
