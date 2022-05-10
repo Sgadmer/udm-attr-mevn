@@ -6,6 +6,10 @@
     height: 56px;
     width: 100%;
     position: relative;
+
+    &_Textarea {
+      height: auto;
+    }
   }
 
   &__Input {
@@ -27,7 +31,7 @@
 
       opacity: 0.5;
 
-      &:hover{
+      &:hover {
         cursor: not-allowed;
       }
     }
@@ -55,7 +59,7 @@
 
   &__Placeholder {
     position: absolute;
-    top: 50%;
+    top: 28px;
     transform: translateY(-50%);
     color: cl('secondary');
     left: 12px;
@@ -65,5 +69,86 @@
     transition: all .3s ease;
     pointer-events: none;
     white-space: nowrap;
+  }
+
+  &__Textarea {
+    height: 250px;
+    resize: none;
+  }
+
+  &__FileWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__ImagesContainer {
+    margin-top: 20px;
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  &__LoadBtn {
+    width: fit-content;
+  }
+
+  &__ImageWrapper {
+    margin: 0 5px 5px 0;
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__LoadedImage {
+    width: 195px;
+    height: 160px;
+    object-fit: cover;
+  }
+
+  &__DeleteImageBtn {
+    min-width: 25px;
+    min-height: 25px !important;
+    max-width: 25px;
+    max-height: 25px;
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 10px;
+    padding: 0;
+    color: cl('white');
+
+    background-color: cl('transparent');
+    transition: all 0.3s ease;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-1px);
+      box-shadow: 0px 4px 4px cl('black', 0.3);
+    }
+  }
+
+  &__ImageCounter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 20px;
+    min-height: 20px;
+    background-color: cl('white', 0.5);
+
+    text-align: center;
+    color: cl('white');
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+    padding: 0 2px;
+
+    border-top-left-radius: 10px;
   }
 }

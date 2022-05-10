@@ -1,8 +1,9 @@
 <template>
   <div>
-    <MainPromoSlider/>
-    <FiltersForm/>
-    <MainAllTours/>
+    <AdminCatTabs/>
+    <AdminKeywordsFilterForm :class="compFiltersClasses"/>
+    <FiltersForm :class="compFiltersClasses"/>
+    <AdminLists/>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 /**
  * IMPORTS
  */
+import $s from '../common.module.scss'
 
 /**
  * TYPES
@@ -43,6 +45,12 @@ const $e = defineEmits<IEmits>()
 /**
  * COMPUTED
  */
+const compFiltersClasses = computed(() => {
+  return {
+    [$s.Common__FiltersForm]: true,
+    [$s.Common__FiltersForm_Admin]: true,
+  }
+})
 
 /**
  * HOOKS

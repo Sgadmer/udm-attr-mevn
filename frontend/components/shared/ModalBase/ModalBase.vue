@@ -15,9 +15,8 @@
       <h2
         v-if="$p.title"
         :class="$s.ModalBase__Title"
-      >
-        {{ $p.title }}
-      </h2>
+        v-html="$p.title"
+      />
 
       <slot name="beforeContent"/>
       <ScrollContainer

@@ -1,16 +1,30 @@
 <template>
   <div
-    :class="$s.Input__Wrapper"
+    :class="{
+    [$s.Input__Wrapper]: true,
+    [$s.Input__Wrapper_Textarea]: $p.isTextarea,
+  }"
     data-component="Input"
   >
 
     <input
+      v-if="!$p.isTextarea"
       :class="compInputClasses"
       :value="compInputValue"
       @input="handleInput($event.target.value, $event.inputType)"
       placeholder=" "
       :type="$p.type"
       :disabled="$p.isDisabled"
+    />
+
+    <textarea
+      v-else
+      :class="compInputClasses"
+      :value="compInputValue"
+      @input="handleInput($event.target.value, $event.inputType)"
+      placeholder=" "
+      :disabled="$p.isDisabled"
+      :maxlength="2000"
     />
 
     <span :class="$s.Input__Placeholder">
@@ -82,6 +96,10 @@ interface IProps {
    * Тип инпута
    */
   type?: 'text' | 'password'
+  /**
+   * Использовать textarea вместо input
+   */
+  isTextarea?: boolean
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
@@ -95,6 +113,7 @@ const $p = withDefaults(defineProps<IProps>(), {
   isDisabled: false,
   maxLength: false,
   type: 'text',
+  isTextarea: false,
 })
 
 /**
@@ -129,8 +148,9 @@ const compInputValue = computed((): string => {
 
 const compInputClasses = computed((): Record<string, boolean> => {
   return {
-    [`${ $s.Input__Input }`]: true,
-    [`${ $s.Input__Input_Disabled }`]: $p.isDisabled,
+    [$s.Input__Input]: true,
+    [$s.Input__Input_Disabled]: $p.isDisabled,
+    [$s.Input__Textarea]: $p.isTextarea
   }
 })
 /**

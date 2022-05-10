@@ -1,7 +1,5 @@
 <template>
-  <ScrollContainer>
-    <slot/>
-  </ScrollContainer>
+  <Agent/>
 </template>
 
 <script setup lang='ts'>
@@ -9,7 +7,6 @@
 /**
  * IMPORTS
  */
-import $s from './ResultsContainer.module.scss'
 
 /**
  * TYPES

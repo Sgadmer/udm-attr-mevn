@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <MainPromoSlider/>
-    <FiltersForm/>
-    <MainAllTours/>
+  <div :class="{
+    [$s.Tag]: true,
+    [$s[`Tag_${$p.type}`]]: true
+  }">
+    <slot/>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 /**
  * IMPORTS
  */
+import $s from './Tag.module.scss'
 
 /**
  * TYPES
@@ -20,15 +22,17 @@
  * PROPS
  */
 interface IProps {
+  type?: 'Success' | 'Danger' | 'Warning',
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  type: 'Success'
+})
 
 /**
  * EMITS
  */
-interface IEmits {
-}
+interface IEmits {}
 
 const $e = defineEmits<IEmits>()
 

@@ -1,6 +1,6 @@
 <template>
   <ModalBase
-    title="Вход"
+    :title="$route.name === 'admin' ? 'Вход администратора' : 'Вход'"
   >
     <FormContainer
       orientation="Column"

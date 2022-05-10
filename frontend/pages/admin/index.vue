@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <MainPromoSlider/>
-    <FiltersForm/>
-    <MainAllTours/>
-  </div>
+  <Admin/>
 </template>
 
 <script setup lang='ts'>
