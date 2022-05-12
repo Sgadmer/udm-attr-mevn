@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vuelidate/core',
   ],
-  builder: process.env.NODE_ENV === 'production' ? 'webpack' : 'vite', //'vite' : 'vite'  'webpack' : 'webpack'
+  builder: process.env.NODE_ENV === 'production' ? 'vite' : 'vite', //'vite' : 'vite'  'webpack' : 'webpack'
   css: [
     'modern-normalize/modern-normalize.css', // Файлы из node_modules
     'swiper/css/bundle',
