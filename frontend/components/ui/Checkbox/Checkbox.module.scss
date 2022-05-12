@@ -4,9 +4,14 @@
 
   display: flex;
 
+  border: 2px solid cl('transparent');
 
   &:hover {
     cursor: pointer;
+  }
+
+  &_Error {
+    border-color: cl('danger');
   }
 
   &__Input {

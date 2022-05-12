@@ -26,5 +26,4 @@ export const useModalsStore = defineStore('modals', {
       this.currentModalName = name
     }
   },
-  
 })

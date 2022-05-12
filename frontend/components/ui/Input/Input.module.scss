@@ -79,6 +79,7 @@
   &__FileWrapper {
     display: flex;
     flex-direction: column;
+    border: 3px solid cl('transparent')
   }
 
   &__ImagesContainer {
@@ -150,5 +151,9 @@
     padding: 0 2px;
 
     border-top-left-radius: 10px;
+  }
+
+  &_Error {
+    border-color: cl('danger') !important;
   }
 }

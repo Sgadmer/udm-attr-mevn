@@ -9,6 +9,7 @@
 
 <script setup lang='ts'>
 import $s from './layouts.module.scss'
+import { useUserStore } from '~@store/user'
 
 /**
  * IMPORTS
@@ -21,20 +22,24 @@ import $s from './layouts.module.scss'
 /**
  * PROPS
  */
-interface IProps {}
+interface IProps {
+}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {}
+interface IEmits {
+}
 
 const $e = defineEmits<IEmits>()
 
 /**
  * DATA
  */
+const $userStore = useUserStore()
+
 
 /**
  * WATCHERS
@@ -47,6 +52,7 @@ const $e = defineEmits<IEmits>()
 /**
  * HOOKS
  */
+
 
 /**
  * METHODS

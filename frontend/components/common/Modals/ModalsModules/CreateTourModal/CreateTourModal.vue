@@ -4,30 +4,37 @@
   >
     <FormContainer orientation="Column">
       <InputFile
+        v-model:inputModel="formModel.mainPhoto"
         :allowedExt="['.jpg', '.jpeg', '.png']"
         label="Загрузить главное фото"
         :showImages="true"
+        :isError="$findError($v.$errors, 'mainPhoto')"
       />
       <InputFile
+        v-model:inputModel="formModel.addPhotos"
         :allowedExt="['.jpg', '.jpeg', '.png']"
         label="Загрузить дополнительные фото (макс. 10)"
         :maxCount="10"
         :showImages="true"
+        :isError="$findError($v.$errors, 'addPhotos')"
       />
       <div :class="$s.Modals__ShortControls">
         <Input
           v-model:inputModel="formModel.title"
           label="Название"
+          :isError="$findError($v.$errors, 'title')"
         />
         <Input
           v-model:inputModel="formModel.price"
           label="Стоимость"
           :isNumber="true"
           :maxLength="6"
+          :isError="$findError($v.$errors, 'price')"
         />
         <Input
           v-model:inputModel="formModel.place"
           label="Место проведения"
+          :isError="$findError($v.$errors, 'place')"
         />
         <div :class="$s.Modals__Row">
           <Datepicker
@@ -35,32 +42,39 @@
             inputLabel="Дата с"
             :maxDate="formModel.dateEnd"
             :class="$s.Modals__DatepickerFirst"
+            :isError="$findError($v.$errors, 'dateStart')"
           />
           <Datepicker
             v-model:datepickerModel="formModel.dateEnd"
             inputLabel="Дата по"
             :minDate="formModel.dateStart"
+            :isError="$findError($v.$errors, 'dateEnd')"
           />
         </div>
         <Input
           v-model:inputModel="formModel.desc"
           label="Описание"
           :isTextarea="true"
+          :isError="$findError($v.$errors, 'desc')"
         />
       </div>
 
       <Checkbox
+        v-model:checkboxModel="formModel.agree"
         :class="$s.Modals__AgreeCheckbox"
+        :isError="$findError($v.$errors, 'agree')"
       >
-        Я подтверждаю, что мой  тур  не содержит информации, противоречащей правилам сайта.<br/>
+        Я подтверждаю, что мой тур не содержит информации, противоречащей правилам сайта.<br/>
         Я беру на себя всю ответственность за информацию, предоставленную в этой заявке.<br/>
-        Я согласен/на с тем, что заявка может быть заблокирована по решению администрации в одностороннем порядке без предварительного уведомления.
+        Я согласен/на с тем, что заявка может быть заблокирована по решению администрации в одностороннем порядке без
+        предварительного уведомления.
       </Checkbox>
 
       <div :class="$s.Modals__Controls">
         <Button
           kind="Main"
           corners="Md"
+          @click="handleSubmit"
         >
           Отправить заявку
         </Button>
@@ -75,6 +89,10 @@
  * IMPORTS
  */
 import $s from '../../Modals.module.scss'
+import { and, maxLength, required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+
+const { $findError } = useNuxtApp()
 
 /**
  * TYPES
@@ -100,12 +118,50 @@ const $e = defineEmits<IEmits>()
  * DATA
  */
 const formModel = $ref({
+  mainPhoto: null,
+  addPhotos: null,
   title: '',
   price: null,
+  place: '',
   dateStart: null,
   dateEnd: null,
   desc: '',
+  agree: false,
 })
+
+const validationRules = {
+  mainPhoto: {
+    valid: and(required, (v) => {
+      return v.getAll('img').length <= 2
+    })
+  },
+  addPhotos: {
+    valid: and(required, (v) => {
+      return v.getAll('img').length <= 10
+    })
+  },
+  title: { required },
+  price: {
+    valid: and(required, maxLength(2000))
+  },
+  place: { required },
+  dateStart: {
+    valid: required
+  },
+  dateEnd: {
+    valid: required
+  },
+  desc: {
+    valid: and(required, maxLength(2000))
+  },
+  agree: {
+    valid: and(required, (v) => {
+      return v === true
+    })
+  }
+}
+
+const $v = useVuelidate(validationRules, formModel)
 
 /**
  * WATCHERS
@@ -122,5 +178,18 @@ const formModel = $ref({
 /**
  * METHODS
  */
+const handleSubmit = async (): Promise<void> => {
+  const isFormCorrect = await $v.value.$validate()
+
+  console.log(isFormCorrect, $v.value, formModel)
+  if (!isFormCorrect) return
+
+  const { data, error } = await useFetch('/api/tour', {
+    method: 'POST',
+    body: formModel
+  })
+
+  console.log(data)
+}
 
 </script>

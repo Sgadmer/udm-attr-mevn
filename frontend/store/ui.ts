@@ -24,5 +24,4 @@ export const useUIStore = defineStore('ui', {
       this.isScrollBlocked = isBlocked
     }
   },
-  
 })

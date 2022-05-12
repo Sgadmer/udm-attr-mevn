@@ -10,13 +10,13 @@
           label="Место"
           :charsToDelete="REG_EXP.ecxeptLetters"
         />
-        <Input
-          v-model:inputModel="formModel.keywords"
-          label="Ключевые слова"
-          modelJoin=", "
-          :modelSplit="REG_EXP.commaSeparator"
-          :charsToDelete="REG_EXP.exceptBaseList"
-        />
+<!--        <Input-->
+<!--          v-model:inputModel="formModel.keywords"-->
+<!--          label="Ключевые слова"-->
+<!--          modelJoin=", "-->
+<!--          :modelSplit="REG_EXP.commaSeparator"-->
+<!--          :charsToDelete="REG_EXP.exceptBaseList"-->
+<!--        />-->
 
         <div :class="$s.FiltersForm__ControlsForm">
           <Input
@@ -94,7 +94,7 @@ const $e = defineEmits<IEmits>()
  */
 const formModel = $ref<IFiltersForm>({
   place: '',
-  keywords: [],
+  // keywords: [],
   priceMin: 0,
   priceMax: 100000,
   dateStart: null,
@@ -128,7 +128,7 @@ watch(formModel, handleModelChange, { deep: true })
  * METHODS
  */
 
-async function handleModelChange(): void {
+function handleModelChange(): void {
   if (formModel.priceMax > 100000) formModel.priceMax = 100000
 
   if (formModel.priceMin > formModel.priceMax) {
@@ -143,7 +143,6 @@ async function handleModelChange(): void {
 const handleFormSubmit = async (): void => {
   const isFormCorrect = await $v.value.$validate()
   if (isFormCorrect) {
-    console.log('submit allowed!')
   }
 }
 

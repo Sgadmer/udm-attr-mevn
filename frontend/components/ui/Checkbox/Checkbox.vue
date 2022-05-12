@@ -1,9 +1,12 @@
 <template>
   <label
-    :class="$s.Checkbox"
+    :class="{
+    [$s.Checkbox]: true,
+    [$s.Checkbox_Error]: $p.isError
+    }"
     data-component="Checkbox"
   >
-    <input type="checkbox" :class="$s.Checkbox__Input">
+    <input type="checkbox" :class="$s.Checkbox__Input" @change="handleTabChange($event)">
     <span :class="$s.Checkbox__Text">
       <slot/>
     </span>
@@ -25,15 +28,20 @@ import $s from './Checkbox.module.scss'
  * PROPS
  */
 interface IProps {
+  isError?: boolean
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  isError: false,
+})
 
 /**
  * EMITS
  */
 interface IEmits {
+  (e: 'update:checkboxModel', newValue: boolean): void
 }
+
 
 const $e = defineEmits<IEmits>()
 
@@ -56,6 +64,9 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
+const handleTabChange = (e): void => {
+  $e('update:checkboxModel', e.target.checked)
+}
 
 </script>
 

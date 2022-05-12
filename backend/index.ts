@@ -1,4 +1,4 @@
-import express, { Router } from 'express'
+import express from 'express'
 import cors from 'cors'
 import { connectDB } from './config'
 import AppRoutes from './routes'

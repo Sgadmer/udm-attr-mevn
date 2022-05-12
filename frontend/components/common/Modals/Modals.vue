@@ -1,5 +1,5 @@
 <template>
-  <transition name="fadeFaster">
+  <transition name="fadeFaster" mode="out-in">
     <component :is="$modalsStore.getCurrentModalName"/>
   </transition>
 </template>

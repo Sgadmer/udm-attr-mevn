@@ -9,13 +9,13 @@
       kind="Main"
       corners="Md"
       class="ToursList__CreateBtn"
+      @click="$modalsStore.setCurrentModalName(EModalsNames.CreateTourModal)"
     >
       Создать&nbsp;&nbsp;&nbsp;+
     </Button>
   </div>
   <ScrollContainer>
     <LazyTourCard
-      v-for="i in 20"
       type="agent"
     />
   </ScrollContainer>
@@ -27,6 +27,8 @@
  * IMPORTS
  */
 import $s from '../../common.module.scss'
+import { EModalsNames } from '~/constants/modals'
+import { useModalsStore } from '~@store/modals'
 
 /**
  * TYPES
@@ -87,7 +89,7 @@ const tabs = $ref([
     value: ETabs.blocked,
   },
 ])
-
+const $modalsStore = useModalsStore()
 /**
  * WATCHERS
  */

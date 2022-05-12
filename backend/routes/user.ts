@@ -1,16 +1,8 @@
 import { Router } from 'express'
-import userController from '../controllers/user'
+import userController from '~~/backend/controllers/user'
 
 const User = Router()
 
-User.get('/', userController.fetchUsers)
-
-User.get('/:id', userController.fetchUser)
-
-User.post('/', userController.createUser)
-
-User.put('/:id', userController.updateUser)
-
-User.delete('/:id', userController.deleteUser)
+User.get('/check', userController.isAccountExist)
 
 export default User

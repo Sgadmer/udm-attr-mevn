@@ -1,7 +1,10 @@
 <template>
   <div
     data-component="InputFile"
-    :class="$s.Input__FileWrapper"
+    :class="{
+    [$s.Input__FileWrapper]: true,
+    [$s.Input_Error]: $p.isError
+  }"
   >
     <Button
       @click="handleLoadBtnClick"
@@ -76,6 +79,7 @@ interface IProps {
   label?: string,
   maxCount?: number,
   showImages?: boolean,
+  isError?: boolean
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
@@ -83,12 +87,14 @@ const $p = withDefaults(defineProps<IProps>(), {
   label: 'Загрузить',
   maxCount: 1,
   showImages: false,
+  isError: false
 })
 
 /**
  * EMITS
  */
 interface IEmits {
+  (e: 'update:inputModel', newValue: any): void
 }
 
 const $e = defineEmits<IEmits>()
@@ -138,16 +144,20 @@ const handleFileLoading = (e: HTMLInputEvent): void => {
   const files = [...e.target.files]
   files.length = $p.maxCount
   preparedImages.length = 0
+  const fd = new FormData()
 
   if ($p.showImages) {
     files.forEach(file => {
       compressImage(file).then(res => {
         preparedImages.push(res)
+        fd.append('img', res)
       })
     })
   }
 
   fileInputRef.value = null
+
+  $e('update:inputModel', fd)
 }
 
 </script>

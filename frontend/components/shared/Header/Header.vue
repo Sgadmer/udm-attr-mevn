@@ -1,15 +1,31 @@
 <template>
-  <header :class="$s.Header">
+  <header :class="$s.Header" :key="$userStore.getIsKeepAuth">
     <Logo/>
     <div :class="$s.Header__Controls">
-      <p :class="$s.Header__User">
-        Хазиев Р.Н.
+
+      <p
+        :class="$s.Header__User"
+        v-if="compIsKeepAuth"
+      >
+        {{ compUserName }}
       </p>
       <Button
         kind="Transparent"
         corners="Sm"
         :class="$s.Header__Login"
+        @click="handleLogout"
+        v-if="compIsKeepAuth"
+      >
+        Выйти
+      </Button>
+
+
+      <Button
+        kind="Transparent"
+        corners="Sm"
+        :class="$s.Header__Login"
         @click="handleModalOpen(EModalsNames.LoginModal)"
+        v-if="!compIsKeepAuth"
       >
         Вход
       </Button>
@@ -17,9 +33,11 @@
         kind="Main"
         corners="Sm"
         @click="handleModalOpen(EModalsNames.SignupModal)"
+        v-if="!compIsKeepAuth"
       >
         Регистрация
       </Button>
+
     </div>
   </header>
 </template>
@@ -32,6 +50,7 @@
 import $s from './Header.module.scss'
 import { EModalsNames } from '~/constants/modals'
 import { useModalsStore } from '~@store/modals'
+import { useUserStore } from '~@store/user'
 
 /**
  * TYPES
@@ -57,6 +76,7 @@ const $e = defineEmits<IEmits>()
  * DATA
  */
 const $modalsStore = useModalsStore()
+const $userStore = useUserStore()
 
 /**
  * WATCHERS
@@ -65,14 +85,35 @@ const $modalsStore = useModalsStore()
 /**
  * COMPUTED
  */
+const compUserName = computed((): string => {
+  const userInfo = $userStore.getUserInfo
+
+  switch (userInfo.existType) {
+    case 'admin':
+      return `Админ. ${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] }.`
+    case 'agent':
+      return userInfo.info.corpName
+    case 'tourist':
+      `${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] }.`
+  }
+})
+
+const compIsKeepAuth = computed(() => {
+  return $userStore.getIsKeepAuth
+})
 
 /**
  * HOOKS
  */
 
+
 /**
  * METHODS
  */
+const handleLogout = (): void => {
+  $userStore.$reset()
+  navigateTo(`/`)
+}
 
 const handleModalOpen = (modalName: EModalsNames): void => {
   $modalsStore.setCurrentModalName(modalName)

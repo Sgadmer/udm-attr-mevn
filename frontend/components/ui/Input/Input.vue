@@ -99,7 +99,11 @@ interface IProps {
   /**
    * Использовать textarea вместо input
    */
-  isTextarea?: boolean
+  isTextarea?: boolean,
+  /**
+   * Показать ошибку
+   */
+  isError?: boolean
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
@@ -114,6 +118,7 @@ const $p = withDefaults(defineProps<IProps>(), {
   maxLength: false,
   type: 'text',
   isTextarea: false,
+  isError: false,
 })
 
 /**
@@ -150,7 +155,8 @@ const compInputClasses = computed((): Record<string, boolean> => {
   return {
     [$s.Input__Input]: true,
     [$s.Input__Input_Disabled]: $p.isDisabled,
-    [$s.Input__Textarea]: $p.isTextarea
+    [$s.Input__Textarea]: $p.isTextarea,
+    [$s.Input_Error]: $p.isError
   }
 })
 /**
