@@ -3,8 +3,10 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "start http://localhost:3000 && nuxt dev",
+    "start": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "start http://localhost:4000 && nuxt preview"
+    "preview": "start http://localhost:4000 && nuxt preview",
+    "previewServer": "uxt preview"
   },
   "dependencies": {
     "@nuxt/webpack-builder": "^3.0.0-rc.2",
