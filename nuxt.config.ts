@@ -75,4 +75,7 @@ export default defineNuxtConfig({
     { path: '/api/**', handler: './backend/index.ts' },
   ],
   telemetry: false,
+  vite: {
+    publicDir: './public'
+  }
 })

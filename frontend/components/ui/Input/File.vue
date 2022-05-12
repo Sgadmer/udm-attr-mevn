@@ -157,7 +157,7 @@ const handleFileLoading = (e: HTMLInputEvent): void => {
 
   fileInputRef.value = null
 
-  $e('update:inputModel', fd)
+  $e('update:inputModel', preparedImages)
 }
 
 </script>

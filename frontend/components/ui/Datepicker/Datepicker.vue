@@ -20,6 +20,7 @@
           <Input
             :inputValue="value"
             :label="$p.inputLabel"
+            :isError="$p.isError"
           />
         </template>
       </Datepicker>
@@ -49,6 +50,7 @@ interface IProps {
   minDate?: Date | string,
   maxDate?: Date | string,
   datepickerModel?: Date,
+  isError?: boolean
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
@@ -56,6 +58,7 @@ const $p = withDefaults(defineProps<IProps>(), {
   minDate: null,
   maxDate: null,
   datepickerModel: null,
+  isError: false,
 })
 
 /**

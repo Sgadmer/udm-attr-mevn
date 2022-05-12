@@ -91,6 +91,7 @@
 import $s from '../../Modals.module.scss'
 import { and, maxLength, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import { useUserStore } from '~/store/user'
 
 const { $findError } = useNuxtApp()
 
@@ -131,14 +132,10 @@ const formModel = $ref({
 
 const validationRules = {
   mainPhoto: {
-    valid: and(required, (v) => {
-      return v.getAll('img').length <= 2
-    })
+    valid: required
   },
   addPhotos: {
-    valid: and(required, (v) => {
-      return v.getAll('img').length <= 10
-    })
+    valid: required
   },
   title: { required },
   price: {
@@ -162,6 +159,8 @@ const validationRules = {
 }
 
 const $v = useVuelidate(validationRules, formModel)
+const $userStore = useUserStore()
+
 
 /**
  * WATCHERS
@@ -184,12 +183,21 @@ const handleSubmit = async (): Promise<void> => {
   console.log(isFormCorrect, $v.value, formModel)
   if (!isFormCorrect) return
 
-  const { data, error } = await useFetch('/api/tour', {
-    method: 'POST',
-    body: formModel
-  })
+ let fd = new FormData()
 
-  console.log(data)
+  Object.entries(formModel).forEach(([key, value]) => {
+    fd.append(key, value)
+  })
+  fd.append('agentId', $userStore.getUserInfo._id)
+
+   $fetch('/api/tour', {
+    body: fd,
+    method: 'post',
+  }).then(res=>{
+    console.log(res)
+   }).catch(error=>{console.log()})
+
+
 }
 
 </script>

@@ -25,7 +25,7 @@ const tourSchema = new mongoose.Schema({
   },
   addPhotos: {
     type: [String],
-    required: false,
+    required: true,
   },
   title: {
     type: String,
