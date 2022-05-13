@@ -1,5 +1,5 @@
 <template>
-  <component is="ToursList"/>
+  <component :is="`${$adminStore.getSelectedTab}List`"/>
 </template>
 
 <script lang='ts'>
@@ -23,6 +23,7 @@ export default {
  * IMPORTS
  */
 import $s from '../../common.module.scss'
+import { useAdminStore } from '~@store/admin'
 
 /**
  * TYPES
@@ -47,6 +48,7 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $adminStore = useAdminStore()
 
 /**
  * WATCHERS

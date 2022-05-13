@@ -16,8 +16,28 @@
           kind="Secondary"
           corners="Md"
           :class="$s.TourModal__AcionBtn"
+          @click="handleModalOpen(EModalsNames.BookingConfirmModal)"
+          v-if="$route.name === 'index'"
         >
           Забронировать
+        </Button>
+        <Button
+          kind="Secondary"
+          corners="Md"
+          :class="$s.TourModal__AcionBtn"
+          @click="handleModalOpen(EModalsNames.AgentCancelModal)"
+          v-if="$route.name === 'agent'"
+        >
+          Отменить тур
+        </Button>
+        <Button
+          kind="Secondary"
+          corners="Md"
+          :class="$s.TourModal__AcionBtn"
+          @click="handleModalOpen(EModalsNames.TouristCancelModal)"
+          v-if="$route.name === 'tourist'"
+        >
+          Отменить бронь
         </Button>
       </div>
 
@@ -86,6 +106,8 @@
  * IMPORTS
  */
 import $s from './TourModal.module.scss'
+import { EModalsNames } from '~/constants/modals'
+import { useModalsStore } from '~@store/modals'
 
 /**
  * TYPES
@@ -110,6 +132,7 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $modalsStore = useModalsStore()
 
 /**
  * WATCHERS
@@ -126,5 +149,8 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
+const handleModalOpen = (modalName: EModalsNames): void => {
+  $modalsStore.setCurrentModalName(modalName)
+}
 
 </script>

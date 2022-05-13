@@ -7,7 +7,7 @@
     />
   </div>
   <ScrollContainer>
-    <LazyTourCard
+    <TourCard
       v-for="i in 20"
       type="admin"
     />

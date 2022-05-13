@@ -1,8 +1,8 @@
 <template>
   <div>
     <AdminCatTabs/>
-    <AdminKeywordsFilterForm :class="compFiltersClasses"/>
-    <FiltersForm :class="compFiltersClasses"/>
+    <FiltersForm v-if="$adminStore.getSelectedTab === 'Tours'" :class="compFiltersClasses"/>
+    <AdminKeywordsFilterForm v-else :class="compFiltersClasses"/>
     <AdminLists/>
   </div>
 </template>
@@ -13,6 +13,8 @@
  * IMPORTS
  */
 import $s from '../common.module.scss'
+import { useAdminStore } from '~@store/admin'
+
 
 /**
  * TYPES
@@ -37,6 +39,7 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $adminStore = useAdminStore()
 
 /**
  * WATCHERS

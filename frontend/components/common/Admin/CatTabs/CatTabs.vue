@@ -12,6 +12,7 @@
  * IMPORTS
  */
 import $s from './CatTabs.module.scss'
+import { useAdminStore } from '~@store/admin'
 
 /**
  * TYPES
@@ -21,14 +22,16 @@ type TSectionNames = 'Tourists' | 'Agents' | 'Tours'
 /**
  * PROPS
  */
-interface IProps {}
+interface IProps {
+}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {}
+interface IEmits {
+}
 
 const $e = defineEmits<IEmits>()
 
@@ -51,6 +54,7 @@ const tabs = $ref([
   },
 ])
 
+const $adminStore = useAdminStore()
 /**
  * WATCHERS
  */
@@ -67,7 +71,7 @@ const tabs = $ref([
  * METHODS
  */
 const handleTabChange = (selectedTabValue: TSectionNames): void => {
-  console.log(selectedTabValue)
+  $adminStore.setSelectedTab(selectedTabValue)
 }
 
 </script>
