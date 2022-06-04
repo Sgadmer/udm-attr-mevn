@@ -48,7 +48,6 @@ export default defineNuxtConfig({
     'modern-normalize/modern-normalize.css', // Файлы из node_modules
     'swiper/css/bundle',
     '@vuepic/vue-datepicker/dist/main.css',
-    'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css',
     '@/assets/styles/main.scss', // Файлы из проекта
   ],   // Эти стили будут применены к каждой странице
   components: {

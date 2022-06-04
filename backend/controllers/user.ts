@@ -8,9 +8,10 @@ export const isAccountExist = async (req, res) => {
     const {
       email,
       phone,
+      password
     } = req.query
     
-    const account = await getUserService.findByParams({ email, phone })
+    const account = await getUserService.findByParams({ email, phone, password }, true)
     
     res.status(200)
       .json(account)

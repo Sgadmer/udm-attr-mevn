@@ -3,7 +3,7 @@ import { Agent } from '../../models/agent'
 import { Tourist } from '../../models/tourist'
 import _ from 'lodash'
 
-const findByParams = async (params) => {
+const findByParams = async (params, useAllParams) => {
   params = _.omitBy(params, _.isNil)
   const preparedParams = []
   
@@ -13,9 +13,11 @@ const findByParams = async (params) => {
     })
   })
   
-  const admins = await Admin.find({ $or: preparedParams })
-  const agents = await Agent.find({ $or: preparedParams })
-  const tourists = await Tourist.find({ $or: preparedParams })
+  const filter = useAllParams ? '$and' : '$or'
+  
+  const admins = await Admin.find({ [filter]: preparedParams })
+  const agents = await Agent.find({ [filter]: preparedParams })
+  const tourists = await Tourist.find({ [filter]: preparedParams })
   let returnVal: Record<string, any> = {
     isExist: false,
     existType: null

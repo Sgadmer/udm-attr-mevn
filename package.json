@@ -41,9 +41,9 @@
     "pinia-plugin-persistedstate": "^1.5.1",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
+    "smooth-scrollbar": "^8.7.4",
     "swiper": "^8.1.4",
-    "vue-demi": "^0.12.5",
-    "vue3-perfect-scrollbar": "^1.6.0"
+    "vue-demi": "^0.12.5"
   },
   "devDependencies": {},
   "version": "0.0.0"
