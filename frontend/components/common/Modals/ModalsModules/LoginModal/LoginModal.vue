@@ -20,11 +20,11 @@
           :class="$s.LoginModal__PasswordInput"
           :isError="$findError($v.$errors, 'password')"
         />
-        <!--        <Checkbox-->
-        <!--          v-model:checkboxModel="formModel.isKeepAuth"-->
-        <!--        >-->
-        <!--          Оставаться в системе-->
-        <!--        </Checkbox>-->
+                <Checkbox
+                  v-model:checkboxModel="formModel.isKeepAuth"
+                >
+                  Оставаться в системе
+                </Checkbox>
       </div>
 
       <div :class="$s.LoginModal__Controls">
@@ -92,7 +92,7 @@ const $e = defineEmits<IEmits>()
 const formModel = $ref({
   email: '',
   password: '',
-  isKeepAuth: true,
+  isKeepAuth: false,
 })
 const $modalsStore = useModalsStore()
 const $userStore = useUserStore()
@@ -125,7 +125,6 @@ const $v = useVuelidate(validationRules, formModel)
 const handleSubmit = async (): Promise<void> => {
   const isFormCorrect = await $v.value.$validate()
 
-  console.log(isFormCorrect, $v.value, formModel)
   if (!isFormCorrect) return
 
   const { data, error } = await useFetch('/api/user/check', {

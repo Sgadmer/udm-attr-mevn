@@ -62,10 +62,13 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     // The private keys which are only available within server-side
-    apiSecret: 'Im_Avaliable_Only_On_Server', //Доступно только на сервере
+    //Доступно только на сервере
+    apiSecret: 'Im_Avaliable_Only_On_Server',
+    
     // Keys within public, will be also exposed to the client-side
+    //Доступно на сервере и на фронте
     public: {
-      apiBase: 'Im_Avaliable_On_Server_And_Client' //Доступно на сервере и на фронте
+      apiBase: 'Im_Avaliable_On_Server_And_Client'
     }
   },
   srcDir: 'frontend/',

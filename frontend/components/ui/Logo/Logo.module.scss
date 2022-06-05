@@ -8,6 +8,10 @@
   display: flex;
   align-items: center;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &__udm {
     color: cl('main');
   }

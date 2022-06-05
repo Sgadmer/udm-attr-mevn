@@ -136,28 +136,27 @@ const handleImageDelete = (index: number): void => {
 }
 
 const compressImage = async (img) => {
-  const res = await compressAccurately(img, 200)
-  return URL.createObjectURL(res)
+  return await compressAccurately(img, 200)
 }
 
 const handleFileLoading = (e: HTMLInputEvent): void => {
-  const files = [...e.target.files]
+  const files: Blob[] | File[] = [...e.target.files]
   files.length = $p.maxCount
   preparedImages.length = 0
-  const fd = new FormData()
 
   if ($p.showImages) {
-    files.forEach(file => {
+    files.forEach((file, i) => {
+
       compressImage(file).then(res => {
-        preparedImages.push(res)
-        fd.append('img', res)
+        files[i] = res
+        preparedImages.push(URL.createObjectURL(res))
       })
     })
   }
 
   fileInputRef.value = null
 
-  $e('update:inputModel', preparedImages)
+  $e('update:inputModel', files)
 }
 
 </script>

@@ -71,7 +71,7 @@ export const create = async (req, res) => {
       desc,
     } = req.body
     
-    console.log(req.files['mainPhoto'][0].path)
+    console.log({body: req.body, files: req.files.mainPhoto})
     
     const newTour = await postTourService.create({
       agentId,

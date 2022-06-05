@@ -121,13 +121,13 @@ const $e = defineEmits<IEmits>()
 const formModel = $ref({
   mainPhoto: null,
   addPhotos: null,
-  title: '',
-  price: null,
-  place: '',
-  dateStart: null,
-  dateEnd: null,
-  desc: '',
-  agree: false,
+  title: 'fgh',
+  price: 345,
+  place: 'efgere',
+  dateStart: Date.now(),
+  dateEnd: Date.now(),
+  desc: 'fwefwf',
+  agree: true,
 })
 
 const validationRules = {
@@ -183,20 +183,28 @@ const handleSubmit = async (): Promise<void> => {
   console.log(isFormCorrect, $v.value, formModel)
   if (!isFormCorrect) return
 
- let fd = new FormData()
+  let fd = new FormData()
 
   Object.entries(formModel).forEach(([key, value]) => {
+
+    if (Array.isArray(value)) {
+      value.forEach((item, i) => {
+        fd.append(key, item)
+      })
+    }
     fd.append(key, value)
   })
-  fd.append('agentId', $userStore.getUserInfo._id)
+  fd.append('agentId', $userStore.getUserInfo.info._id)
 
-   $fetch('/api/tour', {
-    body: fd,
-    method: 'post',
-  }).then(res=>{
-    console.log(res)
-   }).catch(error=>{console.log()})
-
+  try {
+    const data = await $fetch('/api/tour', {
+      method: 'POST',
+      body: fd,
+    })
+    console.log(data)
+  } catch (error) {
+    console.error(error)
+  }
 
 }
 

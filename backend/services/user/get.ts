@@ -3,7 +3,7 @@ import { Agent } from '../../models/agent'
 import { Tourist } from '../../models/tourist'
 import _ from 'lodash'
 
-const findByParams = async (params, useAllParams) => {
+const findByParams = async (params, useAllParams?: boolean) => {
   params = _.omitBy(params, _.isNil)
   const preparedParams = []
   

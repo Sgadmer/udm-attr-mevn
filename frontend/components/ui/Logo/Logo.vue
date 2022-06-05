@@ -1,5 +1,5 @@
 <template>
-  <p :class="$s.logo">
+  <p :class="$s.logo" @click="handleLogoClick">
     <span :class="$s.logo__udm">Udm</span>
     <span>-attraction</span>
   </p>
@@ -19,14 +19,16 @@ import $s from './Logo.module.scss'
 /**
  * PROPS
  */
-interface IProps {}
+interface IProps {
+}
 
 // const $p = withDefaults(defineProps<IProps>(), {})
 
 /**
  * EMITS
  */
-interface IEmits {}
+interface IEmits {
+}
 
 const $e = defineEmits<IEmits>()
 
@@ -49,5 +51,8 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
+const handleLogoClick = (): void => {
+  navigateTo('/')
+}
 
 </script>

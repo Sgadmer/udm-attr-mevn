@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { STORE_NAMES } from '~/constants/storeNames'
 
 interface IUserStore {
   isKeepAuth: boolean,
@@ -26,6 +27,6 @@ export const useUserStore = defineStore('user', {
     }
   },
   persist: {
-    key: '01tBu|08E}--w")Y'
+    key: STORE_NAMES.USER
   }
 })

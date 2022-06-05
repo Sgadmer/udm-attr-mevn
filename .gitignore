@@ -2,6 +2,7 @@
 node_modules
 /dist
 /build
+**/images/tours
 
 # Log files
 npm-debug.log*

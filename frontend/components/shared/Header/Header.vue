@@ -5,7 +5,8 @@
 
       <p
         :class="$s.Header__User"
-        v-if="compIsKeepAuth"
+        @click="handleAccountRedirect"
+        v-if="compIsAuthorized"
       >
         {{ compUserName }}
       </p>
@@ -14,7 +15,7 @@
         corners="Sm"
         :class="$s.Header__Login"
         @click="handleLogout"
-        v-if="compIsKeepAuth"
+        v-if="compIsAuthorized"
       >
         Выйти
       </Button>
@@ -25,7 +26,7 @@
         corners="Sm"
         :class="$s.Header__Login"
         @click="handleModalOpen(EModalsNames.LoginModal)"
-        v-if="!compIsKeepAuth"
+        v-if="!compIsAuthorized"
       >
         Вход
       </Button>
@@ -33,7 +34,7 @@
         kind="Main"
         corners="Sm"
         @click="handleModalOpen(EModalsNames.SignupModal)"
-        v-if="!compIsKeepAuth"
+        v-if="!compIsAuthorized"
       >
         Регистрация
       </Button>
@@ -98,8 +99,8 @@ const compUserName = computed((): string => {
   }
 })
 
-const compIsKeepAuth = computed(() => {
-  return $userStore.getIsKeepAuth
+const compIsAuthorized = computed(() => {
+  return Boolean($userStore.getUserInfo.existType)
 })
 
 /**
@@ -117,5 +118,9 @@ const handleLogout = (): void => {
 
 const handleModalOpen = (modalName: EModalsNames): void => {
   $modalsStore.setCurrentModalName(modalName)
+}
+
+const handleAccountRedirect = (): void => {
+  navigateTo(`/${ $userStore.getUserInfo.existType }`)
 }
 </script>
