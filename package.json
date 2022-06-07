@@ -8,6 +8,10 @@
     "preview": "start http://localhost:4000 && nuxt preview",
     "previewServer": "nuxt preview"
   },
+  "engines": {
+    "node": "^16.14.2",
+    "yarn": "^1.22.5"
+  },
   "dependencies": {
     "@nuxt/webpack-builder": "^3.0.0-rc.2",
     "@pinia/nuxt": "^0.1.9",
