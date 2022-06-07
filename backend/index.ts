@@ -7,11 +7,12 @@ import AppRoutes from './routes'
 connectDB()
 
 const app = express()
+app.use(cors({credentials: true, origin: true}))
+app.options('*', cors({credentials: true, origin: true}))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
-app.options('*', cors())
+
 
 AppRoutes.forEach(({ route, router }) => {
   app.use(`/api/${ route }`, router)
