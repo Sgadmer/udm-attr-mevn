@@ -9,14 +9,17 @@
       kind="Main"
       corners="Md"
       class="ToursList__CreateBtn"
-      @click="$modalsStore.setCurrentModalName(EModalsNames.CreateTourModal)"
+      @click="handleCreateTourModalOpen"
     >
       Создать&nbsp;&nbsp;&nbsp;+
     </Button>
   </div>
   <ScrollContainer>
     <LazyTourCard
+      v-for="card in $toursStore.getAccountTours"
+      :key="card._id"
       type="agent"
+      :data="card"
     />
   </ScrollContainer>
 </template>
@@ -29,6 +32,8 @@
 import $s from '../../common.module.scss'
 import { EModalsNames } from '~/constants/modals'
 import { useModalsStore } from '~@store/modals'
+import { useUserStore } from '~@store/user'
+import { useToursStore } from '~@store/tours'
 
 /**
  * TYPES
@@ -89,7 +94,10 @@ const tabs = $ref([
     value: ETabs.blocked,
   },
 ])
+const $userStore = useUserStore()
 const $modalsStore = useModalsStore()
+const $toursStore = useToursStore()
+
 /**
  * WATCHERS
  */
@@ -101,6 +109,22 @@ const $modalsStore = useModalsStore()
 /**
  * HOOKS
  */
+onBeforeMount((): void => {
+
+  $fetch('/api/tour/params', {
+    method: 'GET',
+    params: {
+      agentId: $userStore.getUserInfo.info._id
+    }
+  }).then((res: Record<string, any>[]) => {
+    $toursStore.setAccountTours(res)
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
+})
+
 
 /**
  * METHODS
@@ -109,6 +133,9 @@ const handleTabChange = (selectedTabValue: ETabs): void => {
   selectedTab = selectedTabValue
 }
 
+const handleCreateTourModalOpen = (): void => {
+  $modalsStore.setCurrentModalName(EModalsNames.CreateTourModal)
+}
 </script>
 
 <style scoped lang="scss">

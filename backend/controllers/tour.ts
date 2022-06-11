@@ -1,6 +1,8 @@
 import getTourService from '~~/backend/services/tour/get'
 import postTourService from '~~/backend/services/tour/post'
 import putTourService from '~~/backend/services/tour/put'
+import { getRealImagePath } from '~~/backend/utlis/helpers'
+import _ from 'lodash'
 
 export const findAll = async (req, res) => {
   try {
@@ -14,8 +16,9 @@ export const findAll = async (req, res) => {
 
 export const findById = async (req, res) => {
   try {
+    console.log('findById!')
     res.status(200)
-      .json((await getTourService.findById(req.params.id)))
+      .json((await getTourService.findById(req.query.id)))
   } catch (e) {
     res.status(500)
       .json(e.message)
@@ -36,11 +39,10 @@ export const findByParams = async (req, res) => {
       desc,
       tourists,
       status,
-    } = req.body
-    
+    } = req.query
     
     res.status(200)
-      .json((await getTourService.findByParams({
+      .json((await getTourService.findByParams(_.omitBy({
         agentId,
         mainPhoto,
         addPhotos,
@@ -52,7 +54,7 @@ export const findByParams = async (req, res) => {
         desc,
         tourists,
         status,
-      })))
+      }, _.isNil))))
   } catch (e) {
     res.status(500)
       .json(e.message)
@@ -71,10 +73,15 @@ export const create = async (req, res) => {
       desc,
     } = req.body
     
-    console.log({body: req.body, files: req.files.mainPhoto})
+    const mainPhotoSrc = getRealImagePath(req, req.files.mainPhoto[0])
+    const addPhotosSrc = req.files.addPhotos.map(photoObj => {
+      return getRealImagePath(req, photoObj)
+    })
     
     const newTour = await postTourService.create({
       agentId,
+      mainPhoto: mainPhotoSrc,
+      addPhotos: addPhotosSrc,
       title,
       price,
       place,
@@ -94,8 +101,6 @@ export const update = async (req, res) => {
   try {
     const {
       id,
-      mainPhoto,
-      addPhotos,
       title,
       price,
       place,
@@ -108,8 +113,6 @@ export const update = async (req, res) => {
     if (!id) res.status(500).json('Не указан id')
     
     const newTour = await putTourService.update(id, {
-      mainPhoto,
-      addPhotos,
       title,
       price,
       place,

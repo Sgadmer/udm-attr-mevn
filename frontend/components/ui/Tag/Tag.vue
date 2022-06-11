@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div :class="{
     [$s.Tag]: true,
     [$s[`Tag_${$p.type}`]]: true

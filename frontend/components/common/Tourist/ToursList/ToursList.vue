@@ -4,10 +4,10 @@
     @onTabChange="handleTabChange"
   />
   <ScrollContainer>
-    <LazyTourCard
-      v-for="i in 20"
-      type="tourist"
-    />
+<!--    <LazyTourCard-->
+<!--      v-for="i in 20"-->
+<!--      type="tourist"-->
+<!--    />-->
   </ScrollContainer>
 </template>
 

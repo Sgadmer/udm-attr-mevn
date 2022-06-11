@@ -7,9 +7,9 @@ const cpUpload = upload.fields([{ name: 'mainPhoto', maxCount: 1 }, { name: 'add
 const Tour = Router()
 
 Tour.get('/', tourController.findAll)
-Tour.get('/:id', tourController.findById)
+Tour.get('/id', tourController.findById)
 Tour.get('/params', tourController.findByParams)
-Tour.get('/books/:id', tourController.findTouristsBooks)
+Tour.get('/books', tourController.findTouristsBooks)
 Tour.post('/', cpUpload, tourController.create)
 Tour.put('/', tourController.update)
 Tour.put('/tourist', tourController.updateTourist)

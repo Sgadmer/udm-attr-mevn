@@ -56,7 +56,7 @@ const tourSchema = new mongoose.Schema({
   desc: {
     type: String,
     required: true,
-    maxLength: 2000,
+    maxLength: 2500,
   },
   tourists: {
     type: [touristBookSchema],

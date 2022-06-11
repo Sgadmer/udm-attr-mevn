@@ -28,7 +28,7 @@
           v-model:inputModel="formModel.price"
           label="Стоимость"
           :isNumber="true"
-          :maxLength="6"
+          :maxNumber="100000"
           :isError="$findError($v.$errors, 'price')"
         />
         <Input
@@ -55,6 +55,7 @@
           v-model:inputModel="formModel.desc"
           label="Описание"
           :isTextarea="true"
+          :maxLength="2000"
           :isError="$findError($v.$errors, 'desc')"
         />
       </div>
@@ -92,6 +93,8 @@ import $s from '../../Modals.module.scss'
 import { and, maxLength, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import { useUserStore } from '~/store/user'
+import { useToursStore } from '~/store/tours'
+import { useModalsStore } from '~/store/modals'
 
 const { $findError } = useNuxtApp()
 
@@ -160,6 +163,8 @@ const validationRules = {
 
 const $v = useVuelidate(validationRules, formModel)
 const $userStore = useUserStore()
+const $toursStore = useToursStore()
+const $modalsStore = useModalsStore()
 
 
 /**
@@ -180,7 +185,6 @@ const $userStore = useUserStore()
 const handleSubmit = async (): Promise<void> => {
   const isFormCorrect = await $v.value.$validate()
 
-  console.log(isFormCorrect, $v.value, formModel)
   if (!isFormCorrect) return
 
   let fd = new FormData()
@@ -196,16 +200,16 @@ const handleSubmit = async (): Promise<void> => {
   })
   fd.append('agentId', $userStore.getUserInfo.info._id)
 
-  try {
-    const data = await $fetch('/api/tour', {
-      method: 'POST',
-      body: fd,
-    })
-    console.log(data)
-  } catch (error) {
-    console.error(error)
-  }
 
+  $fetch('/api/tour', {
+    method: 'POST',
+    body: fd,
+  }).then(newTour => {
+    $toursStore.setAccountTours([...$toursStore.getAccountTours, newTour])
+    $modalsStore.setCurrentModalName(null)
+  }).catch(e => {
+    console.error(e)
+  })
 }
 
 </script>

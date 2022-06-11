@@ -7,7 +7,7 @@
       </p>
     </div>
     <ScrollContainer>
-      <LazyTourCard v-for="i in 20"/>
+<!--      <LazyTourCard v-for="i in 20"/>-->
     </ScrollContainer>
   </section>
 </template>

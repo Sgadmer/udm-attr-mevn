@@ -2,37 +2,32 @@
   <div :class="$s.TourCard">
 
     <img
-      src="@assets/images/dev/pelmen.png"
+      :src="$p.data.mainPhoto"
       alt="tour card image"
       :class="$s.TourCard__Image"
     />
 
     <div :class="$s.TourCard__Promo">
       <h3 :class="$s.TourCard__Title">
-        Путешествие в пельменную долину
+        {{ $p.data.title }}
       </h3>
 
       <p :class="$s.TourCard__Description">
-        Путешествие в пельменную долину Путешествие в пельменную долину Путешествие в пельменную долину Путешествие в
-        пельменную долину Путешествие в пельменную долину Путешествие в пельменную долину Путеш в пельменную долину
-        Путешествие в пельменную долину Путешествие в пельменную долину Путеш в пельменную долину
-        Путешествие в пельменную долину Путешествие в пельменную долину Путеш в пельменную долину
-        Путешествие в пельменную долину Путешествие в пельменную долину Путеш в пельменную долину
-        Путешествие в пельменную долину Путешествие в пельменную долину Путеш в пельменную долину
+        {{ $p.data.desc }}
       </p>
     </div>
 
     <div :class="$s.TourCard__Info">
       <p :class="[$s.TourCard__InfoItem, $s.TourCard__InfoItem_Cut]">
-        Пельменая долина Посёлок Зеч Буреч
+        {{ $p.data.place }}
       </p>
 
       <p :class="$s.TourCard__InfoItem">
-        19.04.22 - 19.04.22
+        {{ formatJSONDate($p.data.dateStart) }} - {{ formatJSONDate($p.data.dateEnd) }}
       </p>
 
       <p :class="$s.TourCard__InfoItem">
-        3500 ₽ / <small :class="$s.TourCard__InfoSmall">на 1 человека</small>
+        {{ $p.data.price }} ₽ / <small :class="$s.TourCard__InfoSmall">на 1 человека</small>
       </p>
     </div>
 
@@ -78,7 +73,8 @@
       <Tag
         type="Success"
         :class="$s.TourCard__Tag"
-      >Активный
+      >
+        {{ $p.data.status }}
       </Tag>
 
       <Button
@@ -109,6 +105,8 @@
 import $s from './TourCard.module.scss'
 import { useModalsStore } from '~@store/modals'
 import { EModalsNames } from '~@constants/modals'
+import { formatJSONDate } from '~@utils/helpers'
+import { useToursStore } from '~@store/tours'
 
 /**
  * TYPES
@@ -121,10 +119,14 @@ type TCardType = 'common' | 'tourist' | 'agent' | 'admin'
  */
 interface IProps {
   type?: TCardType
+  data: Record<string, any>
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
-  type: 'common'
+  type: 'common',
+  data: () => {
+    return {}
+  },
 })
 
 /**
@@ -139,6 +141,7 @@ const $e = defineEmits<IEmits>()
  * DATA
  */
 const $modalsStore = useModalsStore()
+const $toursStore = useToursStore()
 
 /**
  * WATCHERS
@@ -156,6 +159,7 @@ const $modalsStore = useModalsStore()
  * METHODS
  */
 const handleModalOpen = (modalName: EModalsNames): void => {
+  $toursStore.setSelectedTourId($p.data._id)
   $modalsStore.setCurrentModalName(modalName)
 }
 

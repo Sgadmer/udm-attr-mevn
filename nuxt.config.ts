@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '~@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
     '~@models': url.fileURLToPath(new URL('./frontend/models', import.meta.url)),
     '~@store': url.fileURLToPath(new URL('./frontend/store', import.meta.url)),
+    '~@utils': url.fileURLToPath(new URL('./frontend/utils', import.meta.url)),
   },
   app: {
     head: {

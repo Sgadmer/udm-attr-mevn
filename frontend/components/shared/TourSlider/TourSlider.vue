@@ -10,13 +10,13 @@
       :class="$s.TourSlider__MainSlider"
     >
       <swiper-slide
-        v-for="i in 20"
+        v-for="(img, i) in $p.images"
+        :key="img + i"
         :class="$s.TourSlider__MainSlide"
-        :key="'main' + i"
       >
         <img
           :class="$s.TourSlider__MainSlideImage"
-          src="@assets/images/dev/pelmen.png"
+          :src="img"
           alt="tour slider slide"
         />
       </swiper-slide>
@@ -32,13 +32,13 @@
       :slideToClickedSlide="true"
     >
       <swiper-slide
-        v-for="i in 20"
-        :key="'thumb' + i"
+        v-for="(img, i) in $p.images"
+        :key="img + i"
         :class="$s.TourSlider__ThumbSlide"
       >
         <img
           :class="$s.TourSlider__ThumbSlideImage"
-          src="@assets/images/dev/pelmen.png"
+          :src="img"
           alt="tour slider slide"
         />
       </swiper-slide>
@@ -63,9 +63,12 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
  * PROPS
  */
 interface IProps {
+  images: string[]
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  images: () => []
+})
 
 /**
  * EMITS

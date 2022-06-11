@@ -1,31 +1,36 @@
 <template>
   <div :class="$s.ModalBase">
-    <div :class="$s.ModalBase__ContentWrapper">
-      <header :class="$s.ModalBase__Header">
-        <Logo/>
-        <Button
-          kind="Secondary"
-          corners="Circle"
-          @click="handleModalClose"
-        >
-          X
-        </Button>
-      </header>
 
-      <h2
-        v-if="$p.title"
-        :class="$s.ModalBase__Title"
-        v-html="$p.title"
-      />
-
-      <slot name="beforeContent"/>
-      <ScrollContainer
-        :unstyled="true"
-        :class="$s.ModalBase__Content"
+    <header :class="$s.ModalBase__Header">
+      <Logo/>
+      <Button
+        kind="Secondary"
+        corners="Circle"
+        @click="handleModalClose"
       >
-        <slot/>
-      </ScrollContainer>
-    </div>
+        X
+      </Button>
+    </header>
+
+    <ScrollContainer
+      :unstyled="true"
+    >
+      <div :class="$s.ModalBase__ContentWrapper">
+        <h2
+          v-if="$p.title"
+          :class="$s.ModalBase__Title"
+          v-html="$p.title"
+        />
+
+        <slot name="beforeContent"/>
+        <div
+          :class="$s.ModalBase__Content"
+        >
+          <slot/>
+        </div>
+
+      </div>
+    </ScrollContainer>
   </div>
 </template>
 
@@ -56,6 +61,7 @@ const $p = withDefaults(defineProps<IProps>(), {
  * EMITS
  */
 interface IEmits {
+  (e: 'onBeforeClose'): void
 }
 
 const $e = defineEmits<IEmits>()
@@ -81,7 +87,7 @@ const $modalsStore = useModalsStore()
  * METHODS
  */
 const handleModalClose = (): void => {
+  $e('onBeforeClose')
   $modalsStore.setCurrentModalName(null)
 }
-
 </script>

@@ -83,6 +83,10 @@ interface IProps {
    */
   isNumber?: boolean,
   /**
+   * Ограничевает максимально значение числа до указанного
+   */
+  maxNumber?: number
+  /**
    * Заблокировать инпут
    * Инпут изменяется визаульно
    */
@@ -114,6 +118,7 @@ const $p = withDefaults(defineProps<IProps>(), {
   modelJoin: null,
   charsToDelete: null,
   isNumber: false,
+  maxNumber: null,
   isDisabled: false,
   maxLength: false,
   type: 'text',
@@ -170,7 +175,6 @@ const handleInput = (value: string, eventType: string): void => {
   if ($p.inputValue || $p.isDisabled) return
 
   let newValue: Pick<IProps, 'inputModel'> = value
-
   if (
     _.isNumber($p.maxLength) && newValue.length > $p.maxLength
   ) newValue = newValue.slice(0, $p.maxLength)
@@ -197,6 +201,8 @@ const handleInput = (value: string, eventType: string): void => {
 
   } else if ($p.isNumber) {
     newValue = +newValue.replace(REG_EXP.ecxeptDigits, '')
+
+    if (_.isNumber($p.maxNumber) && newValue > $p.maxNumber) newValue = +$p.maxNumber
   }
 
   updateTrigger = new String(newValue)

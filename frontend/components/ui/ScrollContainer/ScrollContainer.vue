@@ -1,7 +1,13 @@
 <template>
-  <div :class="$s.ScrollContainer">
+  <div :class="{
+    [$s.ScrollContainer]: true,
+    [$s.ScrollContainer_Unstyled]: $p.unstyled
+  }">
     <div
-      :class="$s.ScrollContainer__ScrollbarContainer"
+      :class="{
+    [$s.ScrollContainer__ScrollbarContainer]: true,
+    [$s.ScrollContainer__ScrollbarContainer_Unstyled]: $p.unstyled
+   }"
       ref="scrollContainer"
     >
       <slot/>
@@ -27,10 +33,12 @@ import Scrollbar from 'smooth-scrollbar'
  */
 interface IProps {
   unstyled?: boolean;
+  noScrollbar?: boolean;
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
   unstyled: false,
+  noScrollbar: false
 })
 
 /**
@@ -77,16 +85,20 @@ onMounted(() => {
   -ms-user-select: all;
   user-select: all;
   background-color: cl('main', 0.1) !important;
+
   &:hover {
     cursor: pointer;
   }
 }
+
 .scrollbar-thumb {
   background-color: cl('main', 0.5) !important;
+
   &:hover {
     cursor: -webkit-grab;
     cursor: grab;
   }
+
   &:active {
     cursor: -webkit-grabbing;
     cursor: grabbing;

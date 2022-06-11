@@ -9,7 +9,10 @@
       />
     </template>
 
-    <ListCardTourist/>
+    <ListCardTourist
+      v-for="tourist in tour.tourists"
+      :key="tourist._id"
+    />
 
   </ModalBase>
 </template>
@@ -20,6 +23,7 @@
  * IMPORTS
  */
 import $s from './TouristsListModal.module.scss'
+import { useToursStore } from '~/store/tours'
 
 /**
  * TYPES
@@ -66,6 +70,8 @@ const tabs = $ref([
     value: ETabs.canceled,
   },
 ])
+const $toursStore = useToursStore()
+let tour = $ref<Record<string, any>>($toursStore.getSelectedTour)
 
 /**
  * WATCHERS
