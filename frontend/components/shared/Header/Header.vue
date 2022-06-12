@@ -52,6 +52,7 @@ import $s from './Header.module.scss'
 import { EModalsNames } from '~/constants/modals'
 import { useModalsStore } from '~@store/modals'
 import { useUserStore } from '~@store/user'
+import { useToursStore } from '~/store/tours'
 
 /**
  * TYPES
@@ -78,6 +79,7 @@ const $e = defineEmits<IEmits>()
  */
 const $modalsStore = useModalsStore()
 const $userStore = useUserStore()
+const $toursStore = useToursStore()
 
 /**
  * WATCHERS
@@ -91,11 +93,11 @@ const compUserName = computed((): string => {
 
   switch (userInfo.existType) {
     case 'admin':
-      return `Админ. ${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] }.`
+      return `Админ. ${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] + ' .' }`
     case 'agent':
       return userInfo.info.corpName
     case 'tourist':
-      `${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] }.`
+      return `${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] + ' .' }`
   }
 })
 
@@ -113,6 +115,7 @@ const compIsAuthorized = computed(() => {
  */
 const handleLogout = (): void => {
   $userStore.$reset()
+  $toursStore.loadAllTours()
   navigateTo(`/`)
 }
 

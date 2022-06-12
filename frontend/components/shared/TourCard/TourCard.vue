@@ -46,7 +46,8 @@
       <Button
         kind="Main"
         corners="Md"
-        @click="handleModalOpen(EModalsNames.BookingConfirmModal)"
+        @click="handleBookModalOpen"
+        v-if="$userStore.getIsTourist"
       >
         Забронировать
       </Button>
@@ -56,6 +57,12 @@
       v-if="$p.type === 'tourist'"
       :class="$s.TourCard__Controls"
     >
+      <Tag
+        type="Success"
+        :class="$s.TourCard__Tag"
+      >
+        {{ $p.data.status }}
+      </Tag>
 
       <Button
         kind="Main"
@@ -107,6 +114,7 @@ import { useModalsStore } from '~@store/modals'
 import { EModalsNames } from '~@constants/modals'
 import { formatJSONDate } from '~@utils/helpers'
 import { useToursStore } from '~@store/tours'
+import { useUserStore } from '~/store/user'
 
 /**
  * TYPES
@@ -142,6 +150,7 @@ const $e = defineEmits<IEmits>()
  */
 const $modalsStore = useModalsStore()
 const $toursStore = useToursStore()
+const $userStore = useUserStore()
 
 /**
  * WATCHERS
@@ -161,6 +170,15 @@ const $toursStore = useToursStore()
 const handleModalOpen = (modalName: EModalsNames): void => {
   $toursStore.setSelectedTourId($p.data._id)
   $modalsStore.setCurrentModalName(modalName)
+}
+
+const handleBookModalOpen = (): void => {
+  if(!$userStore.getUserInfo.info){
+    $modalsStore.setCurrentModalName(EModalsNames.LoginModal)
+  }else{
+    $toursStore.setSelectedTourId($p.data._id)
+    $modalsStore.setCurrentModalName(EModalsNames.BookingConfirmModal)
+  }
 }
 
 </script>

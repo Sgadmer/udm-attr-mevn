@@ -4,10 +4,12 @@
     @onTabChange="handleTabChange"
   />
   <ScrollContainer>
-<!--    <LazyTourCard-->
-<!--      v-for="i in 20"-->
-<!--      type="tourist"-->
-<!--    />-->
+    <LazyTourCard
+      v-for="card in $toursStore.getAccountTours"
+      :key="card._id"
+      type="tourist"
+      :data="card"
+    />
   </ScrollContainer>
 </template>
 
@@ -16,6 +18,9 @@
 /**
  * IMPORTS
  */
+
+import { useToursStore } from '~@store/tours'
+import { useUserStore } from '~@store/user'
 
 /**
  * TYPES
@@ -72,6 +77,8 @@ const tabs = $ref([
   },
 ])
 
+const $toursStore = useToursStore()
+const $userStore = useUserStore()
 /**
  * WATCHERS
  */
@@ -83,6 +90,21 @@ const tabs = $ref([
 /**
  * HOOKS
  */
+onBeforeMount((): void => {
+
+  $fetch('/api/tour/params', {
+    method: 'GET',
+    params: {
+      touristId: $userStore.getUserInfo.info._id
+    }
+  }).then((res: Record<string, any>[]) => {
+    $toursStore.setAccountTours(res)
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
+})
 
 /**
  * METHODS

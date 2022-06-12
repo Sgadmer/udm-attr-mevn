@@ -17,6 +17,15 @@ export const useUserStore = defineStore('user', {
   getters: {
     getIsKeepAuth: (state): boolean => state.isKeepAuth,
     getUserInfo: (state): Record<string, any> => state.userInfo,
+    getIsTourist: (state): boolean => {
+      return (
+        !state.userInfo.existType ||
+        (
+          state.userInfo.existType !== 'admin' &&
+          state.userInfo.existType !== 'agent'
+        )
+      )
+    }
   },
   actions: {
     setIsKeepAuth(isKeep: boolean): void {

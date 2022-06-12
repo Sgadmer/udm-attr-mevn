@@ -7,8 +7,8 @@ const updateTourist = (tourId, touristId, status, operation) => Tour.findById(to
   
   if (operation === 'change') {
     tour.tourists.forEach(tourist => {
-      if (tourist.id === touristId) {
-        tourist.status = status
+      if (tourist.touristId.toString() === touristId) {
+        tourist.bookStatus = status
       }
     })
   }
@@ -21,6 +21,7 @@ const updateTourist = (tourId, touristId, status, operation) => Tour.findById(to
   }
   
   tour.save()
+  return tour
 })
 
 export default {

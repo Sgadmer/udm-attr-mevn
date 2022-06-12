@@ -65,7 +65,7 @@ const tourSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    default: () => 'Blocked'
+    default: () => 'NEW'
   },
 })
 

@@ -4,7 +4,7 @@ const findAll = async () => Tour.find({}).populate(['agentId', 'tourists.tourist
 
 const findById = async (id) => Tour.findById(id).populate(['agentId', 'tourists.touristId'])
 
-const findByParams = async (params) => Tour.find(params)
+const findByParams = async (params) => Tour.find(params).populate(['agentId', 'tourists.touristId'])
 
 const findTouristsBooks = async (touristId) => Tour.find({ 'tourists.touristId': touristId }, {
   mainPhoto: 1,

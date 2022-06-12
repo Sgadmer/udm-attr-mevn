@@ -3,7 +3,7 @@
     <div :class="$s.TourModal__Row">
       <div :class="[$s.TourModal__Column, $s.TourModal__Left]">
         <TourSlider
-          :images="tour.addPhotos"
+          :images="compTour.addPhotos"
         />
 
         <div
@@ -11,15 +11,15 @@
           v-if="$route.name !== 'index'"
         >
           <span>Статус:&nbsp;&nbsp;&nbsp;</span>
-          <Tag type="Success">{{ tour.status }}</Tag>
+          <Tag type="Success">{{ compTour.status }}</Tag>
         </div>
 
         <Button
           kind="Secondary"
           corners="Md"
           :class="$s.TourModal__AcionBtn"
-          @click="handleModalOpen(EModalsNames.BookingConfirmModal)"
-          v-if="$route.name === 'index'"
+          @click="handleBookModalOpen"
+          v-if="$route.name === 'index' && $userStore.getIsTourist"
         >
           Забронировать
         </Button>
@@ -28,7 +28,7 @@
           corners="Md"
           :class="$s.TourModal__AcionBtn"
           @click="handleModalOpen(EModalsNames.AgentCancelModal)"
-          v-if="$route.name === 'agent'"
+          v-if="$route.name === 'agent' && $toursStore.getTourStatus(compTour._id) !== 'CANCELED'"
         >
           Отменить тур
         </Button>
@@ -37,25 +37,45 @@
           corners="Md"
           :class="$s.TourModal__AcionBtn"
           @click="handleModalOpen(EModalsNames.TouristCancelModal)"
-          v-if="$route.name === 'tourist'"
+          v-if="$route.name === 'tourist' && $toursStore.getTouristBookStatus(compTour._id) !== 'CANCELED'"
         >
           Отменить бронь
         </Button>
+
+        <Button
+          kind="Main"
+          corners="Md"
+          :class="[$s.TourModal__AcionBtn, $s.TourModal__AcionBtn_Small]"
+          @click="handleNewTourStatusChange(true)"
+          v-if="$route.name === 'admin' && compTour.status === 'NEW'"
+        >
+          Одобрить
+        </Button>
+        <Button
+          kind="Secondary"
+          corners="Md"
+          :class="[$s.TourModal__AcionBtn, $s.TourModal__AcionBtn_Small]"
+          @click="handleNewTourStatusChange(false)"
+          v-if="$route.name === 'admin' && compTour.status === 'NEW'"
+        >
+          Отклонить
+        </Button>
+
       </div>
 
       <div :class="$s.TourModal__Column">
         <ScrollContainer>
           <h2 :class="$s.TourModal__InfoTitle">
-            {{ tour.title }}
+            {{ compTour.title }}
           </h2>
 
           <div :class="$s.TourModal__Info">
             <p :class="[$s.TourModal__InfoItem, $s.TourCard__InfoItem_Cut]">
-              {{ tour.place }}
+              {{ compTour.place }}
             </p>
 
             <p :class="$s.TourModal__InfoItem">
-              {{ formatJSONDate(tour.dateStart) }} - {{ formatJSONDate(tour.dateEnd) }}
+              {{ formatJSONDate(compTour.dateStart) }} - {{ formatJSONDate(compTour.dateEnd) }}
             </p>
 
             <p :class="$s.TourModal__InfoItem">
@@ -64,7 +84,7 @@
           </div>
 
           <p :class="$s.TourModal__Description">
-            {{ tour.desc }}
+            {{ compTour.desc }}
           </p>
         </ScrollContainer>
       </div>
@@ -82,6 +102,7 @@ import { EModalsNames } from '~@constants/modals'
 import { useModalsStore } from '~@store/modals'
 import { useToursStore } from '~@store/tours'
 import { formatJSONDate } from '~@utils/helpers'
+import { useUserStore } from '~@store/user'
 
 /**
  * TYPES
@@ -108,7 +129,7 @@ const $e = defineEmits<IEmits>()
  */
 const $modalsStore = useModalsStore()
 const $toursStore = useToursStore()
-let tour = $ref<Record<string, any>>($toursStore.getSelectedTour)
+const $userStore = useUserStore()
 
 /**
  * WATCHERS
@@ -117,6 +138,7 @@ let tour = $ref<Record<string, any>>($toursStore.getSelectedTour)
 /**
  * COMPUTED
  */
+const compTour = $computed((): Record<string, any> => $toursStore.getSelectedTour)
 
 /**
  * HOOKS
@@ -126,7 +148,33 @@ let tour = $ref<Record<string, any>>($toursStore.getSelectedTour)
  * METHODS
  */
 const handleModalOpen = (modalName: EModalsNames): void => {
+  $toursStore.setSelectedTourId(compTour._id)
   $modalsStore.setCurrentModalName(modalName)
+}
+
+const handleBookModalOpen = (): void => {
+  if (!$userStore.getUserInfo.info) {
+    $modalsStore.setCurrentModalName(EModalsNames.LoginModal)
+  } else {
+    $toursStore.setSelectedTourId(compTour._id)
+    $modalsStore.setCurrentModalName(EModalsNames.BookingConfirmModal)
+  }
+}
+
+
+const handleNewTourStatusChange = (isApproved: boolean): void => {
+  console.log(isApproved)
+  $fetch('/api/tour', {
+    method: 'PUT',
+    body: {
+      id: compTour._id,
+      status: isApproved ? 'ACTIVE' : 'BLOCKED'
+    }
+  }).then(res => {
+    $toursStore.updateTour(compTour._id, res)
+  }).catch(e => {
+    console.error(e)
+  })
 }
 
 </script>

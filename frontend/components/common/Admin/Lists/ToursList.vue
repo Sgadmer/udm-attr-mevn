@@ -8,8 +8,10 @@
   </div>
   <ScrollContainer>
     <TourCard
-      v-for="i in 20"
+      v-for="card in $toursStore.getAccountTours"
+      :key="card._id"
       type="admin"
+      :data="card"
     />
   </ScrollContainer>
 </template>
@@ -20,6 +22,7 @@
  * IMPORTS
  */
 import $s from '../../common.module.scss'
+import { useToursStore } from '~/store/tours'
 
 /**
  * TYPES
@@ -81,6 +84,8 @@ const tabs = $ref([
   },
 ])
 
+const $toursStore = useToursStore()
+
 /**
  * WATCHERS
  */
@@ -92,6 +97,15 @@ const tabs = $ref([
 /**
  * HOOKS
  */
+onBeforeMount((): void => {
+  $fetch('/api/tour')
+    .then((res: Record<string, any>[]): void => {
+      $toursStore.setAccountTours(res)
+    })
+    .catch(e => {
+      console.error(e)
+    })
+})
 
 /**
  * METHODS

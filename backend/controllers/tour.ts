@@ -3,6 +3,7 @@ import postTourService from '~~/backend/services/tour/post'
 import putTourService from '~~/backend/services/tour/put'
 import { getRealImagePath } from '~~/backend/utlis/helpers'
 import _ from 'lodash'
+import { ObjectId } from 'mongodb'
 
 export const findAll = async (req, res) => {
   try {
@@ -28,6 +29,8 @@ export const findById = async (req, res) => {
 export const findByParams = async (req, res) => {
   try {
     const {
+      touristId,
+      excludeTouristId,
       agentId,
       mainPhoto,
       addPhotos,
@@ -37,9 +40,13 @@ export const findByParams = async (req, res) => {
       dateStart,
       dateEnd,
       desc,
-      tourists,
       status,
     } = req.query
+    
+    let touristsFilter = null
+    
+    if (touristId) touristsFilter = touristId
+    else if (excludeTouristId) touristsFilter = { $ne: excludeTouristId }
     
     res.status(200)
       .json((await getTourService.findByParams(_.omitBy({
@@ -52,7 +59,7 @@ export const findByParams = async (req, res) => {
         dateStart,
         dateEnd,
         desc,
-        tourists,
+        'tourists.touristId': touristsFilter,
         status,
       }, _.isNil))))
   } catch (e) {
@@ -112,15 +119,27 @@ export const update = async (req, res) => {
     
     if (!id) res.status(500).json('Не указан id')
     
-    const newTour = await putTourService.update(id, {
+    let mainPhotoSrc = null
+    let addPhotosSrc = null
+    
+    if (req.files) {
+      mainPhotoSrc = getRealImagePath(req, req.files.mainPhoto[0])
+      addPhotosSrc = req.files.addPhotos.map(photoObj => {
+        return getRealImagePath(req, photoObj)
+      })
+    }
+    
+    const newTour = await putTourService.update(id, _.omitBy({
+      mainPhoto: mainPhotoSrc,
+      addPhotos: addPhotosSrc,
       title,
       price,
       place,
       dateStart,
       dateEnd,
       desc,
-      status
-    })
+      status,
+    }, _.isNil))
     res.status(200)
       .json(newTour)
   } catch (e) {

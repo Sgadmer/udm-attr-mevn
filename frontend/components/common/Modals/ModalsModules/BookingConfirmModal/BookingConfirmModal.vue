@@ -5,19 +5,22 @@
     <dl :class="$s.Modals__InfoList">
       <div :class="$s.Modals__InfoRow">
         <dt :class="$s.Modals__InfoTerm">Название:</dt>
-        <dd :class="$s.Modals__InfoDesc">Путешествие в пельменую долину</dd>
+        <dd :class="$s.Modals__InfoDesc">{{ compTour.title }}</dd>
       </div>
       <div :class="$s.Modals__InfoRow">
         <dt :class="$s.Modals__InfoTerm">Место проведения:</dt>
-        <dd :class="$s.Modals__InfoDesc">Пельменая долина. Посёлок Зеч Буреч</dd>
+        <dd :class="$s.Modals__InfoDesc">{{ compTour.place }}</dd>
       </div>
       <div :class="$s.Modals__InfoRow">
         <dt :class="$s.Modals__InfoTerm">Сроки проведения:</dt>
-        <dd :class="$s.Modals__InfoDesc">19.04.2022 - 19.04.2022</dd>
+        <dd :class="$s.Modals__InfoDesc"> {{ formatJSONDate(compTour.dateStart) }} - {{
+            formatJSONDate(compTour.dateEnd)
+          }}
+        </dd>
       </div>
       <div :class="$s.Modals__InfoRow">
         <dt :class="$s.Modals__InfoTerm">Стоимость:</dt>
-        <dd :class="$s.Modals__InfoDesc">3500 рублей</dd>
+        <dd :class="$s.Modals__InfoDesc">{{ compTour.price }} рублей</dd>
       </div>
     </dl>
 
@@ -32,6 +35,7 @@
         kind="Main"
         corners="Md"
         :class="$s.Modals__ConfirmBtn"
+        @click="handleBookConfirm"
       >
         Подтвердить
       </Button>
@@ -46,6 +50,10 @@
  * IMPORTS
  */
 import $s from '../../Modals.module.scss'
+import { useToursStore } from '~@store/tours'
+import { formatJSONDate } from '~@utils/helpers'
+import { useUserStore } from '~/store/user'
+import { useModalsStore } from '~/store/modals'
 
 /**
  * TYPES
@@ -70,6 +78,9 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $toursStore = useToursStore()
+const $userStore = useUserStore()
+const $modalsStore = useModalsStore()
 
 /**
  * WATCHERS
@@ -78,6 +89,7 @@ const $e = defineEmits<IEmits>()
 /**
  * COMPUTED
  */
+const compTour = $computed((): Record<string, any> => $toursStore.getSelectedTour)
 
 /**
  * HOOKS
@@ -86,5 +98,21 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
+const handleBookConfirm = (): void => {
+  $fetch('/api/tour/tourist', {
+    method: 'PUT',
+    body: {
+      tourId: compTour._id,
+      touristId: $userStore.getUserInfo.info._id,
+      status: 'ACTIVE',
+      operation: 'add'
+    }
+  }).then(res => {
+    $modalsStore.setCurrentModalName(null)
+    $toursStore.removeLocalTour(compTour._id)
+  }).catch(e => {
+    console.error(e)
+  })
+}
 
 </script>

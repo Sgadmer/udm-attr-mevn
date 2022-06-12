@@ -3,20 +3,20 @@
     <dl :class="$s.ListCard__Row">
       <div>
         <dt :class="$s.ListCard__Term">{{ compUserTitle }}</dt>
-        <dd :class="$s.ListCard__Desc">Пудов Василий Валерьянович</dd>
+        <dd :class="$s.ListCard__Desc">{{ $p.data.touristId.name }}</dd>
       </div>
       <div>
         <dt :class="$s.ListCard__Term">Телефон</dt>
-        <dd :class="$s.ListCard__Desc">89090563777</dd>
+        <dd :class="$s.ListCard__Desc">{{ $p.data.touristId.phone }}</dd>
       </div>
       <div>
         <dt :class="$s.ListCard__Term">Email</dt>
-        <dd :class="$s.ListCard__Desc">vas_pud@yandex.ru</dd>
+        <dd :class="$s.ListCard__Desc">{{ $p.data.touristId.email }}</dd>
       </div>
       <div>
         <dt :class="$s.ListCard__Term">{{ $p.type === 'agent' ? 'Статус брони' : 'Статус' }}</dt>
         <dd :class="$s.ListCard__Desc">
-          <Tag type="Success">Активный</Tag>
+          <Tag type="Success">{{ $p.data.bookStatus }}</Tag>
         </dd>
       </div>
       <div
@@ -55,11 +55,15 @@ import $s from './ListCard.module.scss'
  * PROPS
  */
 interface IProps {
-  type: 'agent' | 'adminTourist' | 'adminAgent'
+  type?: 'agent' | 'adminTourist' | 'adminAgent',
+  data: Record<string, any>
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
-  type: 'agent'
+  type: 'agent',
+  data: () => {
+    return {}
+  }
 })
 
 /**
@@ -85,13 +89,13 @@ const compUserTitle = computed((): string => {
   switch ($p.type) {
     case 'agent':
       return 'ФИО'
-      break;
+      break
     case 'adminTourist':
       return 'ФИО'
-      break;
+      break
     case 'adminAgent':
       return 'Компания (или ФИО)'
-      break;
+      break
   }
 })
 

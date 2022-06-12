@@ -4,7 +4,7 @@ interface IAdminStore {
   selectedTab: 'Tourists' | 'Agents' | 'Tours'
 }
 
-export const useAdminStore = defineStore('ui', {
+export const useAdminStore = defineStore('admin', {
   
   state: (): IAdminStore => {
     return {

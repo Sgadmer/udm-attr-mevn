@@ -7,7 +7,12 @@
       </p>
     </div>
     <ScrollContainer>
-<!--      <LazyTourCard v-for="i in 20"/>-->
+      <TourCard
+        v-for="card in $toursStore.getAccountTours"
+        :key="card._id"
+        type="common"
+        :data="card"
+      />
     </ScrollContainer>
   </section>
 </template>
@@ -18,6 +23,8 @@
  * IMPORTS
  */
 import $s from './AllTours.module.scss'
+import { useToursStore } from '~/store/tours'
+import { useUserStore } from '~/store/user'
 
 /**
  * TYPES
@@ -42,6 +49,8 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const $toursStore = useToursStore()
+const $userStore = useUserStore()
 
 /**
  * WATCHERS
@@ -54,6 +63,9 @@ const $e = defineEmits<IEmits>()
 /**
  * HOOKS
  */
+onBeforeMount((): void => {
+  $toursStore.loadAllTours()
+})
 
 /**
  * METHODS

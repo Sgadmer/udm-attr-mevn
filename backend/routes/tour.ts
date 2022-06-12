@@ -11,7 +11,7 @@ Tour.get('/id', tourController.findById)
 Tour.get('/params', tourController.findByParams)
 Tour.get('/books', tourController.findTouristsBooks)
 Tour.post('/', cpUpload, tourController.create)
-Tour.put('/', tourController.update)
+Tour.put('/', cpUpload, tourController.update)
 Tour.put('/tourist', tourController.updateTourist)
 
 export default Tour

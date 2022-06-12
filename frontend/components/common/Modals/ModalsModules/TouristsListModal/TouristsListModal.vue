@@ -11,6 +11,7 @@
 
     <ListCardTourist
       v-for="tourist in tour.tourists"
+      :data="tourist"
       :key="tourist._id"
     />
 
