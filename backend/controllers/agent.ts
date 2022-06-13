@@ -51,8 +51,6 @@ export const findByParams = async (req, res) => {
   
   params.isActive = !JSON.parse(isBlocked)
   
-  console.log(params)
-  
   try {
     res.status(200)
       .json((await getAgentService.findByParams(params)))

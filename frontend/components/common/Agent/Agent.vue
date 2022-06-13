@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2 :class="$s.Common__PageTitle">Мои туры</h2>
-    <FiltersForm :class="$s.Common__FiltersForm"/>
     <ToursList/>
   </div>
 </template>

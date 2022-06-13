@@ -6,13 +6,13 @@
   />
 
 
-  <div :class="[$s.Common__Row, $s.Common__Row_Center]">
-    <Tabs
-      :tabs="tabs"
-      @onTabChange="handleTabChange"
-      class="ToursList__Tabs"
-    />
-  </div>
+<!--  <div :class="[$s.Common__Row, $s.Common__Row_Center]">-->
+<!--    <Tabs-->
+<!--      :tabs="tabs"-->
+<!--      @onTabChange="handleTabChange"-->
+<!--      class="ToursList__Tabs"-->
+<!--    />-->
+<!--  </div>-->
   <ScrollContainer>
     <ListCardUser
       v-for="(tourist, i) in tourists"
@@ -109,7 +109,6 @@ const handleCardUpdate = (newData: Record<string, any>, index: number): void => 
 }
 
 const handleFiltersChange = (formModel: Record<string, any>) => {
-  console.log(formModel)
 
   $fetch('/api/tourist/params', {
     method: 'GET',

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import tourController, { findTouristsBooks } from '~~/backend/controllers/tour'
+import tourController from '~~/backend/controllers/tour'
 import { upload } from '../config/upload'
 
 const cpUpload = upload.fields([{ name: 'mainPhoto', maxCount: 1 }, { name: 'addPhotos', maxCount: 10 }])

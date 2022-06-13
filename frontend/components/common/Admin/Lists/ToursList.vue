@@ -35,12 +35,13 @@ import { useAdminStore } from '~/store/admin'
  * TYPES
  */
 enum ETabs {
-  all = 'all',
-  current = 'current',
-  future = 'future',
-  past = 'past',
-  canceled = 'canceled',
-  blocked = 'blocked'
+  all = '',
+  new = 'NEW',
+  current = 'PENDING',
+  future = 'ACTIVE',
+  past = 'FINISHED',
+  canceled = 'CANCELED',
+  blocked = 'BLOCKED'
 }
 
 /**
@@ -70,6 +71,10 @@ const tabs = $ref([
     selected: true
   },
   {
+    text: 'Новые',
+    value: ETabs.new,
+  },
+  {
     text: 'Текущие',
     value: ETabs.current,
   },
@@ -94,6 +99,7 @@ const tabs = $ref([
 const $toursStore = useToursStore()
 const $adminStore = useAdminStore()
 
+let savedFormData: Record<string, any> = {}
 /**
  * WATCHERS
  */
@@ -120,14 +126,16 @@ onBeforeMount((): void => {
  */
 const handleTabChange = (selectedTabValue: ETabs): void => {
   selectedTab = selectedTabValue
+  handleFiltersChange({ status: selectedTabValue })
 }
 
 const handleFiltersChange = (formData: Record<string, any>) => {
-  console.log(formData)
+
+  savedFormData = { ...savedFormData, ...formData }
 
   $fetch('/api/tour/params', {
     method: 'GET',
-    params: formData,
+    params: savedFormData,
   }).then((res: Record<string, any>[]) => {
     $toursStore.setAccountTours(res)
   })

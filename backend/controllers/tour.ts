@@ -45,17 +45,23 @@ export const findByParams = async (req, res) => {
       status,
     } = req.query
     
-    let touristsFilter = null
-    if (touristId) touristsFilter = touristId
-    else if (excludeTouristId) touristsFilter = { $ne: excludeTouristId }
-  
+    
+    let priceFilter: Record<string, any> | null = {}
+    if (priceMin) priceFilter.$gte = +priceMin
+    if (priceMax) priceFilter.$lte = +priceMax
+    if (!priceMin && !priceMax) priceFilter = null
+    
+    const placeFilter = place ? {
+      $regex: place,
+      $options: 'i'
+    } : null
+    
     const dateStartFilter = dateStart ? { $gte: dfns.startOfDay(new Date(dateStart)) } : null
     const dateEndFilter = dateEnd ? { $lte: dfns.endOfDay(new Date(dateEnd)) } : null
     
-    let priceFilter: Record<string, any> | null= {}
-    if(priceMin) priceFilter.$gte = +priceMin
-    if(priceMax) priceFilter.$lte = +priceMax
-    if(!priceMin && !priceMax) priceFilter = null
+    let touristsFilter = null
+    if (touristId) touristsFilter = touristId
+    else if (excludeTouristId) touristsFilter = { $ne: excludeTouristId }
     
     res.status(200)
       .json((await getTourService.findByParams(_.omitBy({
@@ -64,10 +70,7 @@ export const findByParams = async (req, res) => {
         addPhotos,
         title,
         price: priceFilter,
-        place:{
-          $regex: place,
-          $options: "i"
-        },
+        place: placeFilter,
         dateStart: dateStartFilter,
         dateEnd: dateEndFilter,
         desc,
@@ -190,6 +193,39 @@ export const updateTourist = async (req, res) => {
   }
 }
 
+export const updateToursStatus = async (): Promise<void> => {
+  try {
+    const tours = await getTourService.findByParams({ status: { $in: ['NEW', 'ACTIVE', 'PENDING'] } })
+    
+    let dateStart = null
+    let dateEnd = null
+    let dateNow = null
+    
+    tours.forEach((tour) => {
+      dateStart = dfns.getTime(tour.dateStart)
+      dateEnd = dfns.getTime(tour.dateEnd)
+      dateNow = dfns.getTime(new Date())
+      
+      switch (tour.status) {
+        case 'NEW':
+          if (dateNow >= dateStart) tour.status = 'CANCELED'
+          break
+        case 'ACTIVE':
+          if (dateNow >= dateStart) tour.status = 'PENDING'
+          break
+        case 'PENDING':
+          if (dateNow >= dateEnd) tour.status = 'FINISHED'
+          break
+      }
+      
+      tour.save()
+    })
+    
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 export const findTouristsBooks = async (req, res) => {
   try {
     const touristBooks = await getTourService.findTouristsBooks(req.params.id)
@@ -210,5 +246,6 @@ export default {
   create,
   update,
   updateTourist,
-  findTouristsBooks
+  findTouristsBooks,
+  updateToursStatus
 }

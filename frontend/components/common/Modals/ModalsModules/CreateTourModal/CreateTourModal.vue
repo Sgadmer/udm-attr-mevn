@@ -124,13 +124,13 @@ const $e = defineEmits<IEmits>()
 const formModel = $ref({
   mainPhoto: null,
   addPhotos: null,
-  title: 'fgh',
-  price: 345,
-  place: 'efgere',
-  dateStart: Date.now(),
-  dateEnd: Date.now(),
-  desc: 'fwefwf',
-  agree: true,
+  title: '',
+  price: 0,
+  place: '',
+  dateStart: null,
+  dateEnd: null,
+  desc: '',
+  agree: false,
 })
 
 const validationRules = {

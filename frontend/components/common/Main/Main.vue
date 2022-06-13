@@ -1,7 +1,6 @@
 <template>
   <div>
     <MainPromoSlider/>
-    <FiltersForm/>
     <MainAllTours/>
   </div>
 </template>

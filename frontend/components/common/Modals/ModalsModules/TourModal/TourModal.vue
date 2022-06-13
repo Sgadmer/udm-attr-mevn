@@ -37,7 +37,10 @@
           corners="Md"
           :class="$s.TourModal__AcionBtn"
           @click="handleModalOpen(EModalsNames.TouristCancelModal)"
-          v-if="$route.name === 'tourist' && $toursStore.getTouristBookStatus(compTour._id) !== 'CANCELED'"
+          v-if="$route.name === 'tourist' &&  (
+            $toursStore.getTouristBookStatus(compTour._id) !== 'CANCELED' &&
+            compTour.status === 'ACTIVE'
+            )"
         >
           Отменить бронь
         </Button>
@@ -65,7 +68,7 @@
           corners="Md"
           :class="[$s.TourModal__AcionBtn, $s.TourModal__AcionBtn_Small]"
           @click="handleNewTourStatusChange(false)"
-          v-if="$route.name === 'admin' && compTour.status === 'ACTIVE'"
+          v-if="$route.name === 'admin' && (compTour.status === 'ACTIVE' || compTour.status === 'PENDING')"
         >
           Заблокировать
         </Button>
@@ -121,6 +124,7 @@ import { useModalsStore } from '~@store/modals'
 import { useToursStore } from '~@store/tours'
 import { formatJSONDate } from '~@utils/helpers'
 import { useUserStore } from '~@store/user'
+import * as dfns from 'date-fns'
 
 /**
  * TYPES
@@ -181,11 +185,26 @@ const handleBookModalOpen = (): void => {
 
 
 const handleNewTourStatusChange = (isApproved: boolean): void => {
+
+  const dateStart = dfns.getTime(dfns.parseJSON(compTour.dateStart))
+  const dateEnd = dfns.getTime(dfns.parseJSON(compTour.dateEnd))
+  const dateNow = dfns.getTime(new Date())
+
+  let status = ''
+
+  if (isApproved) {
+    if (dateNow <= dateStart) status = 'ACTIVE'
+    else if (dateNow >= dateStart && dateNow < dateEnd) status = 'PENDING'
+    else status = 'CANCELED'
+  } else {
+    status = 'BLOCKED'
+  }
+
   $fetch('/api/tour', {
     method: 'PUT',
     body: {
       id: compTour._id,
-      status: isApproved ? 'ACTIVE' : 'BLOCKED'
+      status
     }
   }).then(res => {
     $toursStore.updateTour(compTour._id, res)

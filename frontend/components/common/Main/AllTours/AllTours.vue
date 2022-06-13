@@ -1,4 +1,7 @@
 <template>
+  <FiltersForm
+    @onSubmit="handleFiltersChange"
+  />
   <section :class="$s.AllTours">
     <div :class="$s.AllTours__TitleWrap">
       <h2>Туры</h2>
@@ -70,5 +73,21 @@ onBeforeMount((): void => {
 /**
  * METHODS
  */
+const handleFiltersChange = (formData: Record<string, any>) => {
+
+  $fetch('/api/tour/params', {
+    method: 'GET',
+    params: {
+      ...formData,
+      status: 'ACTIVE'
+    },
+  }).then((res: Record<string, any>[]) => {
+    $toursStore.setAccountTours(res)
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
+}
 
 </script>

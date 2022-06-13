@@ -1,4 +1,8 @@
 <template>
+  <FiltersForm
+    :class="$s.Common__FiltersForm"
+    @onSubmit="handleFiltersChange"
+  />
   <div :class="[$s.Common__Row, $s.Common__Row_Center]">
     <Tabs
       :tabs="tabs"
@@ -39,12 +43,13 @@ import { useToursStore } from '~@store/tours'
  * TYPES
  */
 enum ETabs {
-  all = 'all',
-  current = 'current',
-  future = 'future',
-  past = 'past',
-  canceled = 'canceled',
-  blocked = 'blocked'
+  all = '',
+  new = 'NEW',
+  current = 'PENDING',
+  future = 'ACTIVE',
+  past = 'FINISHED',
+  canceled = 'CANCELED',
+  blocked = 'BLOCKED'
 }
 
 /**
@@ -74,6 +79,10 @@ const tabs = $ref([
     selected: true
   },
   {
+    text: 'Новые',
+    value: ETabs.new,
+  },
+  {
     text: 'Текущие',
     value: ETabs.current,
   },
@@ -97,7 +106,9 @@ const tabs = $ref([
 const $userStore = useUserStore()
 const $modalsStore = useModalsStore()
 const $toursStore = useToursStore()
-
+let savedFormData: Record<string, any> = {
+  agentId: $userStore.getUserInfo.info._id
+}
 /**
  * WATCHERS
  */
@@ -113,9 +124,7 @@ onBeforeMount((): void => {
 
   $fetch('/api/tour/params', {
     method: 'GET',
-    params: {
-      agentId: $userStore.getUserInfo.info._id
-    }
+    params: savedFormData
   }).then((res: Record<string, any>[]) => {
     $toursStore.setAccountTours(res)
   })
@@ -129,12 +138,29 @@ onBeforeMount((): void => {
 /**
  * METHODS
  */
-const handleTabChange = (selectedTabValue: ETabs): void => {
-  selectedTab = selectedTabValue
-}
-
 const handleCreateTourModalOpen = (): void => {
   $modalsStore.setCurrentModalName(EModalsNames.CreateTourModal)
+}
+
+const handleTabChange = (selectedTabValue: ETabs): void => {
+  selectedTab = selectedTabValue
+  handleFiltersChange({ status: selectedTabValue })
+}
+
+const handleFiltersChange = (formData: Record<string, any>) => {
+
+  savedFormData = { ...savedFormData, ...formData }
+
+  $fetch('/api/tour/params', {
+    method: 'GET',
+    params: savedFormData,
+  }).then((res: Record<string, any>[]) => {
+    $toursStore.setAccountTours(res)
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
 }
 </script>
 

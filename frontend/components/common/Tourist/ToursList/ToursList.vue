@@ -1,4 +1,8 @@
 <template>
+  <FiltersForm
+    :class="$s.Common__FiltersForm"
+    @onSubmit="handleFiltersChange"
+  />
   <Tabs
     :tabs="tabs"
     @onTabChange="handleTabChange"
@@ -18,7 +22,7 @@
 /**
  * IMPORTS
  */
-
+import $s from '../../common.module.scss'
 import { useToursStore } from '~@store/tours'
 import { useUserStore } from '~@store/user'
 
@@ -26,11 +30,11 @@ import { useUserStore } from '~@store/user'
  * TYPES
  */
 enum ETabs {
-  all = 'all',
-  current = 'current',
-  future = 'future',
-  past = 'past',
-  canceled = 'canceled',
+  all = '',
+  current = 'PENDING',
+  future = 'ACTIVE',
+  past = 'FINISHED',
+  canceled = 'CANCELED',
 }
 
 /**
@@ -79,6 +83,9 @@ const tabs = $ref([
 
 const $toursStore = useToursStore()
 const $userStore = useUserStore()
+let savedFormData: Record<string, any> = {
+  touristId: $userStore.getUserInfo.info._id
+}
 /**
  * WATCHERS
  */
@@ -94,9 +101,7 @@ onBeforeMount((): void => {
 
   $fetch('/api/tour/params', {
     method: 'GET',
-    params: {
-      touristId: $userStore.getUserInfo.info._id
-    }
+    params: savedFormData
   }).then((res: Record<string, any>[]) => {
     $toursStore.setAccountTours(res)
   })
@@ -111,7 +116,23 @@ onBeforeMount((): void => {
  */
 const handleTabChange = (selectedTabValue: ETabs): void => {
   selectedTab = selectedTabValue
+  handleFiltersChange({ status: selectedTabValue })
 }
 
+const handleFiltersChange = (formData: Record<string, any>) => {
+
+  savedFormData = { ...savedFormData, ...formData }
+
+  $fetch('/api/tour/params', {
+    method: 'GET',
+    params: savedFormData,
+  }).then((res: Record<string, any>[]) => {
+    $toursStore.setAccountTours(res)
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
+}
 
 </script>

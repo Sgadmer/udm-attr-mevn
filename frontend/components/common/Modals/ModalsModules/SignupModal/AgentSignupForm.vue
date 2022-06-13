@@ -145,7 +145,6 @@ const $v = useVuelidate(validationRules, formModel)
  */
 const handleSubmit = async (): Promise<void> => {
   const isFormCorrect = await $v.value.$validate()
-  console.log(isFormCorrect, $v.value.$errors, formModel)
 
   if (!isFormCorrect) return
 

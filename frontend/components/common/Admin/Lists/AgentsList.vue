@@ -5,13 +5,13 @@
     @onSubmit="handleFiltersChange"
   />
 
-  <div :class="[$s.Common__Row, $s.Common__Row_Center]">
-    <Tabs
-      :tabs="tabs"
-      @onTabChange="handleTabChange"
-      class="ToursList__Tabs"
-    />
-  </div>
+<!--  <div :class="[$s.Common__Row, $s.Common__Row_Center]">-->
+<!--    <Tabs-->
+<!--      :tabs="tabs"-->
+<!--      @onTabChange="handleTabChange"-->
+<!--      class="ToursList__Tabs"-->
+<!--    />-->
+<!--  </div>-->
   <ScrollContainer>
     <ListCardUser
       v-for="(agent, i) in agents"
@@ -108,7 +108,6 @@ const handleCardUpdate = (newData: Record<string, any>, index: number): void => 
 }
 
 const handleFiltersChange = (formData: Record<string, any>) => {
-  console.log(formData)
 
   $fetch('/api/agent/params', {
     method: 'GET',
