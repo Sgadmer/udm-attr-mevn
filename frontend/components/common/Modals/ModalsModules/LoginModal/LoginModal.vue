@@ -20,11 +20,11 @@
           :class="$s.LoginModal__PasswordInput"
           :isError="$findError($v.$errors, 'password')"
         />
-                <Checkbox
-                  v-model:checkboxModel="formModel.isKeepAuth"
-                >
-                  Оставаться в системе
-                </Checkbox>
+        <Checkbox
+          v-model:checkboxModel="formModel.isKeepAuth"
+        >
+          Оставаться в системе
+        </Checkbox>
       </div>
 
       <div :class="$s.LoginModal__Controls">
@@ -64,6 +64,7 @@ import { and, email, minLength, required } from '@vuelidate/validators'
 import { EModalsNames } from '~/constants/modals'
 import { useModalsStore } from '~@store/modals'
 import { useUserStore } from '~/store/user'
+
 const { $findError } = useNuxtApp()
 
 /**
@@ -127,23 +128,24 @@ const handleSubmit = async (): Promise<void> => {
 
   if (!isFormCorrect) return
 
-  const { data, error } = await useFetch('/api/user/check', {
+  $fetch('/api/user/check', {
     method: 'GET',
     params: {
       email: formModel.email,
       password: formModel.password,
     }
-  })
-
-  const foundUser = data.value
-  if (foundUser.isExist) {
+  }).then((res: Record<string, any>) => {
     $userStore.setIsKeepAuth(formModel.isKeepAuth)
-    $userStore.setUserInfo(foundUser)
-    navigateTo(`/${ foundUser.existType }`)
+    $userStore.setUserInfo(res)
+    navigateTo(`/${ res.existType }`)
     setTimeout(() => {
       handleModalOpen(null)
     }, 500)
-  }
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
 
 }
 

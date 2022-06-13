@@ -93,11 +93,11 @@ const compUserName = computed((): string => {
 
   switch (userInfo.existType) {
     case 'admin':
-      return `Админ. ${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] + ' .' }`
+      return `Админ: ${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] + '.' }`
     case 'agent':
       return userInfo.info.corpName
     case 'tourist':
-      return `${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] + ' .' }`
+      return `${ userInfo.info.surname } ${ userInfo.info.name[0] }. ${ userInfo.info.patronymic && userInfo.info.patronymic[0] + '.' }`
   }
 })
 

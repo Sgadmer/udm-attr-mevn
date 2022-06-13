@@ -4,6 +4,7 @@ import touristController from '~~/backend/controllers/tourist'
 const Tourist = Router()
 
 Tourist.get('/', touristController.findAll)
+Tourist.get('/params', touristController.findByParams)
 Tourist.get('/:id', touristController.findById)
 Tourist.post('/', touristController.create)
 Tourist.put('/', touristController.update)

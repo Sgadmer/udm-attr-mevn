@@ -3,7 +3,9 @@ import postTourService from '~~/backend/services/tour/post'
 import putTourService from '~~/backend/services/tour/put'
 import { getRealImagePath } from '~~/backend/utlis/helpers'
 import _ from 'lodash'
-import { ObjectId } from 'mongodb'
+import * as dfns from 'date-fns'
+import getAgentService from '~~/backend/services/agent/get'
+import getTouristService from '~~/backend/services/tourist/get'
 
 export const findAll = async (req, res) => {
   try {
@@ -17,7 +19,6 @@ export const findAll = async (req, res) => {
 
 export const findById = async (req, res) => {
   try {
-    console.log('findById!')
     res.status(200)
       .json((await getTourService.findById(req.query.id)))
   } catch (e) {
@@ -35,18 +36,26 @@ export const findByParams = async (req, res) => {
       mainPhoto,
       addPhotos,
       title,
-      price,
       place,
       dateStart,
       dateEnd,
+      priceMin,
+      priceMax,
       desc,
       status,
     } = req.query
     
     let touristsFilter = null
-    
     if (touristId) touristsFilter = touristId
     else if (excludeTouristId) touristsFilter = { $ne: excludeTouristId }
+  
+    const dateStartFilter = dateStart ? { $gte: dfns.startOfDay(new Date(dateStart)) } : null
+    const dateEndFilter = dateEnd ? { $lte: dfns.endOfDay(new Date(dateEnd)) } : null
+    
+    let priceFilter: Record<string, any> | null= {}
+    if(priceMin) priceFilter.$gte = +priceMin
+    if(priceMax) priceFilter.$lte = +priceMax
+    if(!priceMin && !priceMax) priceFilter = null
     
     res.status(200)
       .json((await getTourService.findByParams(_.omitBy({
@@ -54,14 +63,17 @@ export const findByParams = async (req, res) => {
         mainPhoto,
         addPhotos,
         title,
-        price,
-        place,
-        dateStart,
-        dateEnd,
+        price: priceFilter,
+        place:{
+          $regex: place,
+          $options: "i"
+        },
+        dateStart: dateStartFilter,
+        dateEnd: dateEndFilter,
         desc,
         'tourists.touristId': touristsFilter,
         status,
-      }, _.isNil))))
+      }, (v) => _.isUndefined(v) || _.isNull(v) || v === ''))))
   } catch (e) {
     res.status(500)
       .json(e.message)
@@ -79,6 +91,10 @@ export const create = async (req, res) => {
       dateEnd,
       desc,
     } = req.body
+    
+    const agent = await getAgentService.findById(agentId)
+    if (!agent.isActive) res.status(500).json('Невозможно создать тур, т.к. аккаунт заблокирован')
+    
     
     const mainPhotoSrc = getRealImagePath(req, req.files.mainPhoto[0])
     const addPhotosSrc = req.files.addPhotos.map(photoObj => {
@@ -119,6 +135,10 @@ export const update = async (req, res) => {
     
     if (!id) res.status(500).json('Не указан id')
     
+    const tour = await getTourService.findById(id)
+    const agent = await getAgentService.findById(tour.agentId)
+    if (!agent.isActive) res.status(500).json('Невозможно обновить тур, т.к. аккаунт заблокирован')
+    
     let mainPhotoSrc = null
     let addPhotosSrc = null
     
@@ -156,6 +176,9 @@ export const updateTourist = async (req, res) => {
       status,
       operation
     } = req.body
+    
+    const tourist = await getTouristService.findById(touristId)
+    if (!tourist.isActive) res.status(500).json('Невозможно взаимодействовать с туром, т.к. аккаунт заблокирован')
     
     const updTour = await putTourService.updateTourist(tourId, touristId, status, operation)
     

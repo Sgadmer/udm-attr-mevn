@@ -2,6 +2,7 @@ import getTouristService from '~~/backend/services/tourist/get'
 import postTouristService from '~~/backend/services/tourist/post'
 import putTouristService from '~~/backend/services/tourist/put'
 import getUserService from '~~/backend/services/user/get'
+import _ from 'lodash'
 
 
 export const findAll = async (req, res) => {
@@ -24,6 +25,45 @@ export const findById = async (req, res) => {
   }
 }
 
+export const findByParams = async (req, res) => {
+  
+  const {
+    surname,
+    name,
+    patronymic,
+    phone,
+    email,
+    isBlocked,
+  } = req.query
+  
+  const params: Record<string, any> = _.omitBy({
+      surname,
+      name,
+      patronymic,
+      phone,
+      email,
+    },
+    (v) => _.isUndefined(v) || _.isNull(v) || v === ''
+  )
+  
+  Object.entries(params).forEach(([key, value]): void => {
+    params[key] = {
+      $regex: value,
+      $options: 'i'
+    }
+  })
+  
+  params.isActive = !JSON.parse(isBlocked)
+  
+  try {
+    res.status(200)
+      .json((await getTouristService.findByParams(params)))
+  } catch (e) {
+    res.status(500)
+      .json(e.message)
+  }
+}
+
 export const create = async (req, res) => {
   try {
     const {
@@ -38,7 +78,7 @@ export const create = async (req, res) => {
     
     const account = await getUserService.findByParams({ email, phone })
     
-
+    
     if (account.isExist) {
       res.status(500)
         .json('Аккаунт уже существует')
@@ -73,12 +113,12 @@ export const update = async (req, res) => {
       director,
       phone,
       corpAddress,
-      asActive
+      isActive
     } = req.body
     
     if (!id) res.status(500).json('Не указан id')
     
-    const updTour = await putTouristService.update(id, {
+    const updTourist = await putTouristService.update(id, _.omitBy({
       email,
       password,
       corpName,
@@ -86,10 +126,10 @@ export const update = async (req, res) => {
       director,
       phone,
       corpAddress,
-      asActive
-    })
+      isActive
+    }, _.isNil))
     res.status(200)
-      .json(updTour)
+      .json(updTourist)
   } catch (e) {
     res.status(500)
       .json(e.message)
@@ -99,6 +139,7 @@ export const update = async (req, res) => {
 export default {
   findAll,
   findById,
+  findByParams,
   create,
   update
 }

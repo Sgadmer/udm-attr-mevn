@@ -1,4 +1,10 @@
 <template>
+  <FiltersForm
+    :class="[$s.Common__FiltersForm, $s.Common__FiltersForm_Admin]"
+    :isAdmin="true"
+    @onSubmit="handleFiltersChange"
+  />
+
   <div :class="[$s.Common__Row, $s.Common__Row_Center]">
     <Tabs
       :tabs="tabs"
@@ -23,6 +29,7 @@
  */
 import $s from '../../common.module.scss'
 import { useToursStore } from '~/store/tours'
+import { useAdminStore } from '~/store/admin'
 
 /**
  * TYPES
@@ -85,6 +92,7 @@ const tabs = $ref([
 ])
 
 const $toursStore = useToursStore()
+const $adminStore = useAdminStore()
 
 /**
  * WATCHERS
@@ -112,6 +120,21 @@ onBeforeMount((): void => {
  */
 const handleTabChange = (selectedTabValue: ETabs): void => {
   selectedTab = selectedTabValue
+}
+
+const handleFiltersChange = (formData: Record<string, any>) => {
+  console.log(formData)
+
+  $fetch('/api/tour/params', {
+    method: 'GET',
+    params: formData,
+  }).then((res: Record<string, any>[]) => {
+    $toursStore.setAccountTours(res)
+  })
+    .catch(e => {
+      console.error(e)
+    })
+
 }
 
 </script>

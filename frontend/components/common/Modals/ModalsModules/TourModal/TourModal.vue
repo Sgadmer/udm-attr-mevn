@@ -60,6 +60,24 @@
         >
           Отклонить
         </Button>
+        <Button
+          kind="Main"
+          corners="Md"
+          :class="[$s.TourModal__AcionBtn, $s.TourModal__AcionBtn_Small]"
+          @click="handleNewTourStatusChange(false)"
+          v-if="$route.name === 'admin' && compTour.status === 'ACTIVE'"
+        >
+          Заблокировать
+        </Button>
+        <Button
+          kind="Secondary"
+          corners="Md"
+          :class="[$s.TourModal__AcionBtn, $s.TourModal__AcionBtn_Small]"
+          @click="handleNewTourStatusChange(true)"
+          v-if="$route.name === 'admin' && compTour.status === 'BLOCKED'"
+        >
+          Разблокировать
+        </Button>
 
       </div>
 
@@ -163,7 +181,6 @@ const handleBookModalOpen = (): void => {
 
 
 const handleNewTourStatusChange = (isApproved: boolean): void => {
-  console.log(isApproved)
   $fetch('/api/tour', {
     method: 'PUT',
     body: {

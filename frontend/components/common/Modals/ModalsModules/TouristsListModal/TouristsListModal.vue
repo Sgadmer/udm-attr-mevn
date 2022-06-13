@@ -1,6 +1,6 @@
 <template>
   <ModalBase
-    title="Список туристов тура</br>“Путешествие в пельменную долину”"
+    :title="`Список туристов тура</br>'${compTour.title}'`"
   >
     <template #beforeContent>
       <Tabs
@@ -9,10 +9,11 @@
       />
     </template>
 
-    <ListCardTourist
-      v-for="tourist in tour.tourists"
-      :data="tourist"
+    <ListCardUser
+      v-for="tourist in compTour.tourists"
+      :data="{bookStatus: tourist.bookStatus,...tourist.touristId}"
       :key="tourist._id"
+      type="agent"
     />
 
   </ModalBase>
@@ -72,7 +73,6 @@ const tabs = $ref([
   },
 ])
 const $toursStore = useToursStore()
-let tour = $ref<Record<string, any>>($toursStore.getSelectedTour)
 
 /**
  * WATCHERS
@@ -81,6 +81,7 @@ let tour = $ref<Record<string, any>>($toursStore.getSelectedTour)
 /**
  * COMPUTED
  */
+const compTour = $computed((): Record<string, any> => $toursStore.getSelectedTour)
 
 /**
  * HOOKS

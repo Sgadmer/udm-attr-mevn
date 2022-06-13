@@ -10,14 +10,6 @@
           label="Место"
           :charsToDelete="REG_EXP.ecxeptLetters"
         />
-<!--        <Input-->
-<!--          v-model:inputModel="formModel.keywords"-->
-<!--          label="Ключевые слова"-->
-<!--          modelJoin=", "-->
-<!--          :modelSplit="REG_EXP.commaSeparator"-->
-<!--          :charsToDelete="REG_EXP.exceptBaseList"-->
-<!--        />-->
-
         <div :class="$s.FiltersForm__ControlsForm">
           <Input
             v-model:inputModel="formModel.priceMin"
@@ -38,11 +30,13 @@
             v-model:datepickerModel="formModel.dateStart"
             inputLabel="Дата от"
             :maxDate="formModel.dateEnd"
+            :noDateRange="$p.isAdmin"
           />
           <Datepicker
             v-model:datepickerModel="formModel.dateEnd"
             inputLabel="Дата до"
             :minDate="formModel.dateStart"
+            :noDateRange="$p.isAdmin"
           />
         </div>
 
@@ -77,14 +71,18 @@ import { REG_EXP } from '~@constants/regExps'
  * PROPS
  */
 interface IProps {
+  isAdmin?: boolean
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  isAdmin: false
+})
 
 /**
  * EMITS
  */
 interface IEmits {
+  (e: 'onSubmit', formModel: Record<string, any>): void
 }
 
 const $e = defineEmits<IEmits>()
@@ -94,7 +92,6 @@ const $e = defineEmits<IEmits>()
  */
 const formModel = $ref<IFiltersForm>({
   place: '',
-  // keywords: [],
   priceMin: 0,
   priceMax: 100000,
   dateStart: null,
@@ -140,9 +137,10 @@ function handleModelChange(): void {
   }
 }
 
-const handleFormSubmit = async (): void => {
+const handleFormSubmit = async (): Promise<void> => {
   const isFormCorrect = await $v.value.$validate()
   if (isFormCorrect) {
+    $e('onSubmit', formModel)
   }
 }
 

@@ -9,8 +9,8 @@
         :monthNameFormat="pickerProps.monthNameFormat"
         :clearable="pickerProps.clearable"
         :autoApply="pickerProps.autoApply"
-        :minDate="compMinDate"
-        :maxDate="compMaxDate"
+        :minDate="$p.noDateRange ? null : compMinDate"
+        :maxDate="$p.noDateRange ? null : compMaxDate"
         :closeOnScroll="pickerProps.closeOnScroll"
         :enableTimePicker="pickerProps.enableTimePicker"
         :class="$s.Datepicker"
@@ -49,6 +49,7 @@ interface IProps {
   inputLabel?: string,
   minDate?: Date | string,
   maxDate?: Date | string,
+  noDateRange?: boolean,
   datepickerModel?: Date,
   isError?: boolean
 }
