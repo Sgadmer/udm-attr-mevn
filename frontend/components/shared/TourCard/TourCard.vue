@@ -58,10 +58,10 @@
       :class="$s.TourCard__Controls"
     >
       <Tag
-        type="Success"
+        :type="$p.data.status"
         :class="$s.TourCard__Tag"
       >
-        {{ $p.data.status }}
+        {{ EStatus[$p.data.status] }}
       </Tag>
 
       <Button
@@ -78,10 +78,10 @@
       :class="$s.TourCard__Controls"
     >
       <Tag
-        type="Success"
+        :type="$p.data.status"
         :class="$s.TourCard__Tag"
       >
-        {{ $p.data.status }}
+        {{ EStatus[$p.data.status] }}
       </Tag>
 
       <Button
@@ -115,6 +115,7 @@ import { EModalsNames } from '~@constants/modals'
 import { formatJSONDate } from '~@utils/helpers'
 import { useToursStore } from '~@store/tours'
 import { useUserStore } from '~/store/user'
+import { EStatus } from '~@models/status'
 
 /**
  * TYPES

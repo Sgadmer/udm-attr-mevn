@@ -4,9 +4,9 @@
       <div>
         <dt :class="$s.ListCard__Term">{{ compUserTitle }}</dt>
         <dd :class="$s.ListCard__Desc"
-        v-if="$p.type === 'adminTourist'"
+            v-if="$p.type === 'adminTourist'"
         >
-          {{ $p.data.surname }}. {{ $p.data.name[0] }}.  {{ $p.data.patronymic[0] ? $p.data.patronymic[0] + '.' : ''}}
+          {{ $p.data.surname }}. {{ $p.data.name[0] }}. {{ $p.data.patronymic[0] ? $p.data.patronymic[0] + '.' : '' }}
         </dd>
         <dd :class="$s.ListCard__Desc"
             v-if="$p.type === 'adminAgent'"
@@ -25,8 +25,8 @@
       <div>
         <dt :class="$s.ListCard__Term">{{ $p.type === 'agent' ? 'Статус брони' : 'Статус' }}</dt>
         <dd :class="$s.ListCard__Desc">
-          <Tag type="Success" v-if="$p.type === 'agent'">{{ $p.data.bookStatus }}</Tag>
-          <Tag type="Success" v-else>isActive: {{ $p.data.isActive }}</Tag>
+          <Tag :type="$p.data.bookStatus" v-if="$p.type === 'agent'">{{ $p.data.bookStatus }}</Tag>
+          <Tag :type="$p.data.isActive ? 'ACTIVE' : 'CANCELED'" v-else>{{ $p.data.isActive ? 'АКТИВНЫЙ' : 'БЛОК' }}</Tag>
         </dd>
       </div>
       <div
@@ -132,7 +132,7 @@ const changeUserActiveStatus = (isActive): void => {
     }
   })
     .then(res => {
-      $e('onUpdate',res)
+      $e('onUpdate', res)
     })
     .catch(e => {
       console.error(e)

@@ -11,7 +11,12 @@
           v-if="$route.name !== 'index'"
         >
           <span>Статус:&nbsp;&nbsp;&nbsp;</span>
-          <Tag type="Success">{{ compTour.status }}</Tag>
+          <Tag
+            :type="compTour.status"
+          >
+            {{ EStatus[compTour.status] }}
+          </Tag>
+
         </div>
 
         <Button
@@ -124,6 +129,7 @@ import { useModalsStore } from '~@store/modals'
 import { useToursStore } from '~@store/tours'
 import { formatJSONDate } from '~@utils/helpers'
 import { useUserStore } from '~@store/user'
+import { EStatus } from '~@models/status'
 import * as dfns from 'date-fns'
 
 /**

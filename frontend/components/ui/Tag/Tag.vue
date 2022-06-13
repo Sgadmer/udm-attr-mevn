@@ -22,11 +22,11 @@ import $s from './Tag.module.scss'
  * PROPS
  */
 interface IProps {
-  type?: 'Success' | 'Danger' | 'Warning',
+  type?: 'NEW' | 'ACTIVE' | 'PENDING' | 'FINISHED' | 'CANCELED' | 'BLOCKED',
 }
 
 const $p = withDefaults(defineProps<IProps>(), {
-  type: 'Success'
+  type: 'NEW'
 })
 
 /**

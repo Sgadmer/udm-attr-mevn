@@ -24,7 +24,10 @@
       </div>
     </dl>
 
-    <Checkbox>
+    <Checkbox
+      v-model:checkboxModel="formModel.isAgree"
+      :isError="$findError($v.$errors, 'isAgree')"
+    >
       Процедура оплаты тура производится между туристом и турагентом без участия Udm-attraction.<br/>
       Данные турсиста будут переданы турагенту для дальнейшего взаимодействия.<br/>
       Я ознакомлен/на и согласен/на с условиями бронирования тура.
@@ -54,6 +57,8 @@ import { useToursStore } from '~@store/tours'
 import { formatJSONDate } from '~@utils/helpers'
 import { useUserStore } from '~/store/user'
 import { useModalsStore } from '~/store/modals'
+import { and, required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
 
 /**
  * TYPES
@@ -78,6 +83,19 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const formModel = $ref({
+  isAgree: false
+})
+
+const validationRules = {
+  isAgree: {
+    valid: and(required, (v) => {
+      return v === true
+    })
+  }
+}
+
+const $v = useVuelidate(validationRules, formModel)
 const $toursStore = useToursStore()
 const $userStore = useUserStore()
 const $modalsStore = useModalsStore()
@@ -98,7 +116,10 @@ const compTour = $computed((): Record<string, any> => $toursStore.getSelectedTou
 /**
  * METHODS
  */
-const handleBookConfirm = (): void => {
+const handleBookConfirm = async (): Promise<void> => {
+  const isFormCorrect = await $v.value.$validate()
+  if (!isFormCorrect) return
+
   $fetch('/api/tour/tourist', {
     method: 'PUT',
     body: {

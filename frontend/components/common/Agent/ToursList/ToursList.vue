@@ -24,6 +24,7 @@
       :key="card._id"
       type="agent"
       :data="card"
+      v-show="selectedTab === '' || card.status === selectedTab"
     />
   </ScrollContainer>
 </template>
@@ -148,6 +149,7 @@ const handleTabChange = (selectedTabValue: ETabs): void => {
 }
 
 const handleFiltersChange = (formData: Record<string, any>) => {
+  $toursStore.setAccountTours([])
 
   savedFormData = { ...savedFormData, ...formData }
 

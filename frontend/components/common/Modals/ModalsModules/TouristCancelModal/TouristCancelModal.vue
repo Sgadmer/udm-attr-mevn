@@ -24,8 +24,12 @@
       </div>
     </dl>
 
-    <Checkbox>
-      В случае оплаты тура туристом, процедура возврата денежных средств производится между туристом и турагентом без участия Udm-attraction.<br/>
+    <Checkbox
+      v-model:checkboxModel="formModel.isAgree"
+      :isError="$findError($v.$errors, 'isAgree')"
+    >
+      В случае оплаты тура туристом, процедура возврата денежных средств производится между туристом и турагентом без
+      участия Udm-attraction.<br/>
       Я ознакомлен/на и согласен/на с условиями отказа от тура.
     </Checkbox>
 
@@ -53,6 +57,10 @@ import { formatJSONDate } from '~@utils/helpers'
 import { useToursStore } from '~@store/tours'
 import { useUserStore } from '~/store/user'
 import { useModalsStore } from '~/store/modals'
+import { and, required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+
+const { $findError } = useNuxtApp()
 
 /**
  * TYPES
@@ -77,6 +85,19 @@ const $e = defineEmits<IEmits>()
 /**
  * DATA
  */
+const formModel = $ref({
+  isAgree: false
+})
+
+const validationRules = {
+  isAgree: {
+    valid: and(required, (v) => {
+      return v === true
+    })
+  }
+}
+
+const $v = useVuelidate(validationRules, formModel)
 const $toursStore = useToursStore()
 const $userStore = useUserStore()
 const $modalsStore = useModalsStore()
@@ -97,7 +118,10 @@ const compTour = $computed((): Record<string, any> => $toursStore.getSelectedTou
 /**
  * METHODS
  */
-const handleBookCancel = (): void => {
+const handleBookCancel = async (): Promise<void> => {
+  const isFormCorrect = await $v.value.$validate()
+  if (!isFormCorrect) return
+
   $fetch('/api/tour/tourist', {
     method: 'PUT',
     body: {

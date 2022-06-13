@@ -9,15 +9,27 @@
   color: cl('white');
   width: fit-content;
 
-  &_Success {
+  &_NEW {
+    background-color: cl('main');
+  }
+
+  &_ACTIVE {
     background-color: cl('success');
   }
 
-  &_Danger {
-    background-color: cl('danger');
+  &_PENDING {
+    background-color: cl('warning');
   }
 
-  &_Warning {
-    background-color: cl('warning');
+  &_FINISHED {
+    background-color: cl('secondary');
+  }
+
+  &_BLOCKED {
+    background-color: cl('black');
+  }
+
+  &_CANCELED {
+    background-color: cl('danger');
   }
 }
