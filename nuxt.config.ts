@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   alias: {
     '@assets': url.fileURLToPath(new URL('./frontend/assets', import.meta.url)),
     '@styles': url.fileURLToPath(new URL('./frontend/assets/styles', import.meta.url)),
+    '@public': url.fileURLToPath(new URL('./public', import.meta.url)),
     '~@constants': url.fileURLToPath(new URL('./frontend/constants', import.meta.url)),
     '~@models': url.fileURLToPath(new URL('./frontend/models', import.meta.url)),
     '~@store': url.fileURLToPath(new URL('./frontend/store', import.meta.url)),
@@ -79,6 +80,6 @@ export default defineNuxtConfig({
   ],
   telemetry: false,
   vite: {
-    publicDir: './public'
+    publicDir: url.fileURLToPath(new URL('./public', import.meta.url))
   }
 })
