@@ -11,6 +11,15 @@
 
     &_Admin {
       margin-top: 120px;
+
+      @include break-xl() {
+        margin-top: 0;
+      }
+    }
+
+
+    @include break-xl() {
+      margin-bottom: 60px;
     }
   }
 

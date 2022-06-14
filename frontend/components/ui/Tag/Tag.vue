@@ -22,7 +22,7 @@ import $s from './Tag.module.scss'
  * PROPS
  */
 interface IProps {
-  type?: 'NEW' | 'ACTIVE' | 'PENDING' | 'FINISHED' | 'CANCELED' | 'BLOCKED',
+  type?: 'NEW' | 'ACTIVE' | 'PENDING' | 'FINISHED' | 'CANCELED' | 'BOOK_CANCELED' | 'BLOCKED',
 }
 
 const $p = withDefaults(defineProps<IProps>(), {

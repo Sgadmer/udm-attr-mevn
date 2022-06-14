@@ -1,17 +1,30 @@
 <template>
-  <div :class="$s.Tabs__List">
-    <Button
-      v-for="(tab, i) in $p.tabs"
-      kind="Transparent"
-      :class="{
-        [$s.Tabs__Tab]: true,
-        [$s.Tabs__Tab_Selected]: tab.selected,
-        [$s.Tabs__Tab_Big]: $p.isBig
-      }"
-      @click="handleTabChange(i)"
+
+  <div
+    :class="$s.Tabs__List"
+  >
+    <swiper
+      :slidesPerView="'auto'"
+      :class="$s.Tabs__Slider"
     >
-      {{ tab.text }}
-    </Button>
+      <swiper-slide
+        v-for="(tab, i) in $p.tabs"
+        :key="tab.text + i"
+        :class="$s.Tabs__Slide"
+      >
+        <Button
+          kind="Transparent"
+          :class="{
+              [$s.Tabs__Tab]: true,
+              [$s.Tabs__Tab_Selected]: tab.selected,
+              [$s.Tabs__Tab_Big]: $p.isBig
+            }"
+          @click="handleTabChange(i)"
+        >
+          {{ tab.text }}
+        </Button>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
@@ -21,6 +34,7 @@
  * IMPORTS
  */
 import $s from './Tabs.module.scss'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 
 /**
  * TYPES

@@ -1,12 +1,12 @@
 <template>
   <div :class="$s.ListCard">
     <dl :class="$s.ListCard__Row">
-      <div>
+      <div :class="$s.ListCard__DescItemWrapper">
         <dt :class="$s.ListCard__Term">{{ compUserTitle }}</dt>
         <dd :class="$s.ListCard__Desc"
-            v-if="$p.type === 'adminTourist'"
+            v-if="$p.type === 'adminTourist' || $p.type === 'agent'"
         >
-          {{ $p.data.surname }}. {{ $p.data.name[0] }}. {{ $p.data.patronymic[0] ? $p.data.patronymic[0] + '.' : '' }}
+          {{ $p.data.surname }} {{ $p.data.name }} {{ $p.data.patronymic[0] || '' }}
         </dd>
         <dd :class="$s.ListCard__Desc"
             v-if="$p.type === 'adminAgent'"
@@ -14,19 +14,22 @@
           {{ $p.data.corpName }}
         </dd>
       </div>
-      <div>
+      <div :class="$s.ListCard__DescItemWrapper">
         <dt :class="$s.ListCard__Term">Телефон</dt>
         <dd :class="$s.ListCard__Desc">{{ $p.data.phone }}</dd>
       </div>
-      <div>
+      <div :class="$s.ListCard__DescItemWrapper">
         <dt :class="$s.ListCard__Term">Email</dt>
         <dd :class="$s.ListCard__Desc">{{ $p.data.email }}</dd>
       </div>
-      <div>
+      <div :class="$s.ListCard__DescItemWrapper">
         <dt :class="$s.ListCard__Term">{{ $p.type === 'agent' ? 'Статус брони' : 'Статус' }}</dt>
         <dd :class="$s.ListCard__Desc">
-          <Tag :type="$p.data.bookStatus" v-if="$p.type === 'agent'">{{ $p.data.bookStatus }}</Tag>
-          <Tag :type="$p.data.isActive ? 'ACTIVE' : 'CANCELED'" v-else>{{ $p.data.isActive ? 'АКТИВНЫЙ' : 'БЛОК' }}</Tag>
+          <Tag :type="$p.data.bookStatus" v-if="$p.type === 'agent'">{{ EStatus[$p.data.bookStatus] }}</Tag>
+          <Tag :type="$p.data.isActive ? 'ACTIVE' : 'CANCELED'" v-else>{{
+              $p.data.isActive ? EStatus.ACTIVE : EStatus.BLOCKED
+            }}
+          </Tag>
         </dd>
       </div>
       <div
@@ -60,6 +63,7 @@
  * IMPORTS
  */
 import $s from './ListCard.module.scss'
+import { EStatus } from '~@models/status'
 
 /**
  * TYPES

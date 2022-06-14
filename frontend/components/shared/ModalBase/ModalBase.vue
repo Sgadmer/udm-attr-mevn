@@ -2,7 +2,9 @@
   <div :class="$s.ModalBase">
 
     <header :class="$s.ModalBase__Header">
-      <Logo/>
+      <Logo
+        :useMobile="true"
+      />
       <Button
         kind="Secondary"
         corners="Circle"

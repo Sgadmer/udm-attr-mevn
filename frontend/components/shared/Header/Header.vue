@@ -1,19 +1,24 @@
 <template>
   <header :class="$s.Header" :key="$userStore.getIsKeepAuth">
-    <Logo/>
+    <Logo
+      :useMobile="true"
+    />
     <div :class="$s.Header__Controls">
 
-      <p
-        :class="$s.Header__User"
-        @click="handleAccountRedirect"
+      <div
+        :class="$s.Header__UserWrapper"
         v-if="compIsAuthorized"
       >
-        {{ compUserName }}
-      </p>
+        <p
+          :class="$s.Header__User"
+          @click="handleAccountRedirect"
+        >
+          {{ compUserName }}
+        </p>
+      </div>
       <Button
         kind="Transparent"
         corners="Sm"
-        :class="$s.Header__Login"
         @click="handleLogout"
         v-if="compIsAuthorized"
       >

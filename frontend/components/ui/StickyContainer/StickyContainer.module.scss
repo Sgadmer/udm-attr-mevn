@@ -9,4 +9,8 @@
   padding: 25px 30px 45px 30px;
   border-radius: 0 0 25px 25px;
   z-index: 3;
+
+  @include break-xl() {
+    padding: 20px;
+  }
 }

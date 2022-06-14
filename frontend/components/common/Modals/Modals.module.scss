@@ -12,10 +12,19 @@
     font-weight: 500;
     font-size: 28px;
     line-height: 36px;
+
+    @include break-xl() {
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
   }
 
   &__InfoList {
     margin-bottom: 200px;
+
+    @include break-xl() {
+      margin-bottom: 50px;
+    }
   }
 
   &__InfoTerm {
@@ -32,6 +41,10 @@
     width: 100%;
     display: flex;
     justify-content: center;
+
+    @include break-xl() {
+      margin-top: 60px;
+    }
   }
 
   &__ConfirmBtn {

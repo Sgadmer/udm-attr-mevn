@@ -17,7 +17,7 @@ $colors: (
   'danger': #F82424,
   'danger-light': #FDB6B6,
   'danger-lightest': #FFF5F5,
-  'warning': #FFE30F,
+  'warning': #EFD300,
   'success': #99E62E,
   'success-light': #CEEED1,
   'success-lightest': #F9FDFA,
@@ -119,6 +119,13 @@ $spacers: (
 
 @mixin break-lg-up() {
   @media (min-width: $lg) {
+    @content;
+  }
+}
+
+
+@mixin break-xl-up() {
+  @media (min-width: $xl) {
     @content;
   }
 }

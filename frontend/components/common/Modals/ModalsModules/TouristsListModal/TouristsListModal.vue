@@ -10,7 +10,7 @@
     </template>
 
     <ListCardUser
-      v-for="tourist in compTour.tourists"
+      v-for="tourist in compTourist"
       :data="{bookStatus: tourist.bookStatus,...tourist.touristId}"
       :key="tourist._id"
       type="agent"
@@ -31,9 +31,9 @@ import { useToursStore } from '~/store/tours'
  * TYPES
  */
 enum ETabs {
-  all = 'all',
-  active = 'active',
-  canceled = 'canceled',
+  all = '',
+  active = 'ACTIVE',
+  canceled = 'CANCELED',
 }
 
 
@@ -82,6 +82,16 @@ const $toursStore = useToursStore()
  * COMPUTED
  */
 const compTour = $computed((): Record<string, any> => $toursStore.getSelectedTour)
+
+const compTourist = $computed((): Record<string, any>[] => {
+  if(selectedTab === ETabs.all) return $toursStore.getSelectedTour.tourists
+  return (
+    $toursStore
+      .getSelectedTour
+      .tourists
+      .filter(tourist => tourist.bookStatus === selectedTab)
+  )
+})
 
 /**
  * HOOKS

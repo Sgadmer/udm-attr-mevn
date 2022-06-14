@@ -33,8 +33,6 @@ export const findByParams = async (req, res) => {
       touristId,
       excludeTouristId,
       agentId,
-      mainPhoto,
-      addPhotos,
       title,
       place,
       dateStart,
@@ -66,8 +64,6 @@ export const findByParams = async (req, res) => {
     res.status(200)
       .json((await getTourService.findByParams(_.omitBy({
         agentId,
-        mainPhoto,
-        addPhotos,
         title,
         price: priceFilter,
         place: placeFilter,

@@ -10,7 +10,6 @@
 /**
  * IMPORTS
  */
-import $s from '../common.module.scss'
 import { useAdminStore } from '~@store/admin'
 
 

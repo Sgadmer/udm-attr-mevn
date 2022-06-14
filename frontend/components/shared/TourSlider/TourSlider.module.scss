@@ -39,5 +39,10 @@
     height: 160px;
     object-fit: cover;
     border-radius: 15px;
+
+    @include break-xl() {
+      width: 150px;
+      height: 110px;
+    }
   }
 }

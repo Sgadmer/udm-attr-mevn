@@ -1,0 +1,23 @@
+@import '@styles/common.scss';
+
+.ToursList {
+
+  &__AgentsTabs {
+    display: flex;
+    justify-content: center;
+
+    @include break-xl() {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__CreateBtn {
+    margin-bottom: 5px;
+
+    @include break-xl() {
+      max-width: fit-content;
+      margin-left: auto;
+      margin-bottom: 20px;
+    }
+  }
+}

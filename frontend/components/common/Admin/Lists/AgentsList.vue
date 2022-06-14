@@ -5,13 +5,6 @@
     @onSubmit="handleFiltersChange"
   />
 
-<!--  <div :class="[$s.Common__Row, $s.Common__Row_Center]">-->
-<!--    <Tabs-->
-<!--      :tabs="tabs"-->
-<!--      @onTabChange="handleTabChange"-->
-<!--      class="ToursList__Tabs"-->
-<!--    />-->
-<!--  </div>-->
   <ScrollContainer>
     <ListCardUser
       v-for="(agent, i) in agents"
@@ -124,14 +117,4 @@ const handleFiltersChange = (formData: Record<string, any>) => {
 </script>
 
 <style scoped lang="scss">
-.ToursList {
-  &__Tabs {
-    width: auto;
-    margin-right: 35px;
-  }
-
-  &__CreateBtn {
-    margin-bottom: 4px;
-  }
-}
 </style>

@@ -9,5 +9,9 @@
   &__FormFields {
     width: 100%;
     margin-bottom: 90px;
+
+    @include break-xl() {
+      margin-bottom: 40px;
+    }
   }
 }

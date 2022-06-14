@@ -21,6 +21,10 @@
     position: absolute;
     left: 0;
     z-index: 2;
+
+    @include break-xl() {
+      height: 20px;
+    }
   }
 
   &:before {
@@ -33,9 +37,14 @@
     background: linear-gradient(0deg, cl('white') 60%, cl('white', 0) 100%);
   }
 
+  @include break-xl() {
+    border-radius: 25px;
+    padding-right: 0;
+  }
+
   &_Unstyled {
     border-radius: 0;
-    height: 100vh;
+    height: 100%;
   }
 
   &__ScrollbarContainer {
@@ -46,6 +55,16 @@
 
     &_Unstyled {
       border-radius: 0;
+    }
+
+    @include break-xl() {
+      padding: 20px 15px 20px 20px;
+      border-radius: 25px;
+    }
+
+
+    @include break-sm(){
+      padding: 8px 8px 8px 8px;
     }
   }
 

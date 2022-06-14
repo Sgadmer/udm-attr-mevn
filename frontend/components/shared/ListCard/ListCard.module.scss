@@ -17,6 +17,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include break-xl() {
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 0;
+    }
+  }
+
+  &__DescItemWrapper {
+    flex: 1 0 0;
+
+    @include break-xl() {
+      margin-bottom: 20px;
+    }
   }
 
   &__Term {
@@ -31,6 +45,10 @@
     font-size: 16px;
     line-height: 24px;
     margin: 0;
+
+    @include break-xl() {
+      margin: 0;
+    }
   }
 
   &__Controls {
@@ -38,7 +56,11 @@
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
+
+    @include break-xl() {
+      max-width: none;
+      justify-content: center;
+    }
   }
 }

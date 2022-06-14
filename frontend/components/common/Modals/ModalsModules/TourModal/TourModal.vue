@@ -89,7 +89,7 @@
 
       </div>
 
-      <div :class="$s.TourModal__Column">
+      <div :class="[$s.TourModal__Column, $s.TourModal__Right]">
         <ScrollContainer>
           <h2 :class="$s.TourModal__InfoTitle">
             {{ compTour.title }}

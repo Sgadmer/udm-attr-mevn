@@ -8,6 +8,14 @@
   border-radius: 72px 72px 0 0;
   overflow: hidden;
 
+  @include break-xl() {
+    height: 305px;
+    border-radius: 25px 25px 0 0;
+  }
+
+  @include break-sm() {
+    height: 235px;
+  }
 
   &__Wrapper {
     position: relative;
@@ -28,6 +36,14 @@
     left: 0;
     background: cl('white');
     mix-blend-mode: lighten;
+
+    @include break-xl() {
+      font-size: 42px;
+    }
+
+    @include break-sm() {
+      font-size: 35px;
+    }
   }
 
   &__Video {
@@ -45,6 +61,14 @@
     left: 0;
     bottom: 0;
     right: 0;
+
+    @include break-xl() {
+      max-height: 235px;
+    }
+
+    @include break-sm() {
+      max-height: 170px;
+    }
   }
 }
 

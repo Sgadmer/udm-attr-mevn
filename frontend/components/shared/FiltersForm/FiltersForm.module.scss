@@ -6,6 +6,12 @@
     width: 100%;
     margin-right: 35px;
     align-items: center;
+
+    @include break-xl() {
+      display: block;
+      margin-right: 0;
+      margin-bottom: 8px;
+    }
   }
 
   &__ControlsForm {
@@ -22,6 +28,36 @@
 
       &:last-child {
         margin-right: 0;
+      }
+    }
+
+    @include break-xl() {
+      flex-direction: column;
+      margin-right: 0;
+      margin-bottom: 8px;
+
+      [data-component] {
+        margin-right: 0;
+        margin-bottom: 8px;
+
+
+        &:last-child {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &__HiddenFilters {
+
+    @include break-xl() {
+      display: none;
+    }
+
+    &_FilterBTN{
+      @include break-xl-up() {
+        display: none;
       }
     }
   }

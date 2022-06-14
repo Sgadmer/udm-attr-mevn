@@ -4,7 +4,12 @@
       orientation="Row"
     >
 
-      <div :class="$s.FiltersForm__FormControls">
+      <div
+        :class="{
+          [$s.FiltersForm__FormControls]: true,
+          [$s.FiltersForm__HiddenFilters]: !isFiltersOpen,
+        }"
+      >
         <Input
           v-model:inputModel="formModel.corpName"
           label="Компания"
@@ -41,7 +46,6 @@
         />
         <Checkbox
           v-model:checkboxModel="formModel.isBlocked"
-          :isError="false && $findError($v.$errors, 'agree')"
         >
           Заблокирован
         </Checkbox>
@@ -50,8 +54,23 @@
         kind="Main"
         corners="Md"
         @click="handleFormSubmit"
+        :class="{
+        [$s.FiltersForm__HiddenFilters]: !isFiltersOpen,
+      }"
       >
         Искать
+      </Button>
+
+      <Button
+        kind="Secondary"
+        corners="Md"
+        @click="toggleMobileFilters"
+        v-if="!isFiltersOpen"
+        :class="{
+        [$s.FiltersForm__HiddenFilters_FilterBTN]: true,
+      }"
+      >
+        Фильтры
       </Button>
     </FormContainer>
   </StickyContainer>
@@ -102,6 +121,7 @@ const formModel = $ref<IFiltersFormAdmin>({
   email: '',
   isBlocked: false,
 })
+let isFiltersOpen = $ref<boolean>(false)
 
 /**
  * WATCHERS
@@ -120,8 +140,11 @@ const formModel = $ref<IFiltersFormAdmin>({
  */
 
 const handleFormSubmit = async (): Promise<void> => {
+  toggleMobileFilters()
   $e('onSubmit', formModel)
 }
 
-
+const toggleMobileFilters = (): void => {
+  isFiltersOpen = !isFiltersOpen
+}
 </script>

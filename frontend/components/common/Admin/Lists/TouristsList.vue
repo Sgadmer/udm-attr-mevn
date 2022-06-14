@@ -6,13 +6,6 @@
   />
 
 
-<!--  <div :class="[$s.Common__Row, $s.Common__Row_Center]">-->
-<!--    <Tabs-->
-<!--      :tabs="tabs"-->
-<!--      @onTabChange="handleTabChange"-->
-<!--      class="ToursList__Tabs"-->
-<!--    />-->
-<!--  </div>-->
   <ScrollContainer>
     <ListCardUser
       v-for="(tourist, i) in tourists"

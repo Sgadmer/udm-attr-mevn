@@ -7,6 +7,10 @@
 
   &__FormFields {
     margin-bottom: 70px;
+
+    @include break-xl() {
+      margin-bottom: 40px;
+    }
   }
 
   &__PasswordInput {

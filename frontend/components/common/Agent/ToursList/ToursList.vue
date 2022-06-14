@@ -1,18 +1,17 @@
 <template>
   <FiltersForm
-    :class="$s.Common__FiltersForm"
+    :class="$sCommon.Common__FiltersForm"
     @onSubmit="handleFiltersChange"
   />
-  <div :class="[$s.Common__Row, $s.Common__Row_Center]">
+  <div :class="$s.ToursList__AgentsTabs">
     <Tabs
       :tabs="tabs"
       @onTabChange="handleTabChange"
-      class="ToursList__Tabs"
     />
     <Button
       kind="Main"
       corners="Md"
-      class="ToursList__CreateBtn"
+      :class="$s.ToursList__CreateBtn"
       @click="handleCreateTourModalOpen"
     >
       Создать&nbsp;&nbsp;&nbsp;+
@@ -34,7 +33,9 @@
 /**
  * IMPORTS
  */
-import $s from '../../common.module.scss'
+import $s from './ToursList.module.scss'
+import $sCommon from '../../common.module.scss'
+
 import { EModalsNames } from '~/constants/modals'
 import { useModalsStore } from '~@store/modals'
 import { useUserStore } from '~@store/user'
@@ -135,7 +136,6 @@ onBeforeMount((): void => {
 
 })
 
-
 /**
  * METHODS
  */
@@ -167,14 +167,4 @@ const handleFiltersChange = (formData: Record<string, any>) => {
 </script>
 
 <style scoped lang="scss">
-.ToursList {
-  &__Tabs {
-    width: auto;
-    margin-right: 35px;
-  }
-
-  &__CreateBtn {
-    margin-bottom: 4px;
-  }
-}
 </style>

@@ -3,6 +3,7 @@ export enum EStatus {
   PENDING = 'ТЕКУЩИЙ',
   ACTIVE = 'АКТИВНЫЙ',
   FINISHED = 'ПРОШЕДШИЙ',
-  CANCELED = 'ОТМЕНА',
-  BLOCKED = 'БЛОК',
+  CANCELED = 'ОТМЕНЁН',
+  BOOK_CANCELED = 'БРОНЬ ОТМЕНЕНА',
+  BLOCKED = 'ЗАБЛОКИРОВАН',
 }

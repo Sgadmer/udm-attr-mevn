@@ -1,7 +1,29 @@
 <template>
-  <p :class="$s.logo" @click="handleLogoClick">
-    <span :class="$s.logo__udm">Udm</span>
-    <span>-attraction</span>
+  <p :class="$s.Logo" @click="handleLogoClick">
+    <span :class="{
+      [$s.Logo__Udm]: true,
+      [$s.Logo_DesctopOnly]: $p.useMobile
+    }">
+      Udm</span>
+    <span
+      :class="{[$s.Logo_DesctopOnly]: $p.useMobile}"
+    >
+      -attraction</span>
+
+    <span
+      :class="{
+        [$s.Logo__Udm]: true,
+        [$s.Logo_MobileOnly]: true,
+      }"
+      v-if="$p.useMobile"
+    >
+      Udm
+    </span>
+    <span
+      :class="{[$s.Logo_MobileOnly]: true}"
+      v-if="$p.useMobile"
+    >
+      -attr</span>
   </p>
 </template>
 
@@ -20,9 +42,12 @@ import $s from './Logo.module.scss'
  * PROPS
  */
 interface IProps {
+  useMobile?: boolean
 }
 
-// const $p = withDefaults(defineProps<IProps>(), {})
+const $p = withDefaults(defineProps<IProps>(), {
+  useMobile: false
+})
 
 /**
  * EMITS

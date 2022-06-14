@@ -3,18 +3,35 @@
 .Header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: spacer('lg-min');
+  margin-bottom: 48px;
 
   &__Controls {
     display: flex;
     align-items: center;
   }
 
+  &__UserWrapper {
+    background-color: cl('main-lightier');
+    color: cl('white');
+    border-radius: 5px;
+    padding: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    @include break-sm() {
+      max-width: 150px;
+    }
+  }
+
   &__User {
-    margin-right: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__Login {
-    margin-right: spacer('md-max');
+    margin-right: 10px;
   }
 }

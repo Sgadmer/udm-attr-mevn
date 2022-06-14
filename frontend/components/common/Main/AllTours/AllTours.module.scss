@@ -4,10 +4,18 @@
   width: 100%;
   margin-top: 95px;
 
+  @include break-xl() {
+    margin-top: 40px;
+  }
+
   &__TitleWrap {
     width: 100%;
     text-align: center;
     margin-bottom: 40px;
+
+    @include break-xl() {
+      margin-bottom: 20px;
+    }
   }
 
   &__Promo{

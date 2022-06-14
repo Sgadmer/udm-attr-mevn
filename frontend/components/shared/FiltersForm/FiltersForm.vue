@@ -4,7 +4,12 @@
       orientation="Row"
     >
 
-      <div :class="$s.FiltersForm__FormControls">
+      <div
+        :class="{
+        [$s.FiltersForm__FormControls]: true,
+        [$s.FiltersForm__HiddenFilters]: !isFiltersOpen,
+      }"
+      >
         <Input
           v-model:inputModel="formModel.place"
           label="Место"
@@ -45,8 +50,23 @@
         kind="Main"
         corners="Md"
         @click="handleFormSubmit"
+        :class="{
+        [$s.FiltersForm__HiddenFilters]: !isFiltersOpen,
+      }"
       >
         Искать
+      </Button>
+
+      <Button
+        kind="Secondary"
+        corners="Md"
+        @click="toggleMobileFilters"
+        v-if="!isFiltersOpen"
+        :class="{
+        [$s.FiltersForm__HiddenFilters_FilterBTN]: true,
+      }"
+      >
+        Фильтры
       </Button>
     </FormContainer>
   </StickyContainer>
@@ -107,6 +127,8 @@ const validationRules = {
   },
 }
 const $v = useVuelidate(validationRules, formModel)
+let isFiltersOpen = $ref<boolean>(false)
+
 
 /**
  * WATCHERS
@@ -140,9 +162,13 @@ function handleModelChange(): void {
 const handleFormSubmit = async (): Promise<void> => {
   const isFormCorrect = await $v.value.$validate()
   if (isFormCorrect) {
+    toggleMobileFilters()
     $e('onSubmit', formModel)
   }
 }
 
+const toggleMobileFilters = (): void => {
+  isFiltersOpen = !isFiltersOpen
+}
 
 </script>

@@ -42,6 +42,14 @@ body {
   font-family: $primary-font-family, $fallback-font-family;
   background-color: cl('white');
   max-width: 1440px;
+
+  @include break-xl() {
+    padding: 20px;
+  }
+
+  @include break-sm(){
+    padding: 10px 8px 20px 8px;
+  }
 }
 
 #__nuxt {
@@ -64,7 +72,7 @@ h1, .h1 {
   font-size: 140px;
   line-height: 140px;
 
-  @include break-lg {
+  @include break-xl {
     font-size: 52px;
     line-height: 56px;
     letter-spacing: unset;
@@ -81,7 +89,7 @@ h2, .h2 {
     line-height: 88px;
   }
 
-  @include break-lg {
+  @include break-xl {
     font-size: 24px;
     line-height: 32px;
 
@@ -102,7 +110,7 @@ h3, .h3 {
     line-height: 48px;
   }
 
-  @include break-lg {
+  @include break-xl {
     font-size: 20px;
     line-height: 24px;
 
