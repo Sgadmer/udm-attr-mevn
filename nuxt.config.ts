@@ -36,7 +36,8 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'ru',
       },
-    }
+    },
+    cdnURL: "https://udm-attr.herokuapp.com/"
   },
   build: {
     transpile: ['@vueform/slider', 'swiper'],
@@ -70,7 +71,8 @@ export default defineNuxtConfig({
     // Keys within public, will be also exposed to the client-side
     //Доступно на сервере и на фронте
     public: {
-      apiBase: 'Im_Avaliable_On_Server_And_Client'
+      apiBase: 'Im_Avaliable_On_Server_And_Client',
+      cdnURL: "https://udm-attr.herokuapp.com/"
     }
   },
   srcDir: 'frontend/',
