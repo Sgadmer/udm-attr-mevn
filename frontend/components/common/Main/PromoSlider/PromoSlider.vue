@@ -30,6 +30,7 @@
  * IMPORTS
  */
 import $s from './PromoSlider.module.scss'
+import url from 'url'
 
 /**
  * TYPES
@@ -65,7 +66,7 @@ let imageChangeTimer = $ref<number | null>(null)
 /**
  * COMPUTED
  */
-const imagePath = computed<string>(() => `./images/attractions/${ currentImageCount }.png`)
+const imagePath = computed<string>(() => `./_nuxt/images/attractions/${ currentImageCount }.png`)
 
 /**
  * HOOKS

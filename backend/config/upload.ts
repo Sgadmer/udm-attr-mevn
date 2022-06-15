@@ -2,7 +2,8 @@ import multer from 'multer'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/images/tours/')
+    const envPath = process.env.NODE_ENV === 'production' ? './_nuxt/images/tours/' : './public/images/tours/'
+    cb(null, envPath)
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
