@@ -36,8 +36,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'ru',
       },
-    },
-    // cdnURL: "https://udm-attr.herokuapp.com/"
+    }
   },
   build: {
     transpile: ['@vueform/slider', 'swiper'],
@@ -60,9 +59,6 @@ export default defineNuxtConfig({
       '~/components/ui'
     ]
   },
-  dir: {
-    public: url.fileURLToPath(new URL('./public', import.meta.url))
-  },
   experimental: {
     reactivityTransform: true,
   },
@@ -74,14 +70,14 @@ export default defineNuxtConfig({
     // Keys within public, will be also exposed to the client-side
     //Доступно на сервере и на фронте
     public: {
-      apiBase: 'Im_Avaliable_On_Server_And_Client',
-      // cdnURL: "https://udm-attr.herokuapp.com/"
+      apiBase: 'Im_Avaliable_On_Server_And_Client'
     }
   },
   srcDir: 'frontend/',
-  serverMiddleware: [
-    { path: '/api', handler: './backend/index.ts' }, // `/api/**` does NOT handle /api
-    { path: '/api/**', handler: './backend/index.ts' },
+  serverHandlers: [
+    { route: '/api', handler: './backend/index.ts' }, // `/api/**` does NOT handle /api
+    { route: '/api/**', handler: './backend/index.ts' },
+    { route: '/uploads/**', handler: './backend/index.ts' },
   ],
   telemetry: false,
   vite: {
