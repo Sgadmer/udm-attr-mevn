@@ -2,12 +2,12 @@ import multer from 'multer'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const envPath = process.env.NODE_ENV === 'production' ? './_nuxt/images/tours/' : './public/images/tours/'
+    const envPath = process.env.NODE_ENV === 'production' ? './public/_nuxt/images/tours/' : './public/images/tours/'
     cb(null, envPath)
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.png')
+    const uniqueSuffix = Date.now() + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname  + uniqueSuffix + '.jpeg')
   }
 })
 
