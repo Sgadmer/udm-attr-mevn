@@ -25,6 +25,5 @@ pnpm-debug.log*
 .cache
 .output
 
-
 # Local Netlify folder
 .netlify
