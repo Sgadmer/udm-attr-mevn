@@ -23,6 +23,7 @@ pnpm-debug.log*
 .nuxt
 .nitro
 .cache
+.output
 
 
 # Local Netlify folder
