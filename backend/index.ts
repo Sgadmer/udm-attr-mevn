@@ -14,7 +14,7 @@ app.options('*', cors({ credentials: true, origin: true }))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/uploads', express.static('public'))
+app.use('/uploads', express.static('uploads'))
 
 AppRoutes.forEach(({ route, router }) => {
   app.use(`/api/${ route }`, router)
