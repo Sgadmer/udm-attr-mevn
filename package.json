@@ -8,7 +8,7 @@
     "preview": "start http://localhost:80 && nuxt preview"
   },
   "engines": {
-    "node": "^16.14.2",
+    "node": "^16.15.1",
     "yarn": "^1.22.5"
   },
   "dependencies": {
