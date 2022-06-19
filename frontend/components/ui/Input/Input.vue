@@ -27,7 +27,10 @@
       :maxlength="2000"
     />
 
-    <span :class="$s.Input__Placeholder">
+    <span :class="{
+      [$s.Input__Placeholder]: true,
+      [$s.Input__Placeholder_Textarea]: $p.isTextarea,
+    }">
       {{ $p.label }}
     </span>
 

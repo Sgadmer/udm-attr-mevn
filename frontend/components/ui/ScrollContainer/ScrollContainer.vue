@@ -86,8 +86,6 @@ onMounted(() => {
   user-select: all;
   background-color: cl('main', 0.1) !important;
 
-  z-index: 3 !important;
-
   &:hover {
     cursor: pointer;
   }

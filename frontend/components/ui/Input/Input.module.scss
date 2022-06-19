@@ -43,6 +43,10 @@
       font-size: 12px;
     }
 
+    &:focus + .Input__Placeholder_Textarea {
+        top: 14px;
+    }
+
     &:focus + .Input__Placeholder, {
       color: cl('main');
     }
@@ -69,6 +73,11 @@
     transition: all .3s ease;
     pointer-events: none;
     white-space: nowrap;
+
+    &_Textarea{
+      width: 93%;
+      background-color: cl('white');
+    }
   }
 
   &__Textarea {
