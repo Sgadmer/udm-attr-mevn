@@ -1,9 +1,6 @@
 <template>
   <main :class="$s.Layouts__MainDefault">
-    <Header/>
     <slot/>
-    <Footer/>
-    <Modals/>
   </main>
 </template>
 

@@ -1,5 +1,13 @@
 <template>
-  <Main/>
+  <h2 class="NewAddress">
+    <span>Сайт обзавёлся своим хостингом! =)</span>
+    <span>&#8595;</span>
+    <Button
+      @click="handleRedirect"
+    >
+      udm-attr.ru
+    </Button>
+  </h2>
 </template>
 
 <script setup lang='ts'>
@@ -47,5 +55,17 @@ const $e = defineEmits<IEmits>()
 /**
  * METHODS
  */
+const handleRedirect = ()=>{
+  window.location.href = "https://udm-attr.ru/";
+}
 
 </script>
+
+<style scoped>
+.NewAddress {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
